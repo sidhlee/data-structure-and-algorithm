@@ -1,0 +1,28 @@
+{
+  "name": "data-structure-and-algorithm",
+  "version": "1.0.0",
+  "description": "A personal learning space for data structure and algorithm.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidhlee/data-structure-and-algorithm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sidhlee/data-structure-and-algorithm/issues"
+  },
+  "homepage": "https://github.com/sidhlee/data-structure-and-algorithm#readme",
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.2",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.5.2"
+  }
+}
