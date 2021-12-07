@@ -1,4 +1,6 @@
 import {
+  countUniqueValues,
+  countUniqueValuesWithSet,
   sumZero,
   sumZeroNaive,
   sumZeroWithWhileLoop,
@@ -43,5 +45,43 @@ describe('sumZeroWithWhileLoop', () => {
     expect(result1).toBeUndefined();
     const result2 = sumZeroWithWhileLoop([1, 2, 3]);
     expect(result2).toBeUndefined();
+  });
+});
+
+describe('countUniqueValues', () => {
+  it('should count the unique values', () => {
+    const result1 = countUniqueValues([1, 1, 1, 1, 1, 2]);
+    expect(result1).toBe(2);
+
+    const result2 = countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]);
+    expect(result2).toBe(7);
+
+    const result3 = countUniqueValues([-2, -1, -1, 0, 1]);
+    expect(result3).toBe(4);
+  });
+
+  it('should return 0 for an empty array', () => {
+    const result = countUniqueValues([]);
+    expect(result).toBe(0);
+  });
+});
+
+describe('countUniqueValuesWithSet', () => {
+  it('should count the unique values', () => {
+    const result1 = countUniqueValuesWithSet([1, 1, 1, 1, 1, 2]);
+    expect(result1).toBe(2);
+
+    const result2 = countUniqueValuesWithSet([
+      1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13,
+    ]);
+    expect(result2).toBe(7);
+
+    const result3 = countUniqueValuesWithSet([-2, -1, -1, 0, 1]);
+    expect(result3).toBe(4);
+  });
+
+  it('should return 0 for an empty array', () => {
+    const result = countUniqueValuesWithSet([]);
+    expect(result).toBe(0);
   });
 });

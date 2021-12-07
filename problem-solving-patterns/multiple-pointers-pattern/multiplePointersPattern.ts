@@ -68,3 +68,28 @@ export function sumZeroWithWhileLoop(sortedArray: number[]) {
 
   return undefined;
 }
+
+export function countUniqueValues(sortedArray: number[]) {
+  if (sortedArray.length === 0) return 0;
+  let leftIndex = 0;
+  let rightIndex = 1;
+  let count = 1;
+  // if sortedArray is mutated while looping, this can break
+  while (rightIndex < sortedArray.length) {
+    const leftValue = sortedArray[leftIndex];
+    const rightValue = sortedArray[rightIndex];
+    if (leftValue === rightValue) {
+      rightIndex++;
+    } else {
+      count++;
+      rightIndex++;
+      leftIndex = rightIndex - 1;
+    }
+  }
+  return count;
+}
+
+export function countUniqueValuesWithSet(sortedArray: number[]) {
+  const set = new Set(sortedArray);
+  return set.size;
+}
