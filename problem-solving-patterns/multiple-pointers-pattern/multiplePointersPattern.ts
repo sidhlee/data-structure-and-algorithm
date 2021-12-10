@@ -114,3 +114,22 @@ export function areThereDuplicates(...args: Arg[]) {
 export function areThereDuplicatesWithSet(...args: Arg[]) {
   return new Set(args).size !== args.length;
 }
+
+export function averagePair(sortedIntegers: number[], target: number) {
+  let headIndex = 0;
+  let tailIndex = sortedIntegers.length - 1;
+  while (headIndex < tailIndex) {
+    const headValue = sortedIntegers[headIndex];
+    const tailValue = sortedIntegers[tailIndex];
+    // adding integers is ok with floating point error
+    const average = (headValue + tailValue) / 2;
+    if (average === target) {
+      return true;
+    } else if (average < target) {
+      headIndex++;
+    } else {
+      tailIndex--;
+    }
+  }
+  return false;
+}

@@ -1,6 +1,7 @@
 import {
   areThereDuplicates,
   areThereDuplicatesWithSet,
+  averagePair,
   countUniqueValues,
   countUniqueValuesWithSet,
   sumZero,
@@ -119,5 +120,24 @@ describe('areThereDuplicatesWithSet', () => {
   it('should return true if there are any duplicated strings', () => {
     const result = areThereDuplicatesWithSet('a', 'b', 'c', 'a');
     expect(result).toBe(true);
+  });
+});
+
+describe('averagePair', () => {
+  it('returns true for non-integer target if the pair is found', () => {
+    const result = averagePair([1, 2, 3], 2.5);
+    expect(result).toBe(true);
+  });
+  it('returns true for integer target if hte pair is found', () => {
+    const result = averagePair([1, 3, 3, 5, 6, 7, 10, 12, 19], 8);
+    expect(result).toBe(true);
+  });
+  it('returns false if the pair is not found', () => {
+    const result = averagePair([-1, 0, 3, 4, 5, 6], 4.1);
+    expect(result).toBe(false);
+  });
+  it('returns false when given an empty array', () => {
+    const result = averagePair([], 4);
+    expect(result).toBe(false);
   });
 });
