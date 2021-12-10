@@ -31,3 +31,22 @@ isAnagram('awesome', 'awesom'); // false
 isAnagram('qwerty', 'qeyrwt'); // true
 isAnagram('texttwisttime', 'timetwisttext'); // true
 ```
+
+## sameFrequency
+
+Write a function called `sameFrequency`. Given two positive integers, find out if the two integer have the same frequency of digits. The solution must have O(n) time complexity.
+
+```js
+sameFrequency(182, 281); // true
+sameFrequency(34, 14); // false
+```
+
+## areThereDuplicates
+
+Implement a function called `areThereDuplicates` which accepts a variable number of arguments, cna checks if there are any duplicates among the arguments passed in.
+
+```js
+areThereDuplicates(1, 2, 3); // false
+areThereDuplicates(1, 2, 2); // true
+areThereDuplicates('a', 'b', 'c', 'a'); // true
+```

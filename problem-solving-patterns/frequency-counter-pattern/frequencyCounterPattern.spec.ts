@@ -1,4 +1,10 @@
-import { same, sameNaive, isAnagram } from './frequencyCounterPattern';
+import {
+  same,
+  sameNaive,
+  isAnagram,
+  sameFrequency,
+  areThereDuplicates,
+} from './frequencyCounterPattern';
 
 describe('same', () => {
   it('returns true if every value in the array has its corresponding value squared in the second array.', () => {
@@ -64,5 +70,33 @@ describe('isAnagram', () => {
   it('returns false if the same set of characters have different frequency', () => {
     const result = isAnagram('awesome', 'awesom');
     expect(result).toBe(false);
+  });
+});
+
+describe('sameFrequency', () => {
+  it('should return true if numbers have the same frequency', () => {
+    const result = sameFrequency(182, 281);
+    expect(result).toBe(true);
+  });
+  it('should return false if numbers do not have the same frequency', () => {
+    const result = sameFrequency(34, 14);
+    expect(result).toBe(false);
+  });
+});
+
+describe('areThereDuplicates', () => {
+  it('should return false if there are no duplicated numbers', () => {
+    const result = areThereDuplicates(1, 2, 3);
+    expect(result).toBe(false);
+  });
+
+  it('should return true if there are any duplicated numbers', () => {
+    const result = areThereDuplicates(1, 2, 2);
+    expect(result).toBe(true);
+  });
+
+  it('should return true if there are any duplicated strings', () => {
+    const result = areThereDuplicates('a', 'b', 'c', 'a');
+    expect(result).toBe(true);
   });
 });

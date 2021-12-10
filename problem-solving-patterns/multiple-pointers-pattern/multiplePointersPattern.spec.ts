@@ -1,4 +1,6 @@
 import {
+  areThereDuplicates,
+  areThereDuplicatesWithSet,
   countUniqueValues,
   countUniqueValuesWithSet,
   sumZero,
@@ -83,5 +85,39 @@ describe('countUniqueValuesWithSet', () => {
   it('should return 0 for an empty array', () => {
     const result = countUniqueValuesWithSet([]);
     expect(result).toBe(0);
+  });
+});
+
+describe('areThereDuplicates', () => {
+  it('should return false if there are no duplicated numbers', () => {
+    const result = areThereDuplicates(1, 2, 3);
+    expect(result).toBe(false);
+  });
+
+  it('should return true if there are any duplicated numbers', () => {
+    const result = areThereDuplicates(1, 2, 2);
+    expect(result).toBe(true);
+  });
+
+  it('should return true if there are any duplicated strings', () => {
+    const result = areThereDuplicates('a', 'b', 'c', 'a');
+    expect(result).toBe(true);
+  });
+});
+
+describe('areThereDuplicatesWithSet', () => {
+  it('should return false if there are no duplicated numbers', () => {
+    const result = areThereDuplicatesWithSet(1, 2, 3);
+    expect(result).toBe(false);
+  });
+
+  it('should return true if there are any duplicated numbers', () => {
+    const result = areThereDuplicatesWithSet(1, 2, 2);
+    expect(result).toBe(true);
+  });
+
+  it('should return true if there are any duplicated strings', () => {
+    const result = areThereDuplicatesWithSet('a', 'b', 'c', 'a');
+    expect(result).toBe(true);
   });
 });

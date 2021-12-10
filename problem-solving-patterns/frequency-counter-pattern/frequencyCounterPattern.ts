@@ -53,3 +53,32 @@ export function isAnagram(str1: string, str2: string) {
   }
   return true;
 }
+
+export function sameFrequency(num1: number, num2: number) {
+  const num1Str = num1.toString();
+  const num2Str = num2.toString();
+  if (num1Str.length !== num2Str.length) return false;
+
+  const num1Dict = getCounterDict(num1Str.split(''));
+  const num2Dict = getCounterDict(num2Str.split(''));
+  for (const key in num1Dict) {
+    if (!(key in num2Dict)) return false;
+    if (num1Dict[key] !== num2Dict[key]) return false;
+  }
+  return true;
+}
+
+// defining as number[] | string[] will not work
+// always define the item type first then use it as an array of it
+type Arg = number | string;
+
+export function areThereDuplicates(...args: Arg[]) {
+  const argsDict = args.reduce((dict: { [key: Arg]: number }, arg: Arg) => {
+    dict[arg] = dict[arg] ? dict[arg] + 1 : 1;
+    return dict;
+  }, {});
+  for (const arg in argsDict) {
+    if (argsDict[arg] > 1) return true;
+  }
+  return false;
+}

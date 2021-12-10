@@ -1,4 +1,5 @@
 /**
+import { areThereDuplicates } from '../frequency-counter-pattern/frequencyCounterPattern';
  * Space: O(1), Time: O(n)
  */
 export function sumZero(sortedArray: number[]) {
@@ -92,4 +93,23 @@ export function countUniqueValues(sortedArray: number[]) {
 export function countUniqueValuesWithSet(sortedArray: number[]) {
   const set = new Set(sortedArray);
   return set.size;
+}
+
+type Arg = string | number;
+export function areThereDuplicates(...args: Arg[]) {
+  let leftIndex = 0;
+  let rightIndex = 1;
+  const sortedArgs = args.sort();
+  while (rightIndex < args.length) {
+    const leftValue = sortedArgs[leftIndex];
+    const rightValue = sortedArgs[rightIndex];
+    if (leftValue === rightValue) return true;
+    leftIndex++;
+    rightIndex++;
+  }
+  return false;
+}
+
+export function areThereDuplicatesWithSet(...args: Arg[]) {
+  return new Set(args).size !== args.length;
 }

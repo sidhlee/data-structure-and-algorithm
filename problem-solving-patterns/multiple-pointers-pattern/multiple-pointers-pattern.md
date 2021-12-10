@@ -23,3 +23,13 @@ countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]); // 7
 countUniqueValues([]); // 0
 countUniqueValues([-2, -1, -1, 0, 1]); // 4
 ```
+
+## areThereDuplicates
+
+Implement a function called `areThereDuplicates` which accepts a variable number of arguments, cna checks if there are any duplicates among the arguments passed in.
+
+```js
+areThereDuplicates(1, 2, 3); // false
+areThereDuplicates(1, 2, 2); // true
+areThereDuplicates('a', 'b', 'c', 'a'); // true
+```
