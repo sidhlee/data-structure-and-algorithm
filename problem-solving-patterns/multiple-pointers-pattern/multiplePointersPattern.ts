@@ -110,6 +110,7 @@ export function areThereDuplicates(...args: Arg[]) {
   return false;
 }
 
+// Check if the size of the set is equal to the array length
 export function areThereDuplicatesWithSet(...args: Arg[]) {
   return new Set(args).size !== args.length;
 }
