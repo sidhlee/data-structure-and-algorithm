@@ -133,3 +133,43 @@ export function averagePair(sortedIntegers: number[], target: number) {
   }
   return false;
 }
+
+export function isSubsequence(str1: string, str2: string) {
+  if (str1.length > str2.length) return;
+  let p1 = 0;
+  let p2 = 0;
+  // loop until p2 reaches the end of str2
+  while (p2 < str2.length) {
+    // only advance p1 if we found the character in str2
+    if (str1[p1] === str2[p2]) p1++;
+    // found all the str1 characters in str2
+    // this must be checked AFTER advancing p1, otherwise
+    // p2 might reach the end in the same loop when p1 reaches the end
+    // and we're out of the loop before returning true
+    if (p1 === str1.length) return true;
+    p2++;
+  }
+  // reached the end of str2 without finding all the str1 characters
+  return false;
+}
+
+// sing
+//     1
+// sting
+//     2
+// export function isSubsequence(str1: string, str2: string) {
+//   // create two pointers
+//   let p1 = 0;
+//   let p2 = 0;
+//   // advance second pointer on str2 until finding first character in str1
+//   while (p1 < str1.length && p2 < str2.length) {
+//     if (str1[p1] === str2[p2]) {
+//       p1++;
+//       p2++;
+//     } else {
+//       p2++;
+//     }
+//   }
+//   if (p1 === str1.length) return true;
+//   if (p2 === str2.length) return false;
+// }

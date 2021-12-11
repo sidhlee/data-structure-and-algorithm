@@ -1,7 +1,9 @@
 # Multiple Pointers Pattern
 
 In multiple pointers pattern, we create pointers to hold the position of items inside arrays and move them to the beginning, end, or middle based on a certain condition.
-Patterns with pointers usually work **in place**, so very efficient with space complexity.
+
+- Patterns with pointers usually work **in place**, so very efficient with space complexity.
+- Works great with sorted input or when working with things that have fixed order.
 
 ## sumZero
 
@@ -48,4 +50,22 @@ averagePair([1, 2, 3], 2.5); // true
 averagePair([1, 3, 3, 5, 6, 7, 10, 12, 19], 8); // true
 averagePair([-1, 0, 3, 4, 5, 6], 4.1); // false
 averagePair([], 4); // false
+```
+
+## isSubsequence
+
+Write a function called `isSubsequence` which takes in two strings and checks whether the characters from the first string form a subsequence of the characters in the second string. In other words, the characters in the characters in the first string appear in the second string, without their order changing.
+
+### Constrains
+
+You solution must have at least the following complexities:
+
+- Time: O(n + m)
+- Space: O(1)
+
+```js
+isSubsequence('hello', 'hello world'); // true
+isSubsequence('sing', 'sting'); // true
+isSubsequence('abc', 'abracadabra'); // true
+isSubsequence('abc', 'acb'); // false (order matters)
 ```

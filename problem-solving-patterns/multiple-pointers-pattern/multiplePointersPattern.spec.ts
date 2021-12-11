@@ -4,6 +4,7 @@ import {
   averagePair,
   countUniqueValues,
   countUniqueValuesWithSet,
+  isSubsequence,
   sumZero,
   sumZeroNaive,
   sumZeroWithWhileLoop,
@@ -138,6 +139,28 @@ describe('averagePair', () => {
   });
   it('returns false when given an empty array', () => {
     const result = averagePair([], 4);
+    expect(result).toBe(false);
+  });
+});
+
+describe('isSubsequence', () => {
+  it('should return true if str1 is found in str2', () => {
+    const result = isSubsequence('hello', 'hello world');
+    expect(result).toBe(true);
+  });
+
+  it('should return true if str1 in found in str2 with a character inserted', () => {
+    const result = isSubsequence('sing', 'sting');
+    expect(result).toBe(true);
+  });
+
+  it('should return true if str1 is found in str2 with many characters inserted', () => {
+    const result = isSubsequence('abc', 'abracadabra');
+    expect(result).toBe(true);
+  });
+
+  it('should return false if the character order is changed', () => {
+    const result = isSubsequence('abc', 'acb');
     expect(result).toBe(false);
   });
 });
