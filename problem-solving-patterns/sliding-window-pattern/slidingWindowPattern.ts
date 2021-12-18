@@ -129,3 +129,65 @@ export function minSubArrayLenAnswer(numbers: number[], minSum: number) {
   // Tail or Head is moved out of the array
   return minLen === Infinity ? 0 : minLen;
 }
+
+export function findLongestSubstring(str: string) {
+  if (str.length <= 1) return str.length;
+  // str.length >= 2
+  let maxLen = 1;
+  let headIndex = 0;
+  let tailIndex = 1;
+  const headValue = str[headIndex];
+  let chars = { [headValue]: headIndex };
+  // loop while indices are within the range
+  while (headIndex < str.length && tailIndex < str.length) {
+    const tailValue = str[tailIndex];
+    // tail value is unique WITHIN the window
+    const isTailValueUnique =
+      chars[tailValue] === undefined || chars[tailValue] < headIndex;
+    if (isTailValueUnique) {
+      // register the new unique value and save its index
+      chars[tailValue] = tailIndex;
+    } else {
+      // set the head right after the old existing char
+      headIndex = chars[tailValue] + 1;
+      // update the char index with the index of the duplicated value
+      // so that we can keep the index within the window
+      chars[tailValue] = tailIndex;
+    }
+    // update the max length with the current head & tail index
+    maxLen = Math.max(maxLen, tailIndex - headIndex + 1);
+
+    tailIndex++;
+  }
+  return maxLen;
+}
+// "abcbac"
+//    h
+//     t
+
+// bbb
+// h
+//  t
+
+export function findLongestSubstringWithForLoop(str: string) {
+  let longest = 0;
+  let headIndex = 0;
+  const seen = {} as { [char: string]: number };
+  // Find all substring with non-repeating characters and keep records of the longest
+  for (let tailIndex = 0; tailIndex < str.length; tailIndex++) {
+    const tailValue = str[tailIndex];
+    const lastSeenIndex = seen[tailValue];
+    if (lastSeenIndex !== undefined) {
+      // headIndex can't go back
+      headIndex = Math.max(lastSeenIndex + 1, headIndex);
+    }
+    seen[tailValue] = tailIndex;
+    const newSubstringLength = tailIndex - headIndex + 1;
+    longest = Math.max(longest, newSubstringLength);
+  }
+  return longest;
+}
+
+// thecatinthehat
+//       h
+//          t

@@ -1,4 +1,6 @@
 import {
+  findLongestSubstring,
+  findLongestSubstringWithForLoop,
   maxSubarraySum,
   maxSubarraySumConstantSpace,
   minSubarrayLen,
@@ -109,5 +111,35 @@ describe('minSubArrayLenAnswer', () => {
 
   it('should work 2', () => {
     expect(minSubArrayLenAnswer([8, 8, 8], 7)).toBe(1);
+  });
+});
+
+describe('findLongestSubstring', () => {
+  it('returns correct number', () => {
+    expect(findLongestSubstring('thisisawesome')).toBe(6);
+    expect(findLongestSubstring('thecatinthehat')).toBe(7);
+    expect(findLongestSubstring('longestsubstring')).toBe(8);
+    expect(findLongestSubstring('thisishowwedoit')).toBe(6);
+  });
+  it('returns 0 for an empty string', () => {
+    expect(findLongestSubstring('')).toBe(0);
+  });
+  it('returns 1 for string with the same character duplicated', () => {
+    expect(findLongestSubstring('bbb')).toBe(1);
+  });
+});
+
+describe('findLongestSubstringWithForLoop', () => {
+  it('returns correct number', () => {
+    expect(findLongestSubstringWithForLoop('thisisawesome')).toBe(6);
+    expect(findLongestSubstringWithForLoop('thecatinthehat')).toBe(7);
+    expect(findLongestSubstringWithForLoop('longestsubstring')).toBe(8);
+    expect(findLongestSubstringWithForLoop('thisishowwedoit')).toBe(6);
+  });
+  it('returns 0 for an empty string', () => {
+    expect(findLongestSubstringWithForLoop('')).toBe(0);
+  });
+  it('returns 1 for string with the same character duplicated', () => {
+    expect(findLongestSubstringWithForLoop('bbb')).toBe(1);
   });
 });

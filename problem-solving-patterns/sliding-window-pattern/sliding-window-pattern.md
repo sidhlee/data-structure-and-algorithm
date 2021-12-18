@@ -34,3 +34,20 @@ minSubarrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 39); // 3
 minSubarrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 55); // 5
 minSubarrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 95); // 0
 ```
+
+## findLongestSubstring
+
+Write a function called `findLongestSubstring`, which accepts a string and returns the length of the longest substring with all distinct characters.
+
+### Constraints
+
+- Time: O(n)
+
+```js
+findLongestSubstring(''); // 0
+findLongestSubstring('thisisawesome'); // 6
+findLongestSubstring('thecatinthehat'); // 7
+findLongestSubstring('bbbbbb'); // 1
+findLongestSubstring('longestsubstring'); // 8
+findLongestSubstring('thisishowwedoit'); // 6
+```
