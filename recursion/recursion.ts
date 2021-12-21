@@ -76,3 +76,52 @@ export function reverse(str: string): string {
   if (str.length === 1) return str;
   return str[str.length - 1] + reverse(str.slice(0, -1));
 }
+
+export function isPalindrome(str: string): boolean {
+  if (str.length <= 1) return true;
+  const isFirstMatchLast = str[0] === str[str.length - 1];
+  return isFirstMatchLast && isPalindrome(str.slice(1, -1));
+}
+
+/**
+ * Returns true if one or more value returns true when passed to the callback. False otherwise.
+ * @param arr
+ * @param callback
+ */
+export function someRecursive<T>(
+  arr: T[],
+  callback: (item: T) => boolean
+): boolean {
+  if (arr.length === 1) return callback(arr[0]);
+  return callback(arr[0]) || someRecursive(arr.slice(1), callback);
+}
+
+export function flattenPure<T>(arr: T[] | T): T[] {
+  if (!Array.isArray(arr)) {
+    return [arr];
+  } else if (arr.length === 0) {
+    return [];
+  } else {
+    return flattenPure(arr[0]).concat(flattenPure(arr.slice(1)));
+  }
+}
+
+// Memorize this pattern!
+export function flatten<T>(arr: T[] | T): T[] {
+  // use temp store in each recursion scope
+  let flattened = [] as T[];
+  if (Array.isArray(arr)) {
+    arr.forEach((item) => {
+      if (Array.isArray(item)) {
+        // flatten returns flattened array at the end
+        flattened = [...flattened, ...flatten(item)];
+      } else {
+        flattened.push(item);
+      }
+    });
+  } else {
+    flattened.push(arr);
+  }
+
+  return flattened;
+}

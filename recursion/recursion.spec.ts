@@ -3,9 +3,13 @@ import {
   collectOddValuesPure,
   factorial,
   fib,
+  flatten,
+  flattenPure,
+  isPalindrome,
   power,
   productOfArray,
   reverse,
+  someRecursive,
   sumRange,
 } from './recursion';
 
@@ -76,5 +80,49 @@ describe('fib', () => {
 describe('reverse', () => {
   it('should work', () => {
     expect(reverse('abc')).toBe('cba');
+  });
+});
+
+describe('isPalindrome', () => {
+  it('should return false if not palindrome', () => {
+    expect(isPalindrome('awesome')).toBe(false);
+    expect(isPalindrome('foobar')).toBe(false);
+    expect(isPalindrome('amanaplanacanalpandemonium')).toBe(false);
+  });
+
+  it('should return true if palindrome', () => {
+    expect(isPalindrome('tacocat')).toBe(true);
+    expect(isPalindrome('amanaplanacanalpanama')).toBe(true);
+  });
+});
+
+describe('someRecursive', () => {
+  const isOdd = (num: number) => num % 2 !== 0;
+  it('should return true', () => {
+    expect(someRecursive([1, 2, 3, 4], isOdd)).toBe(true);
+    expect(someRecursive([4, 6, 9], isOdd)).toBe(true);
+  });
+
+  it('should return false', () => {
+    expect(someRecursive([4, 6, 8], isOdd)).toBe(false);
+    expect(someRecursive([4, 6, 8], (val) => val > 10)).toBe(false);
+  });
+});
+
+describe('flattenPure', () => {
+  it('works', () => {
+    expect(flattenPure([1, 2, 3, [4, 5]])).toEqual([1, 2, 3, 4, 5]);
+    expect(flattenPure([1, [2, [3, 4], [[5]]]])).toEqual([1, 2, 3, 4, 5]);
+    expect(flattenPure([[1], [2], [3]])).toEqual([1, 2, 3]);
+    expect(flattenPure([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]])).toEqual([1, 2, 3]);
+  });
+});
+
+describe('flatten', () => {
+  it('works', () => {
+    expect(flatten([1, 2, 3, [4, 5]])).toEqual([1, 2, 3, 4, 5]);
+    expect(flatten([1, [2, [3, 4], [[5]]]])).toEqual([1, 2, 3, 4, 5]);
+    expect(flatten([[1], [2], [3]])).toEqual([1, 2, 3]);
+    expect(flatten([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]])).toEqual([1, 2, 3]);
   });
 });
