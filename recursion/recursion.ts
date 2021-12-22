@@ -125,3 +125,68 @@ export function flatten<T>(arr: T[] | T): T[] {
 
   return flattened;
 }
+
+export function capitalizeFirst(arr: string[]): string[] {
+  if (arr.length === 0) return [];
+  const capitalized = arr[0]
+    .split('')
+    .map((char, i) => (i === 0 ? char.toUpperCase() : char))
+    .join('');
+  return [capitalized].concat(capitalizeFirst(arr.slice(1)));
+}
+
+/**
+ * Returns sum of all even numbers in an object which may contain nested objects.
+ */
+export function nestedEvenSum(obj: any) {
+  let sum = 0;
+  for (const key in obj) {
+    if (typeof obj[key] === 'number') {
+      sum += obj[key] % 2 === 0 ? obj[key] : 0;
+    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+      sum += nestedEvenSum(obj[key]);
+    }
+  }
+  return sum;
+}
+
+/**
+ * Returns all strings in the given array capitalized
+ */
+export function capitalizeWords(words: string[]): string[] {
+  if (words.length === 0) return [];
+  const capitalized = words[0].toUpperCase();
+  return [capitalized].concat(capitalizeWords(words.slice(1)));
+}
+
+/**
+ * Find all numbers in the given object and convert them into string
+ */
+export function stringifyNumbers(obj: any) {
+  let newObj = {} as any;
+  if (Array.isArray(obj)) {
+    newObj = [];
+  }
+  for (const key in obj) {
+    if (typeof obj[key] === 'number') {
+      newObj[key] = obj[key].toString();
+    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+      newObj[key] = stringifyNumbers(obj[key]);
+    } else {
+      newObj[key] = obj[key];
+    }
+  }
+  return newObj;
+}
+
+export function collectStrings(obj: any) {
+  let strings = [] as string[];
+  for (const key in obj) {
+    if (typeof obj[key] === 'string') {
+      strings.push(obj[key]);
+    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+      strings = strings.concat(collectStrings(obj[key]));
+    }
+  }
+  return strings;
+}
