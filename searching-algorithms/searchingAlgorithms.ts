@@ -24,3 +24,16 @@ export function binarySearch<T>(arr: T[], target: T) {
 
 // [1, 2, 3, 4]
 //     m
+
+export function nativeStringSearch(str: string, subStr: string): number {
+  let count = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === subStr[0]) {
+      for (let j = 1; j < subStr.length; j++) {
+        if (subStr[j] !== str[i + j]) break;
+        else if (j === subStr.length - 1) count++;
+      }
+    }
+  }
+  return count;
+}

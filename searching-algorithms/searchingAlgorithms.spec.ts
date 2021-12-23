@@ -1,4 +1,8 @@
-import { linearSearch, binarySearch } from './searchingAlgorithms';
+import {
+  linearSearch,
+  binarySearch,
+  nativeStringSearch,
+} from './searchingAlgorithms';
 
 describe('linearSearch', () => {
   it('should return found index', () => {
@@ -21,5 +25,13 @@ describe('binarySearch', () => {
 
   it('should return -1 if not found', () => {
     expect(binarySearch([1, 2, 3], 4)).toBe(-1);
+  });
+});
+
+describe('naiveStringSearch', () => {
+  it('should work', () => {
+    expect(
+      nativeStringSearch('This is very slow naive string search', 'is')
+    ).toBe(2);
   });
 });
