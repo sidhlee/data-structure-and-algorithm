@@ -24,3 +24,7 @@ sudo ln -s "$(which node)" /usr/local/bin
 ## References
 
 - [Using TypeScript with Jest](https://jestjs.io/docs/getting-started#using-typescript)
+
+## Resources
+
+- [Visualgo - for visualizing algorithms and stepping through pseudo codes](https://visualgo.net/en)
