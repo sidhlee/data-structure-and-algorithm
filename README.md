@@ -21,6 +21,26 @@ sudo ln -s "$(which node)" /usr/bin/node
 sudo ln -s "$(which node)" /usr/local/bin
 ```
 
+## Enabling jsdom methods with node environment
+
+When your jest `testEnvironment` is `jsdom` (by default), it mocks methods on the global `window` object such as `performance`. If you set it to `node`, you need to provide your own global methods.
+
+You can specify `setupFilesAfterEnv` inside `jest.config.js` file.
+
+```js
+module.exports = {
+  setupFilesAfterEnv: ['./setup.js'],
+};
+```
+
+Then, within the specified setup file, define the global method you want to add.
+
+```js
+global.performance = require('perf_hooks').performance;
+```
+
+- Source: [SO](https://stackoverflow.com/a/57825692)
+
 ## References
 
 - [Using TypeScript with Jest](https://jestjs.io/docs/getting-started#using-typescript)
