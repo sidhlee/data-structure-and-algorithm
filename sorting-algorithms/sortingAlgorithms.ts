@@ -42,3 +42,25 @@ export function selectionSort(arr: number[]) {
   }
   return copy;
 }
+
+export function insertionSort(arr: number[]) {
+  if (arr.length === 0) return arr;
+  const copy = arr.slice();
+  for (let i = 1; i < copy.length; i++) {
+    const newItem = arr[i];
+    let j;
+    for (j = i - 1; j >= 0; j--) {
+      if (copy[j] <= newItem) {
+        break;
+      } else {
+        // if new item is smaller than current item, copy the current item to the right
+        copy[j + 1] = copy[j];
+      }
+    }
+    // if the new item is geq to the last subarray item, don't bother to insert
+    if (j === i - 1) continue;
+    // insert to the right of the subarray value that was smaller than the new item
+    copy[j + 1] = newItem;
+  }
+  return copy;
+}

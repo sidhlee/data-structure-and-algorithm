@@ -1,4 +1,5 @@
-import { bubbleSort, selectionSort } from './sortingAlgorithms';
+import { timeFunc } from '../utils';
+import { bubbleSort, insertionSort, selectionSort } from './sortingAlgorithms';
 
 describe('bubbleSort', () => {
   it('works', () => {
@@ -8,15 +9,12 @@ describe('bubbleSort', () => {
     const sortedNumbers = [...Array(1000)].map((_, i) => i);
     const reverseSortedNumbers = sortedNumbers.slice().reverse();
 
-    const sortedStart = performance.now();
-    const sortedResult = bubbleSort(sortedNumbers);
-    const sortedEnd = performance.now();
-    const sortedDelta = sortedEnd - sortedStart;
-
-    const reverseStart = performance.now();
-    const reverseResult = bubbleSort(reverseSortedNumbers);
-    const reverseEnd = performance.now();
-    const reverseDelta = reverseEnd - reverseStart;
+    const [sortedDelta, sortedResult] = timeFunc(() =>
+      bubbleSort(sortedNumbers)
+    );
+    const [reverseDelta, reverseResult] = timeFunc(() =>
+      bubbleSort(reverseSortedNumbers)
+    );
 
     expect(sortedDelta).toBeLessThan(reverseDelta / 2);
     expect(sortedResult).toEqual(reverseResult);
@@ -26,5 +24,20 @@ describe('bubbleSort', () => {
 describe('selectionSort', () => {
   it('works', () => {
     expect(selectionSort([5, 2, 8, -3, 0, -65])).toEqual([-65, -3, 0, 2, 5, 8]);
+  });
+});
+
+describe('insertionSort', () => {
+  it('works', () => {
+    expect(insertionSort([5, 2, 8, -3, 0, -65])).toEqual([-65, -3, 0, 2, 5, 8]);
+  });
+
+  it('should work better when adding new item', () => {
+    const reverseSortedNumbers = [...Array(1000)].map((_, i) => 1000 - i);
+    const [delta, result] = timeFunc(() => insertionSort(reverseSortedNumbers));
+    const newArray = [...result, -100];
+    const [newDelta, newResult] = timeFunc(() => insertionSort(newArray));
+    expect(newDelta).toBeLessThan(delta / 2);
+    expect(newResult).toEqual([-100, ...result]);
   });
 });
