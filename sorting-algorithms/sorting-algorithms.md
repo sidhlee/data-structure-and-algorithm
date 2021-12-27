@@ -56,3 +56,21 @@ Insertion sort iterates through the array and inserts each item into the sorted 
 
 - Worst case: O(n^2) - sorting reverse sorted array
 - Best case: O(n) - when adding an item to be already sorted array
+
+## Merge Sort
+
+Merge sort recursively splits an array into two until the subarray becomes empty or only has one item. Once it reaches the base case, it starts backtracking while merging two sorted subarrays into one sorted array. This process takes advantage of the fact that the array of one or zero item is always sorted.
+
+### Merging arrays Pseudocode
+
+These are the steps to implement merging function that takes two sorted arrays and merge them into one sorted array.
+
+- Create an empty result array and two pointers for the arrays to merge.
+- While both pointers are within the range:
+  - compare values at the pointers and push smaller value to the result array. Advance the pointer for the array that had the smaller value.
+- When one of the pointers reach the end of the array, we break out of the loop and push all remaining elements into the results because they are already sorted AND greater than the values already in the results.
+
+## Merge Sort Complexity
+
+- Time: O(n log(n)) - log(n) for splitting in half \* n for sorting and merging
+- Space: O(n) - n + (n/2 + n/2) + (n/4 + n/4) ... = C \* n = n

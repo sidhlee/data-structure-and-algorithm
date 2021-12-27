@@ -1,5 +1,11 @@
 import { timeFunc } from '../utils';
-import { bubbleSort, insertionSort, selectionSort } from './sortingAlgorithms';
+import {
+  bubbleSort,
+  insertionSort,
+  mergeSort,
+  mergeWhileSorting,
+  selectionSort,
+} from './sortingAlgorithms';
 
 describe('bubbleSort', () => {
   it('works', () => {
@@ -39,5 +45,27 @@ describe('insertionSort', () => {
     const [newDelta, newResult] = timeFunc(() => insertionSort(newArray));
     expect(newDelta).toBeLessThan(delta / 2);
     expect(newResult).toEqual([-100, ...result]);
+  });
+});
+
+describe('mergeWhileSorting', () => {
+  it('should return a sorted array', () => {
+    const arr1 = [1, 4, 7];
+    const arr2 = [2, 3, 8, 12];
+    expect(mergeWhileSorting(arr1, arr2)).toEqual([1, 2, 3, 4, 7, 8, 12]);
+  });
+
+  it('should work with one empty array', () => {
+    const arr1 = [] as number[];
+    const arr2 = [2, 3, 8, 12];
+    expect(mergeWhileSorting(arr1, arr2)).toEqual(arr2);
+  });
+});
+
+describe('mergeSort', () => {
+  it('should work', () => {
+    expect(mergeSort([1, 5, 2, 8, -3, 0, -65])).toEqual([
+      -65, -3, 0, 1, 2, 5, 8,
+    ]);
   });
 });
