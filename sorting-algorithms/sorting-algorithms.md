@@ -110,3 +110,28 @@ Quick Sort performs best when the pivot is chosen to be the median value of the 
 
 - Time(best & average): O(n log(n)) - n for looping from start to end index, log(n) for calling itself with left and right range.
 - Time(worst): O(n^2) - pivot is chosen to be first or last item, so we only have either left or right side. The deepest path in tree becomes as long as n
+
+## Radix Sort
+
+While the comparison sort algorithm has the lower bound of n log(n) time complexity, Radix sort is a non-comparison sort that utilizes a special property of integers where numbers with more digits are always greater than numbers with less digits.
+Radix sort distributes numbers in the list to the buckets 0 to 9 based on the the number's least significant digit and push them back to the array in the order they are stored in the buckets. As we repeat the same steps with n-th digit from the right, the numbers with n number of digits becomes sorted among themselves, and the numbers whose number of digits are less than n get stored in the bucket 0, already sorted in the previous iterations.
+It takes only as many iterations as the maximum number of digits found in the list to complete the sorting.
+
+### Radix Sort Helpers
+
+- `getDigit(num, place)` - returns the digit in `num` at the given `place` value.
+- `countDigits(num)` - returns the number of digits in `num`.
+- `getMaxDigit(nums)` - returns the maximum number of digits that can be found in the given array of numbers.
+
+### Radix Sort Implementation
+
+- Loop from i=0 while i <= k where k is the maximum number of digits found in the input array. In each iteration:
+  - create the buckets from 0 to 9
+  - place numbers in the bucket based on its i-th digit
+  - Replace the input array with the values from the buckets going from 0 to 9
+- Return the array
+
+### Radix Sort Complexity
+
+- Time (best, average, worst) - O(nk) where k is max number of digits
+- Space - O(n + k) where k is the number of unique numbers(eg. k = 10 for base 10)

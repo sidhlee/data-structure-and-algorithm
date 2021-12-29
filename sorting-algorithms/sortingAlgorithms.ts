@@ -137,3 +137,46 @@ export function quickSort(
   }
   return arr;
 }
+
+export function getDigit(num: number, place: number) {
+  // string conversion
+  // const numStr = num.toString();
+  // if (place >= numStr.length) return 0;
+  // return parseInt(numStr[numStr.length - 1 - place]);
+
+  // mod 10 gives us the least significant digit
+  // flooring abs num divided by 10 to the nth power removes
+  // any digits below the desired digit
+  // eg. n = 0 -> we want 1's place -> no digits removed
+  //     n = 1 -> we want 10's place -> 1's place removed
+  //     n = 2 -> we want 100's place -> 10 & 1's places removed
+  return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
+}
+
+export function countDigits(num: number) {
+  // log of 0 gives -Infinity
+  if (num === 0) return 0;
+  return Math.floor(Math.log10(Math.abs(num))) + 1;
+}
+
+export function getMaxDigit(numbers: number[]) {
+  let max = 0;
+  numbers.forEach((num) => {
+    max = Math.max(max, countDigits(num));
+  });
+  return max;
+}
+
+export function radixSort(numbers: number[]) {
+  const maxDigit = getMaxDigit(numbers);
+  for (let k = 0; k <= maxDigit; k++) {
+    const buckets = [...Array(9)].map(() => [] as number[]);
+    for (let i = 0; i < numbers.length; i++) {
+      const currentDigit = getDigit(numbers[i], k);
+      buckets[currentDigit].push(numbers[i]);
+    }
+    // spreading 2d array
+    numbers = ([] as number[]).concat(...buckets);
+  }
+  return numbers;
+}

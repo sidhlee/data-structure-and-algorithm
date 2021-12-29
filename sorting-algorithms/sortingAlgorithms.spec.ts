@@ -1,11 +1,15 @@
 import { timeFunc } from '../utils';
 import {
   bubbleSort,
+  countDigits,
+  getDigit,
+  getMaxDigit,
   insertionSort,
   mergeSort,
   mergeWhileSorting,
   pivot,
   quickSort,
+  radixSort,
   selectionSort,
 } from './sortingAlgorithms';
 
@@ -100,5 +104,55 @@ describe('quickSort', () => {
     const arr = [5, 2, 4, 1, 13, 8];
     quickSort(arr);
     expect(arr).toEqual([1, 2, 4, 5, 8, 13]);
+  });
+});
+
+describe('getDigit', () => {
+  it('returns correct digit', () => {
+    expect(getDigit(12345, 0)).toBe(5);
+    expect(getDigit(12345, 1)).toBe(4);
+    expect(getDigit(12345, 2)).toBe(3);
+    expect(getDigit(12345, 3)).toBe(2);
+    expect(getDigit(12345, 4)).toBe(1);
+  });
+  it('returns 0 when place exceeds the digits', () => {
+    expect(getDigit(12345, 5)).toBe(0);
+  });
+  it('works for negative numbers', () => {
+    expect(getDigit(-12345, 0)).toBe(5);
+  });
+});
+
+describe('countDigits', () => {
+  it('returns number of digits', () => {
+    expect(countDigits(1)).toBe(1);
+    expect(countDigits(23)).toBe(2);
+    expect(countDigits(456)).toBe(3);
+  });
+  it('works for negative numbers', () => {
+    expect(countDigits(-1234)).toBe(4);
+  });
+  it('works for 0', () => {
+    expect(countDigits(0)).toBe(0);
+  });
+});
+
+describe('getMaxDigit', () => {
+  it('works', () => {
+    expect(getMaxDigit([1, 11, 111])).toBe(3);
+    expect(getMaxDigit([1, 1, 1])).toBe(1);
+    expect(getMaxDigit([4321, 1, 23])).toBe(4);
+  });
+  it('returns 0 for empty array', () => {
+    expect(getMaxDigit([])).toBe(0);
+  });
+});
+
+describe('radixSort', () => {
+  it('works', () => {
+    expect(radixSort([1, 5, 2, 8, 3, 0, 65])).toEqual([0, 1, 2, 3, 5, 8, 65]);
+    expect(radixSort([111, 15, 22242, 84, 3, 0, 65])).toEqual([
+      0, 3, 15, 65, 84, 111, 22242,
+    ]);
   });
 });
