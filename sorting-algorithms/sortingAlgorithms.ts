@@ -98,3 +98,42 @@ export function mergeSort(arr: number[]): number[] {
 
   return mergeWhileSorting(mergeSort(arr1), mergeSort(arr2));
 }
+
+export function pivot(
+  arr: number[],
+  headIndex = 0,
+  tailIndex = arr.length - 1
+) {
+  let pivotIndex = headIndex;
+  const pivotValue = arr[pivotIndex];
+  for (let i = pivotIndex + 1; i <= tailIndex; i++) {
+    // place any value smaller than pivot to the current pivotIndex + 1
+    // then advance the pivot index
+    if (pivotValue > arr[i]) {
+      // swapping smaller value with the value next to the pivot index
+      // so that we can keep the pivot value at the beginning of the array
+      // and later move it to the pivot index
+      swap(arr, i, pivotIndex + 1);
+      // we don't need to add 1 if we increment the pivot index first
+      // but this makes it easier for me to understand.
+      pivotIndex++;
+    }
+  }
+  // move to pivot to the pivot index to sit between smaller and larger items
+  // arr[pivotIndex] = pivotValue;
+  swap(arr, pivotIndex, headIndex);
+  return pivotIndex;
+}
+
+export function quickSort(
+  arr: number[],
+  headIndex = 0,
+  tailIndex = arr.length - 1
+) {
+  if (headIndex < tailIndex) {
+    const pivotIndex = pivot(arr, headIndex, tailIndex);
+    quickSort(arr, headIndex, pivotIndex - 1);
+    quickSort(arr, pivotIndex + 1, tailIndex);
+  }
+  return arr;
+}

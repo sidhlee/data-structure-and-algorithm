@@ -4,6 +4,8 @@ import {
   insertionSort,
   mergeSort,
   mergeWhileSorting,
+  pivot,
+  quickSort,
   selectionSort,
 } from './sortingAlgorithms';
 
@@ -67,5 +69,36 @@ describe('mergeSort', () => {
     expect(mergeSort([1, 5, 2, 8, -3, 0, -65])).toEqual([
       -65, -3, 0, 1, 2, 5, 8,
     ]);
+  });
+});
+
+describe('pivot', () => {
+  it('should return the correct pivot index', () => {
+    const arr = [5, 2, 4, 1, 13, 8];
+    const pivotIndex = pivot(arr);
+    expect(pivotIndex).toBe(3);
+  });
+  it('should have smaller values to the left of the pivot', () => {
+    const arr = [5, 2, 4, 1, 13, 8];
+    const pivotValue = arr[0];
+    const pivotIndex = pivot(arr);
+    const left = arr.slice(0, pivotIndex);
+    expect(left.every((item) => item < pivotValue)).toBe(true);
+  });
+
+  it('should have larger values to the right of the pivot', () => {
+    const arr = [5, 2, 4, 1, 13, 8];
+    const pivotValue = arr[0];
+    const pivotIndex = pivot(arr);
+    const right = arr.slice(pivotIndex + 1);
+    expect(right.every((item) => item > pivotValue)).toBe(true);
+  });
+});
+
+describe('quickSort', () => {
+  it('should sort an array in place', () => {
+    const arr = [5, 2, 4, 1, 13, 8];
+    quickSort(arr);
+    expect(arr).toEqual([1, 2, 4, 5, 8, 13]);
   });
 });
