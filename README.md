@@ -41,6 +41,16 @@ global.performance = require('perf_hooks').performance;
 
 - Source: [SO](https://stackoverflow.com/a/57825692)
 
+## Mocking inner function with jest
+
+If a function A is calling function B directly within the same module, it is not possible to mock A and test its call.
+
+- [Direct function calls cannot be mocked](https://stackoverflow.com/a/55193363)
+
+Also, after using `doMock` you need to flush the cached module by calling `jest.resetModules` to be able to import/require mocked modules.
+
+- [Resetting cache after doMock](https://stackoverflow.com/a/57160160)
+
 ## References
 
 - [Using TypeScript with Jest](https://jestjs.io/docs/getting-started#using-typescript)
