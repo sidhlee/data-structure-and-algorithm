@@ -18,3 +18,11 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 - Set the 2nd last node to be `tail`
 - Decrement the `length` of the list by one
 - Return the removed node
+
+### `shift(): Node | undefined`
+
+- If there are no nodes in the list, return `undefined`
+- Store `head` value
+- set head to be `head.next`
+- decrement `length`
+- return stored `head` value

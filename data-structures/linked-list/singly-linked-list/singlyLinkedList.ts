@@ -37,4 +37,16 @@ export default class SinglyLinkedList<T> {
     }
     return currentNode;
   }
+
+  public shift() {
+    if (!this.head) return undefined;
+    const currentHead = this.head;
+    this.head = currentHead.next;
+    this.length--;
+    if (this.length === 0) {
+      // no need to reset head because currentHead.next should be null to be the only node.
+      this.tail = null;
+    }
+    return currentHead;
+  }
 }

@@ -104,4 +104,44 @@ describe('SinglyLinkedList', () => {
       expect(singlyLinkedList.tail).toBe(null);
     });
   });
+
+  describe('shift', () => {
+    let threeNodeList: SinglyLinkedList<string>;
+    let secondNode: Node<string>;
+    beforeEach(() => {
+      threeNodeList = new SinglyLinkedList<string>()
+        .push('first')
+        .push('second')
+        .push('third');
+      secondNode = threeNodeList?.head?.next as Node<string>;
+    });
+    it('returns undefined when there are no nodes', () => {
+      const singlyLinkedList = new SinglyLinkedList();
+      expect(singlyLinkedList.shift()).toBeUndefined();
+    });
+
+    it('sets the 2nd node to be the head', () => {
+      threeNodeList.shift();
+      expect(threeNodeList.head).toBe(secondNode);
+    });
+
+    it('decrements length by one', () => {
+      expect(threeNodeList.length).toBe(3);
+      threeNodeList.shift();
+      expect(threeNodeList.length).toBe(2);
+    });
+
+    it('returns the removed node', () => {
+      const removedNode = threeNodeList.shift();
+      expect(removedNode?.val).toBe('first');
+    });
+
+    it('should set head and tail to be null when shift only node', () => {
+      const singlyLinkedList = new SinglyLinkedList();
+      singlyLinkedList.push('only node');
+      singlyLinkedList.shift();
+      expect(singlyLinkedList.head).toBe(null);
+      expect(singlyLinkedList.tail).toBe(null);
+    });
+  });
 });
