@@ -35,7 +35,7 @@ export default class SinglyLinkedList<T> {
       this.head = null;
       this.tail = null;
     }
-    return currentNode;
+    return currentNode.val;
   }
 
   public shift() {
@@ -47,7 +47,7 @@ export default class SinglyLinkedList<T> {
       // no need to reset head because currentHead.next should be null to be the only node.
       this.tail = null;
     }
-    return currentHead;
+    return currentHead.val;
   }
 
   public unshift(val: T) {
@@ -65,8 +65,9 @@ export default class SinglyLinkedList<T> {
   }
 
   public get(index: number) {
-    if (!this.head) return null;
-    if (index < 0 || index >= this.length) throw Error('index out of range.');
+    if (!this.head) return undefined;
+    if (this._isIndexInvalid(index)) return undefined;
+
     let node = this.head;
     let currentIndex = 0;
 
@@ -103,5 +104,27 @@ export default class SinglyLinkedList<T> {
     }
 
     return this;
+  }
+
+  public remove(index: number) {
+    if (this._isIndexInvalid(index)) return undefined;
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
+
+    const prevNode = this.get(index - 1)!;
+    if (prevNode.next) {
+      // there are at least two nodes
+      const nodeValue = prevNode.next.val;
+      if (prevNode.next.next) {
+        // there are at least three nodes
+        prevNode.next = prevNode.next.next;
+      }
+      this.length--;
+      return nodeValue;
+    }
+  }
+
+  private _isIndexInvalid(index: number) {
+    return index < 0 || index >= this.length;
   }
 }

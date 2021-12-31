@@ -13,7 +13,7 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 - Increment the `length` by one.
 - Return the instance
 
-### `pop(): Node | undefined`
+### `pop(): T | undefined`
 
 `pop` removes a node from the tail.
 
@@ -22,9 +22,9 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 - Set the `next` of the 2nd last node to be`null`
 - Set the 2nd last node to be `tail`
 - Decrement the `length` of the list by one
-- Return the removed node
+- Return the removed node value
 
-### `shift(): Node | undefined`
+### `shift(): T | undefined`
 
 `shift` removes a node from the head.
 
@@ -64,3 +64,15 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 - Set `prevNode.next` to the new node.
 - Increment `length`.
 - Return the instance.
+
+### `remove(index): Node`
+
+`remove` deletes a node from the given position
+
+- If the index is invalid (ie. i < 0 || i >= list.length), return `undefined`.
+- If the index equals length - 1, pop.
+- If the index equals 0, shift.
+- Otherwise, get the previous node by calling `get(index-1)`
+- Set `prevNode.next` to the `prevNode.next.next`.
+- Decrement `length`.
+- Return the value of the node removed.

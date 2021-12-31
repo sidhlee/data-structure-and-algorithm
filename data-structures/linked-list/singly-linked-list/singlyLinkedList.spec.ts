@@ -83,8 +83,8 @@ describe('SinglyLinkedList', () => {
     });
 
     it('returns the removed node', () => {
-      const removedNode = threeNodeList.pop();
-      expect(removedNode?.val).toBe('third');
+      const removedNodeValue = threeNodeList.pop();
+      expect(removedNodeValue).toBe('third');
     });
 
     it('should set head and tail to be null when popping only node', () => {
@@ -123,8 +123,8 @@ describe('SinglyLinkedList', () => {
     });
 
     it('returns the removed node', () => {
-      const removedNode = threeNodeList.shift();
-      expect(removedNode?.val).toBe('first');
+      const removedNodeValue = threeNodeList.shift();
+      expect(removedNodeValue).toBe('first');
     });
 
     it('should set head and tail to be null when shift only node', () => {
@@ -189,13 +189,18 @@ describe('SinglyLinkedList', () => {
     it('should return correct node', () => {
       expect(list.get(2)?.val).toBe('third');
     });
-    it('should throw for index out of range', () => {
-      expect(() => list.get(-1)).toThrowError();
-      expect(() => list.get(3)).toThrowError();
+    it('should return undefined for index out of range', () => {
+      expect(list.get(-1)).toBe(undefined);
+      expect(list.get(3)).toBe(undefined);
     });
-    it('should return null when list is empty', () => {
+    it('should return undefined when list is empty', () => {
       const list = new SinglyLinkedList();
-      expect(list.get(4)).toBe(null);
+      expect(list.get(4)).toBe(undefined);
+    });
+
+    it('should find the only node', () => {
+      const list = new SinglyLinkedList().push('only item');
+      expect(list.get(0)?.val).toBe('only item');
     });
   });
 
@@ -243,6 +248,49 @@ describe('SinglyLinkedList', () => {
         .push('two')
         .insert('item', 1);
       expect(list.length).toBe(3);
+    });
+  });
+
+  describe('remove', () => {
+    let list: SinglyLinkedList<string>;
+    beforeEach(() => {
+      list = new SinglyLinkedList<string>()
+        .push('first')
+        .push('second')
+        .push('third');
+    });
+    it('returns undefined for invalid index', () => {
+      expect(list.remove(-1)).toBeUndefined();
+      expect(list.remove(3)).toBeUndefined();
+    });
+
+    it('returns undefined when the list is empty', () => {
+      const list = new SinglyLinkedList();
+      expect(list.remove(0)).toBeUndefined;
+    });
+
+    it('returns correct value when there is one node', () => {
+      const list = new SinglyLinkedList().push('only node');
+      expect(list.remove(0)).toBe('only node');
+    });
+
+    it('removes head and returns value', () => {
+      expect(list.remove(0)).toBe('first');
+      expect(list.head?.val).toBe('second');
+    });
+
+    it('removes tail and returns value', () => {
+      expect(list.remove(2)).toBe('third');
+      expect(list.tail?.val).toBe('second');
+    });
+
+    it('removes node in the middle and returns value', () => {
+      expect(list.remove(1)).toBe('second');
+    });
+
+    it('connects prev and next after removing', () => {
+      list.remove(1);
+      expect(list.head?.next).toBe(list.tail);
     });
   });
 });
