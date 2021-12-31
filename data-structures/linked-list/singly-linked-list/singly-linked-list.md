@@ -2,6 +2,10 @@
 
 Singly Linked List is a linked list where nodes are linked to the next node in a single direction.
 
+- Singly Linked List is an excellent alternative to array when insertion/deletion at the beginning of the list are frequently required.
+- Unlike array, linked list has no index
+- It is a data structure that consists of nodes similar to stacks and queues
+
 ## Singly Linked List Methods
 
 ### `push(val): SinglyLinkedList`
@@ -89,3 +93,9 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 - Advance current node by setting it to the saved next node.
 - Swap head with tail
 - Return the instance
+
+## Singly Linked List Complexity
+
+- Insertion - O(1) for push or unshift because no need for re-indexing.
+- Removal - O(1) for shift but O(n) for all else because we need to iterate to find the node.
+- Searching & Access - O(n)
