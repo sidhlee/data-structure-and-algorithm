@@ -124,7 +124,37 @@ export default class SinglyLinkedList<T> {
     }
   }
 
+  public reverse() {
+    // list with one or no nodes are already reversed.
+    if (this.head && this.head.next && this.tail) {
+      // iterate from the second node
+      let prevNode = this.head;
+      let currentNode = this.head.next as Node<T> | null;
+      let nextNode;
+
+      while (currentNode) {
+        nextNode = currentNode.next; // store next temporarily to iterate
+        currentNode.next = prevNode; // update currentNode to point to prevNode
+
+        prevNode = currentNode; // advance prevNode using current node
+        currentNode = nextNode; // advance currentNode using stored next node
+      }
+      // swap head with tail
+      const temp = this.head;
+      this.head = this.tail;
+      this.tail = temp;
+      this.tail.next = null;
+    }
+    return this;
+  }
+
   private _isIndexInvalid(index: number) {
     return index < 0 || index >= this.length;
   }
 }
+
+// h         t
+// 1 -> 2 -> 3
+// p    c    n
+//   <-
+//      p

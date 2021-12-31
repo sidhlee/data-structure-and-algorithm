@@ -76,3 +76,7 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 - Set `prevNode.next` to the `prevNode.next.next`.
 - Decrement `length`.
 - Return the value of the node removed.
+
+### `reverse(): SinglyLinkedList`
+
+`reverse` reverses the list in place.

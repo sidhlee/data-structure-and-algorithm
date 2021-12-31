@@ -293,4 +293,52 @@ describe('SinglyLinkedList', () => {
       expect(list.head?.next).toBe(list.tail);
     });
   });
+
+  describe('reverse', () => {
+    let list: SinglyLinkedList<string>;
+    beforeEach(() => {
+      list = new SinglyLinkedList<string>()
+        .push('first')
+        .push('second')
+        .push('third')
+        .push('fourth')
+        .push('fifth');
+    });
+
+    it('works', () => {
+      list.reverse();
+      expect(list.head?.val).toBe('fifth');
+      expect(list.head?.next?.val).toBe('fourth');
+      expect(list.head?.next?.next?.val).toBe('third');
+      expect(list.head?.next?.next?.next?.val).toBe('second');
+      expect(list.head?.next?.next?.next?.next?.val).toBe('first');
+      expect(list.tail?.val).toBe('first');
+    });
+    it('should have tail set to null', () => {
+      list.reverse();
+      expect(list.tail?.next).toBe(null);
+    });
+
+    it('should do nothing for list with one node', () => {
+      const list = new SinglyLinkedList().push('one');
+      expect(list.head?.val).toBe('one');
+      expect(list.tail?.val).toBe('one');
+      expect(list.length).toBe(1);
+      list.reverse();
+      expect(list.head?.val).toBe('one');
+      expect(list.tail?.val).toBe('one');
+      expect(list.length).toBe(1);
+    });
+
+    it('should do nothing for an empty list', () => {
+      const list = new SinglyLinkedList();
+      expect(list.head).toBe(null);
+      expect(list.tail).toBe(null);
+      expect(list.length).toBe(0);
+      list.reverse();
+      expect(list.head).toBe(null);
+      expect(list.tail).toBe(null);
+      expect(list.length).toBe(0);
+    });
+  });
 });
