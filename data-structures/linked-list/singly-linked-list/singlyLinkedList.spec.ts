@@ -214,4 +214,35 @@ describe('SinglyLinkedList', () => {
       expect(() => list.set('hey', 0)).toThrowError();
     });
   });
+
+  describe('insert', () => {
+    it('unshift the new node if index is 0', () => {
+      const list = new SinglyLinkedList().push('one').insert('zero', 0);
+      expect(list.head?.val).toBe('zero');
+    });
+    it('pushes the new node if index == length', () => {
+      const list = new SinglyLinkedList().push('one').insert('last', 1);
+      expect(list.tail?.val).toBe('last');
+    });
+    it('inserts node at the given index', () => {
+      const list = new SinglyLinkedList().push('one').push('two');
+      list.insert('one and a half', 1);
+      expect(list.head?.next?.val).toBe('one and a half');
+    });
+    it('works with an empty list when the index is 0', () => {
+      const list = new SinglyLinkedList().insert('new node', 0);
+      expect(list.head?.val).toBe('new node');
+    });
+    it('throws when the index is invalid', () => {
+      const list = new SinglyLinkedList();
+      expect(() => list.insert('item', 1)).toThrowError();
+    });
+    it('should increment length', () => {
+      const list = new SinglyLinkedList()
+        .push('one')
+        .push('two')
+        .insert('item', 1);
+      expect(list.length).toBe(3);
+    });
+  });
 });

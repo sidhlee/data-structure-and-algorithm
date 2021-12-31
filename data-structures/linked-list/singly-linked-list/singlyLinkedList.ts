@@ -87,4 +87,21 @@ export default class SinglyLinkedList<T> {
     }
     return this;
   }
+
+  public insert(val: T, index: number) {
+    if (index === 0) {
+      this.unshift(val);
+    } else if (index === this.length) {
+      this.push(val);
+    } else {
+      const prevNode = this.get(index - 1);
+      if (!prevNode) throw Error('could not find the previous node');
+      const newNode = new Node(val);
+      newNode.next = prevNode.next;
+      prevNode.next = newNode;
+      this.length++;
+    }
+
+    return this;
+  }
 }

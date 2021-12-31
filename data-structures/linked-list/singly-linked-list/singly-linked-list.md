@@ -52,3 +52,15 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 ### `set(val, index): SinglyLinkedList`
 
 `set` updates the node at the given index with the value passed.
+
+### `insert(val, index): SinglyLinkedList`
+
+`insert` creates a new node with the given value and insert at the specified position.
+
+- If index is 0, unshift the new node.
+- If index is same as the length, push the new node.
+- Otherwise, get the previous node by calling `get(index-1)`
+- Set `newNode.next` to the `prevNode.next`
+- Set `prevNode.next` to the new node.
+- Increment `length`.
+- Return the instance.
