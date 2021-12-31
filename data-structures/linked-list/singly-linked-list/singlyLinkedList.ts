@@ -9,13 +9,13 @@ export default class SinglyLinkedList<T> {
 
   public push(val: T) {
     const newNode = new Node(val);
-    if (!this.head) {
+    if (!this.tail) {
       this.head = newNode;
-    }
-    if (this.tail) {
+      this.tail = newNode;
+    } else {
       this.tail.next = newNode;
+      this.tail = newNode;
     }
-    this.tail = newNode;
     this.length++;
     return this;
   }
@@ -48,5 +48,43 @@ export default class SinglyLinkedList<T> {
       this.tail = null;
     }
     return currentHead;
+  }
+
+  public unshift(val: T) {
+    const newNode = new Node(val);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+
+    this.length++;
+    return this;
+  }
+
+  public get(index: number) {
+    if (!this.head) return null;
+    if (index < 0 || index >= this.length) throw Error('index out of range.');
+    let node = this.head;
+    let currentIndex = 0;
+
+    while (node.next && currentIndex < index) {
+      node = node.next;
+      currentIndex++;
+    }
+
+    return node;
+  }
+
+  public set(val: T, index: number) {
+    const node = this.get(index);
+    if (node) {
+      node.val = val;
+    } else {
+      throw Error('could not find the node to set');
+    }
+    return this;
   }
 }

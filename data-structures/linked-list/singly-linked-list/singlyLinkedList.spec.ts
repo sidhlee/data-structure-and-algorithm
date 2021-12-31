@@ -1,4 +1,5 @@
 import Node from './node';
+import * as node from './node'; // for mocking default export
 import SinglyLinkedList from './singlyLinkedList';
 
 describe('SinglyLinkedList', () => {
@@ -11,21 +12,11 @@ describe('SinglyLinkedList', () => {
 
   describe('push', () => {
     it('should create a new node', () => {
-      jest.isolateModules(async () => {
-        jest.doMock('./node', () => ({
-          __esModule: true,
-          default: jest.fn().mockImplementation(() => ({})),
-        }));
-        const { default: Node } = await import('./node');
-        const { default: SinglyLinkedList } = await import(
-          './singlyLinkedList'
-        );
-
-        const singlyLinkedList = new SinglyLinkedList();
-        singlyLinkedList.push('hello');
-        // expect(singlyLinkedList.tail?.val).toBe('hello');
-        expect(Node).toBeCalledWith('hello');
-      });
+      const NodeMock = jest
+        .spyOn(node as any, 'default')
+        .mockImplementationOnce(() => ({}));
+      new SinglyLinkedList().push('hello');
+      expect(NodeMock).toBeCalledWith('hello');
     });
 
     it('should increment length', () => {
@@ -142,6 +133,85 @@ describe('SinglyLinkedList', () => {
       singlyLinkedList.shift();
       expect(singlyLinkedList.head).toBe(null);
       expect(singlyLinkedList.tail).toBe(null);
+    });
+  });
+
+  describe('unshift', () => {
+    let singlyLinkedList: SinglyLinkedList<string>;
+    beforeEach(() => {
+      singlyLinkedList = new SinglyLinkedList<string>();
+    });
+
+    it('should create a new node', () => {
+      const NodeMock = jest
+        .spyOn(node as any, 'default')
+        .mockImplementationOnce(() => ({}));
+      singlyLinkedList.unshift('hello');
+      expect(NodeMock).toBeCalledWith('hello');
+    });
+
+    it('should increment length', () => {
+      singlyLinkedList.unshift('hello');
+      expect(singlyLinkedList.length).toBe(1);
+    });
+
+    it('should set head on first unshift', () => {
+      singlyLinkedList.unshift('hello');
+      expect(singlyLinkedList.head?.val).toBe('hello');
+    });
+
+    it('should set tail correctly', () => {
+      singlyLinkedList.unshift('hello');
+      expect(singlyLinkedList.tail?.val).toBe('hello');
+    });
+
+    it("should set new head's next", () => {
+      singlyLinkedList.unshift('world');
+      expect(singlyLinkedList.head?.next).toBe(null);
+      singlyLinkedList.unshift('hello');
+      expect(singlyLinkedList.head?.val).toBe('hello');
+      expect(singlyLinkedList.head?.next?.val).toBe('world');
+    });
+
+    it('should return the instance', () => {
+      expect(singlyLinkedList.unshift('hello')).toBe(singlyLinkedList);
+    });
+  });
+
+  describe('get', () => {
+    let list: SinglyLinkedList<string>;
+    beforeEach(() => {
+      list = new SinglyLinkedList<string>()
+        .push('first')
+        .push('second')
+        .push('third');
+    });
+    it('should return correct node', () => {
+      expect(list.get(2)?.val).toBe('third');
+    });
+    it('should throw for index out of range', () => {
+      expect(() => list.get(-1)).toThrowError();
+      expect(() => list.get(3)).toThrowError();
+    });
+    it('should return null when list is empty', () => {
+      const list = new SinglyLinkedList();
+      expect(list.get(4)).toBe(null);
+    });
+  });
+
+  describe('set', () => {
+    it('should update the value of the target node', () => {
+      const list = new SinglyLinkedList()
+        .push('first')
+        .push('second')
+        .push('third')
+        .set('two', 1);
+      expect(list.head?.next?.val).toBe('two');
+    });
+
+    it('should throw when setting on an empty list', () => {
+      const list = new SinglyLinkedList();
+      expect(() => list.set('hey', 0)).toThrowError();
     });
   });
 });

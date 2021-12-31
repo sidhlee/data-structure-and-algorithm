@@ -51,6 +51,8 @@ Also, after using `doMock` you need to flush the cached module by calling `jest.
 
 - [Resetting cache after doMock](https://stackoverflow.com/a/57160160)
 
+- [Mocking class instantiation within a method](https://stackoverflow.com/a/64549323)
+
 ## References
 
 - [Using TypeScript with Jest](https://jestjs.io/docs/getting-started#using-typescript)
