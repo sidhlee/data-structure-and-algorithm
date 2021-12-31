@@ -80,3 +80,12 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 ### `reverse(): SinglyLinkedList`
 
 `reverse` reverses the list in place.
+
+- Only do reverse when there are at least to elements.
+- Set second element to be `currentNode` and iterate from it until the end of the list.
+- Temporarily store `currentNode.next` to move to the next node.since we're going to overwrite it with the previous node.
+- Set `currentNode.next` to the previous node.
+- Advance previous node by setting it to the current node.
+- Advance current node by setting it to the saved next node.
+- Swap head with tail
+- Return the instance
