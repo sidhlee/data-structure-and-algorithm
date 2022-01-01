@@ -8,7 +8,7 @@ A stack is a LIFO data structure where the last pushed elements is the first to 
 - Undo/Redo
 - Navigating using back/forward in the browser.
 
-## Stack Implementation
+## Stack Implementations
 
 ### Stack with Array
 
