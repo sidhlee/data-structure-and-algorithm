@@ -1,7 +1,7 @@
 /**
  *
  * @param cb wrapper function returns measuring function executed with arguments
- * @returns
+ * @returns [delta, result]
  */
 export function timeFunc(cb: () => any) {
   const start = performance.now();

@@ -1,6 +1,6 @@
 import Node from './node';
 
-export default class SinglyLinkedList<T> {
+export default class DoublyLinkedList<T> {
   length: number;
   head: Node<T> | null;
   tail: Node<T> | null;
@@ -17,6 +17,7 @@ export default class SinglyLinkedList<T> {
       this.tail = newNode;
     } else {
       this.tail.next = newNode;
+      newNode.prev = this.tail;
       this.tail = newNode;
     }
     this.length++;
@@ -24,33 +25,32 @@ export default class SinglyLinkedList<T> {
   }
 
   public pop() {
-    if (!this.head) return undefined;
-    let currentNode = this.head;
-    let newTail = currentNode;
-    while (currentNode.next) {
-      newTail = currentNode;
-      currentNode = currentNode.next;
+    if (!this.tail) return undefined;
+    const tailValue = this.tail.val; // store tail value
+    this.tail = this.tail.prev; // update tail with prev value
+    if (this.tail) {
+      this.tail.next = null; // if prev node exist, update its next
     }
-    this.tail = newTail;
-    newTail.next = null;
     this.length--;
     if (this.length === 0) {
       this.head = null;
-      this.tail = null;
     }
-    return currentNode.val;
+    return tailValue;
   }
 
   public shift() {
     if (!this.head) return undefined;
-    const currentHead = this.head;
-    this.head = currentHead.next;
+    const oldHead = this.head;
+    this.head = oldHead.next;
+    if (this.head) {
+      this.head.prev = null;
+    }
     this.length--;
     if (this.length === 0) {
       // no need to reset head because currentHead.next should be null to be the only node.
       this.tail = null;
     }
-    return currentHead.val;
+    return oldHead.val;
   }
 
   public unshift(val: T) {
@@ -60,6 +60,7 @@ export default class SinglyLinkedList<T> {
       this.tail = newNode;
     } else {
       newNode.next = this.head;
+      this.head.prev = newNode;
       this.head = newNode;
     }
 
@@ -68,18 +69,26 @@ export default class SinglyLinkedList<T> {
   }
 
   public get(index: number) {
-    if (!this.head) return undefined;
+    if (!this.head || !this.tail) return undefined;
     if (this._isIndexInvalid(index)) return undefined;
 
-    let node = this.head;
-    let currentIndex = 0;
-
-    while (node.next && currentIndex < index) {
-      node = node.next;
-      currentIndex++;
+    if (index < this.length / 2) {
+      let node = this.head;
+      let currentIndex = 0;
+      while (node.next && currentIndex < index) {
+        node = node.next;
+        currentIndex++;
+      }
+      return node;
+    } else {
+      let node = this.tail;
+      let currentIndex = this.length - 1;
+      while (node.prev && currentIndex > index) {
+        node = node.prev;
+        currentIndex--;
+      }
+      return node;
     }
-
-    return node;
   }
 
   public set(val: T, index: number) {
@@ -102,7 +111,12 @@ export default class SinglyLinkedList<T> {
       if (!prevNode) throw Error('could not find the previous node');
       const newNode = new Node(val);
       newNode.next = prevNode.next;
+      newNode.prev = prevNode;
+      if (prevNode.next) {
+        prevNode.next.prev = newNode;
+      }
       prevNode.next = newNode;
+
       this.length++;
     }
 
@@ -110,21 +124,19 @@ export default class SinglyLinkedList<T> {
   }
 
   public remove(index: number) {
-    if (this._isIndexInvalid(index)) return undefined;
+    if (this._isIndexInvalid(index) || this.length === 0) return undefined;
     if (index === 0) return this.shift();
     if (index === this.length - 1) return this.pop();
 
-    const prevNode = this.get(index - 1)!;
-    if (prevNode.next) {
-      // there are at least two nodes
-      const nodeValue = prevNode.next.val;
-      if (prevNode.next.next) {
-        // there are at least three nodes
-        prevNode.next = prevNode.next.next;
-      }
-      this.length--;
-      return nodeValue;
+    const removedNode = this.get(index)!;
+    if (removedNode.prev) {
+      removedNode.prev.next = removedNode.next;
     }
+    if (removedNode.next) {
+      removedNode.next.prev = removedNode.prev;
+    }
+    this.length--;
+    return removedNode.val;
   }
 
   public reverse() {
@@ -155,9 +167,3 @@ export default class SinglyLinkedList<T> {
     return index < 0 || index >= this.length;
   }
 }
-
-// h         t
-// 1 -> 2 -> 3
-// p    c    n
-//   <-
-//      p
