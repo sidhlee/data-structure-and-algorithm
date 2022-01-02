@@ -39,4 +39,26 @@ We can use a queue and a while loop to traverse through the tree
   - if right is not null, enqueue right
 - return the array with visited nodes
 
+Breadth First Search generally uses more space since it visits entire level before going deeper.
+
 ### Depth First Search
+
+DFS is commonly implemented with recursion where each branch is traversed until it reaches the leaf node. It uses Stack data structure to push visited nodes and pop(backtrack) when there is no node to traverse.
+
+There are two places where we can pop out of the current call stack and they are used for different purposes:
+
+- Base case - checks at the beginning of the function if the visiting node is empty. When it returns, we go back to the leaf node.
+- End of the function - after returning from left and right traversal, it pops out from the current stack to backtrack to the parent node.
+
+### BFS vs DFS
+
+- [Difference between BFS and DFS](https://www.geeksforgeeks.org/difference-between-bfs-and-dfs/)
+
+| BFS                                                            | DFS                                                                  |
+| -------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Uses Queue to find the shortest path                           | Uses Stack to traverse and backtrack                                 |
+| Finds the node with min # of edges                             | might traverse through more edges                                    |
+| For finding node closer to root                                | For finding solution away from the root                              |
+| Traverses all siblings first - not suitable for game or puzzle | Each branch is explored one after the other - good for decision tree |
+| siblings before children                                       | children before sibling                                              |
+| O(N + E)                                                       | O(N + E)                                                             |

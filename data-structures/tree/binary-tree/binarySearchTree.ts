@@ -81,4 +81,49 @@ export class BinarySearchTree {
 
     return visitedNodeValues;
   }
+
+  depthFirstPreOrder() {
+    if (!this.root) return [];
+    const visitedNodeValues: Comparable[] = [];
+
+    function traverse(node: Node) {
+      if (!node) return;
+      visitedNodeValues.push(node.value);
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+    }
+    traverse(this.root);
+
+    return visitedNodeValues;
+  }
+
+  depthFirstPostOrder() {
+    if (!this.root) return [];
+    const visitedNodeValues: Comparable[] = [];
+
+    function traverse(node: Node) {
+      if (!node) return;
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+      visitedNodeValues.push(node.value);
+    }
+    traverse(this.root);
+
+    return visitedNodeValues;
+  }
+
+  depthFirstInOrder() {
+    if (!this.root) return [];
+    const visitedNodeValues: Comparable[] = [];
+
+    function traverse(node: Node) {
+      if (!node) return;
+      if (node.left) traverse(node.left);
+      visitedNodeValues.push(node.value);
+      if (node.right) traverse(node.right);
+    }
+    traverse(this.root);
+
+    return visitedNodeValues;
+  }
 }
