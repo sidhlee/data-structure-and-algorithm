@@ -1,3 +1,5 @@
+import { Queue } from '../../queue/queue';
+
 type Comparable = string | number;
 
 export class Node {
@@ -56,5 +58,27 @@ export class BinarySearchTree {
         return undefined;
       }
     }
+  }
+
+  /** returns an array of all nodes traversed with BFS */
+  breadthFirstSearch() {
+    if (!this.root) return [];
+    const visitedNodeValues: Comparable[] = [];
+    const queue = new Queue<Node>();
+    queue.enqueue(this.root);
+    while (queue.size > 0) {
+      const currentNode = queue.dequeue();
+      if (currentNode) {
+        visitedNodeValues.push(currentNode.value);
+        if (currentNode.left) {
+          queue.enqueue(currentNode.left);
+        }
+        if (currentNode.right) {
+          queue.enqueue(currentNode.right);
+        }
+      }
+    }
+
+    return visitedNodeValues;
   }
 }

@@ -82,4 +82,26 @@ describe('BinarySearchTree', () => {
       expect(node?.right).toBeNull();
     });
   });
+
+  describe('breadthFirstSearch', () => {
+    let bst: BinarySearchTree;
+    beforeEach(() => {
+      bst = new BinarySearchTree();
+    });
+    it('returns an empty array when the tree is empty', () => {
+      expect(bst.breadthFirstSearch()).toEqual([]);
+    });
+
+    it('returns an array of all nodes traversed with BFS', () => {
+      bst
+        .insert(10)
+        .insert(5)
+        .insert(7)
+        .insert(3)
+        .insert(6)
+        .insert(15)
+        .insert(13);
+      expect(bst.breadthFirstSearch()).toEqual([10, 5, 15, 3, 7, 13, 6]);
+    });
+  });
 });

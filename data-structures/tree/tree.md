@@ -23,3 +23,20 @@ A Tree is a data structure consists of nodes in a parent/child relationship. Unl
 - Validating abstract syntax tree in programing languages
 - Decision trees in machine learning
 - File systems
+
+## Tree Traversal
+
+### Breadth First Search
+
+With BFS, every sibling is visited before traversing into children.
+We can use a queue and a while loop to traverse through the tree
+
+- create an array to store visited nodes' values
+- create a queue and enqueue the root
+- while the queue is not empty:
+  - dequeue a node and store the value into the array
+  - if left is not null, enqueue left
+  - if right is not null, enqueue right
+- return the array with visited nodes
+
+### Depth First Search
