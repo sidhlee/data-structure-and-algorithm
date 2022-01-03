@@ -10,6 +10,40 @@ A Binary Search Tree is a Binary Tree with sorted data where the left child alwa
 
 In Binary trees, each node can have have maximum two nodes.
 
+### Full Binary Tree
+
+A Full Binary Tree is a tree where every node other than leaves have two children, left and right.
+
+```text
+       Root
+    L        R
+ L    R    L    R
+L R  L R  L R  L R
+```
+
+### Complete Binary Tree
+
+A Complete Binary Tree is a tree where every level except possibly the last is completely filled from left to right.
+
+```text
+       Root
+    L        R
+ L    R    L    R
+L R  L
+```
+
+### Balanced Binary Tree
+
+A Balanced Binary Tree is a tree where every node has left and right subtree whose heights do not differ greater than one.
+In the following chart, the number indicates the difference between the height of the left and right subtrees.
+
+```text
+       0
+   1       1
+ 1   1   0   1
+0     0     0
+```
+
 ## BST methods
 
 ### BST Insert
