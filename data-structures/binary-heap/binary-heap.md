@@ -44,7 +44,18 @@ Insert a value to the correct place in a tree.
 
 - Insert the value at the end of the array
 - Bubble up until finding the right spot.
+  - less than its parent but greater than or equal to its children
 - Compare bubbling node to its parent and swap if greater than parent.
+
+### `extractMax(): value`
+
+Remove the max node (root) from the heap and return it.
+
+- Swap the root with the last node in the tree.
+- Pop the root off the end of the tree and save it to return later.
+- Have the new root sink down to the correct position:
+  - Compare left and right child and if the bigger child is greater than the new root (parent), swap them.
+  - If the bigger child is less than or equal to the new root, break out of the loop and return the saved root.
 
 ## Priority Queue
 
