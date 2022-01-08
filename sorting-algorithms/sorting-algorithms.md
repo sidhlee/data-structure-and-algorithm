@@ -28,7 +28,7 @@ Selection sort finds the minimum value while looping through an array and select
 - If new min value is found, swap it with the old min value at the beginning of the loop.
 - Repeat from the second item in teh array.
 
-### Selection SOrt Complexity
+### Selection Sort Complexity
 
 - O(n^2) - always need to check "the next smallest number" from each iteration through the outer loop.
 - Space: O(1)

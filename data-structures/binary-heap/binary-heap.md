@@ -60,4 +60,22 @@ Remove the max node (root) from the heap and return it.
 ## Priority Queue
 
 - Abstract data type
-- Often called as heap
+- Priority Queue is often referred to interchangeably as Heap
+- In Unix, processes
+- Can be implemented not only with BinaryHeap but any other data structure but likely not as efficient as heap.
+- Naive implementation involves sorting nodes based on their priority.
+
+### PQ Application
+
+- Unix manages its processes based on their nicesness value
+- At the hospitals, the most urgent patient at any given moment must be taken care of first as new patients with varying urgencies continue to be accepted.
+
+### PQ Implementation
+
+When a smaller number represents higher priority, we can implement a Priority Queue with Min Binary Heap.
+The different from the Binary Heap would be that in priority queue, each node has value and a priority and we need to do comparison based on the priority, not the value.
+
+## Binary Heap Complexity
+
+- Insertion/Removal - O(log(n)) for bubbling up/down
+- Search - O(n) because we still need to traverse entire list. You'd be better off using binary search tree because Binary Heap does not guarantee the order between siblings.
