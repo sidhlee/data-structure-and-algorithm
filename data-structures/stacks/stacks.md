@@ -1,4 +1,4 @@
-# Stack
+# Stacks
 
 A stack is a LIFO data structure where the last pushed elements is the first to be popped out.
 

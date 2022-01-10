@@ -1,4 +1,4 @@
-# Queue
+# Queues
 
 A queue is a FIFO data structure where the first stored item is removed first.
 

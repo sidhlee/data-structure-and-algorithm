@@ -1,4 +1,4 @@
-# Binary Heap
+# Binary Heaps
 
 A Heap is a special case of a complete tree where every child has either has the value less than or equal to its parent (max heap) or greater than or equal to (min heap).
 

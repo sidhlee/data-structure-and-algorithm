@@ -1,6 +1,6 @@
-# Linked List
+# Linked Lists
 
-Linked List is a data structure that has head, tail and length.
+A Linked List is a data structure that has head, tail and length.
 Linked List consists of nodes, and each node has a value and a pointer to another node or null.
 
 ## List vs Array

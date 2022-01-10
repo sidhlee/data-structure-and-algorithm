@@ -1,4 +1,4 @@
-import { Queue } from '../../queue/queue';
+import { Queue } from '../../queues/queue';
 
 type Comparable = string | number;
 

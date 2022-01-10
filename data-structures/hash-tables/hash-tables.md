@@ -1,4 +1,4 @@
-# Hash Table
+# Hash Tables
 
 Hash tables are used to store key/value pairs. Unlike arrays, hash tables provide O(1) search, insertion, and deletion for average case, and O(n) for [the worst cases](https://stackoverflow.com/a/9214594).
 

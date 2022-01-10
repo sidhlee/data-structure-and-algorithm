@@ -1,4 +1,4 @@
-# Tree Data Structure
+# Trees
 
 A Tree is a data structure consists of nodes in a parent/child relationship. Unlike the list, trees are non-linear where many paths can branch of from a single parent. We can think of a tree as a special case of tree where parents have maximum one child.
 
