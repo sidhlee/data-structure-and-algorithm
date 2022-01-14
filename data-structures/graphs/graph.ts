@@ -1,3 +1,4 @@
+import { Queue } from '../queues/queue';
 import { Stack } from '../stacks/stack';
 
 type Vertex = string;
@@ -85,6 +86,31 @@ export class Graph {
         });
       }
     }
+    return traversedNodeList;
+  }
+
+  traverseBreadthFirst(startingNode: Vertex) {
+    if (!this.adjacencyLists[startingNode]) return [];
+
+    const traversedNodeList = [] as Vertex[];
+    const visitedNodesDict = {} as { [node: string]: boolean };
+    const queue = new Queue<Vertex>();
+    queue.enqueue(startingNode);
+    visitedNodesDict[startingNode] = true;
+
+    while (queue.size > 0) {
+      const currentNode = queue.dequeue();
+      if (currentNode) {
+        traversedNodeList.push(currentNode);
+        this.adjacencyLists[currentNode].forEach((neighbor) => {
+          if (!visitedNodesDict[neighbor]) {
+            visitedNodesDict[neighbor] = true;
+            queue.enqueue(neighbor);
+          }
+        });
+      }
+    }
+
     return traversedNodeList;
   }
 }

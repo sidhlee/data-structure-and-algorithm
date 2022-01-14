@@ -3,13 +3,16 @@
 Graph traversal is different from tree traversal in that:
 
 - it doesn't always start from the root
-- it can have cycles -> need to remember already visited
+- it can have cycles -> need to remember already visited nodes
 
 ## Depth First Graph Traversal
 
-"Explore as far as down the branch before "backtracking"
+"Explore as far as down the branch before backtracking"
 
 - traverse through current node's neighbor before visiting all the sibling nodes.
+- focus on deepening the traversal
+- use stack data structure to backtrack
+  - most recently pushed node will be popped and visited before the old ones
 
 ### DFS Recursive
 
@@ -43,3 +46,11 @@ DFS(vertex):
       for each of vertex's neighbors, N do
         S.push(N)
 ```
+
+## Breadth First Graph Traversal
+
+"Visit neighbors at the current depth first"
+
+- focus on broadening the traversal
+- use queue data structure to visit nodes in order
+  - new nodes can be enqueued, but nodes are visited in queueing order.

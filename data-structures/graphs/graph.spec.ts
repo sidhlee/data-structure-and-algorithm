@@ -193,4 +193,50 @@ describe('Graph', () => {
       expect(graph.traverseDepthFirstIteratively('Z')).toEqual([]);
     });
   });
+
+  describe('traverseBreadthFirst', () => {
+    let graph: Graph;
+    beforeEach(() => {
+      graph = new Graph();
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addVertex('C');
+      graph.addVertex('D');
+      graph.addVertex('E');
+      graph.addVertex('F');
+
+      graph.addEdge('A', 'B');
+      graph.addEdge('A', 'C');
+      graph.addEdge('B', 'D');
+      graph.addEdge('C', 'E');
+      graph.addEdge('D', 'E');
+      graph.addEdge('D', 'F');
+      graph.addEdge('E', 'F');
+    });
+    it('returns the correct result starting from the first node', () => {
+      expect(graph.traverseBreadthFirst('A')).toEqual([
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+      ]);
+    });
+
+    it('returns the correct result starting from the last node', () => {
+      expect(graph.traverseBreadthFirst('F')).toEqual([
+        'F',
+        'D',
+        'E',
+        'B',
+        'C',
+        'A',
+      ]);
+    });
+
+    it('returns an empty array when given an invalid node', () => {
+      expect(graph.traverseBreadthFirst('Z')).toEqual([]);
+    });
+  });
 });
