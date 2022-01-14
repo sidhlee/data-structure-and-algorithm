@@ -1,3 +1,5 @@
+import { Stack } from '../stacks/stack';
+
 type Vertex = string;
 
 export class Graph {
@@ -57,6 +59,32 @@ export class Graph {
       traverse(startingNode);
     }
 
+    return traversedNodeList;
+  }
+
+  traverseDepthFirstIteratively(startingNode: Vertex) {
+    if (!this.adjacencyLists[startingNode]) return [];
+
+    const traversedNodeList = [] as Vertex[];
+    const visitedNodesDict = {} as { [node: string]: boolean };
+    const stack = new Stack<Vertex>();
+    stack.push(startingNode);
+    // we're only marking neighbors inside the loop
+    // so we need to mark the starting node here
+    visitedNodesDict[startingNode] = true;
+
+    while (stack.size > 0) {
+      const poppedNode = stack.pop();
+      if (poppedNode) {
+        traversedNodeList.push(poppedNode);
+        this.adjacencyLists[poppedNode].forEach((neighbor) => {
+          if (!visitedNodesDict[neighbor]) {
+            visitedNodesDict[neighbor] = true;
+            stack.push(neighbor);
+          }
+        });
+      }
+    }
     return traversedNodeList;
   }
 }

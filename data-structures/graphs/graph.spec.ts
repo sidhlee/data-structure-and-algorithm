@@ -147,4 +147,50 @@ describe('Graph', () => {
       expect(graph.traverseDepthFirstRecursively('Z')).toEqual([]);
     });
   });
+
+  describe('traverseDepthFirstIteratively', () => {
+    let graph: Graph;
+    beforeEach(() => {
+      graph = new Graph();
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addVertex('C');
+      graph.addVertex('D');
+      graph.addVertex('E');
+      graph.addVertex('F');
+
+      graph.addEdge('A', 'B');
+      graph.addEdge('A', 'C');
+      graph.addEdge('B', 'D');
+      graph.addEdge('C', 'E');
+      graph.addEdge('D', 'E');
+      graph.addEdge('D', 'F');
+      graph.addEdge('E', 'F');
+    });
+    it('returns the correct result starting from the first node', () => {
+      expect(graph.traverseDepthFirstIteratively('A')).toEqual([
+        'A',
+        'C',
+        'E',
+        'F',
+        'D',
+        'B',
+      ]);
+    });
+
+    it('returns the correct result starting from the last node', () => {
+      expect(graph.traverseDepthFirstIteratively('F')).toEqual([
+        'F',
+        'E',
+        'C',
+        'A',
+        'B',
+        'D',
+      ]);
+    });
+
+    it('returns an empty array when given an invalid node', () => {
+      expect(graph.traverseDepthFirstIteratively('Z')).toEqual([]);
+    });
+  });
 });

@@ -7,6 +7,10 @@ Graph traversal is different from tree traversal in that:
 
 ## Depth First Graph Traversal
 
+"Explore as far as down the branch before "backtracking"
+
+- traverse through current node's neighbor before visiting all the sibling nodes.
+
 ### DFS Recursive
 
 Pseudo code
@@ -24,3 +28,18 @@ DFS(vertex):
 ```
 
 ### DFS Iterative
+
+Pseudo code
+
+```text
+DFS(vertex):
+  let S be a new stack
+  S.push(vertex)
+  while S is not empty
+    vertex = S.pop()
+    if vertex is not labelled as discovered
+      visit vertex (add to the results list)
+      label vertex as discovered
+      for each of vertex's neighbors, N do
+        S.push(N)
+```
