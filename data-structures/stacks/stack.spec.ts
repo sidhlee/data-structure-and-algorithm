@@ -17,8 +17,8 @@ describe('Stack', () => {
       const stack = new Stack();
       stack.push(1);
       stack.push(2);
-      expect(stack.first?.value).toBe(1);
-      expect(stack.last?.value).toBe(2);
+      expect(stack.first?.value).toBe(2);
+      expect(stack.last?.value).toBe(1);
     });
   });
 
@@ -39,7 +39,6 @@ describe('Stack', () => {
     it('sets the second item to be first when there there is more than one node', () => {
       stack.push('first');
       stack.push('second');
-      stack.pop();
       expect(stack.first?.value).toBe('second');
     });
     it('decreases the size by one', () => {
@@ -50,7 +49,8 @@ describe('Stack', () => {
     });
     it('returns the value of the node removed', () => {
       stack.push('first');
-      expect(stack.pop()).toBe('first');
+      stack.push('second');
+      expect(stack.pop()).toBe('second');
     });
   });
 });

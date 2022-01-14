@@ -22,9 +22,10 @@ export class Stack<T> {
       this.first = newNode;
       this.last = newNode;
     } else {
-      const oldLast = this.last;
-      oldLast.next = newNode;
-      this.last = newNode;
+      // setting new node as first to be able to pop with O(1)
+      const oldFirst = this.first;
+      this.first = newNode;
+      this.first.next = oldFirst;
     }
     this.size++;
     return this.size;
@@ -37,6 +38,7 @@ export class Stack<T> {
       this.first = null;
       this.last = null;
     } else {
+      // if we're using last to pop, it would take O(n) to find the second last and update it to be the last
       this.first = this.first.next;
     }
     this.size--;
