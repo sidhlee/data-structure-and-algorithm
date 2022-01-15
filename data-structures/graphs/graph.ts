@@ -2,9 +2,10 @@ import { Queue } from '../queues/queue';
 import { Stack } from '../stacks/stack';
 
 type Vertex = string;
+type AdjacencyLists = { [vertex: string]: any[] };
 
-export class Graph {
-  adjacencyLists: { [vertex: string]: Vertex[] };
+abstract class Graph {
+  adjacencyLists: AdjacencyLists;
   constructor() {
     this.adjacencyLists = {};
   }
@@ -15,11 +16,7 @@ export class Graph {
     }
   }
 
-  addEdge(vertex1: Vertex, vertex2: Vertex) {
-    if (!this.adjacencyLists[vertex1] || !this.adjacencyLists[vertex2]) return;
-    this.adjacencyLists[vertex1].push(vertex2);
-    this.adjacencyLists[vertex2].push(vertex1);
-  }
+  abstract addEdge(vertex1: Vertex, vertex2: Vertex, weight?: number): void;
 
   removeEdge(vertex1: Vertex, vertex2: Vertex) {
     if (!this.adjacencyLists[vertex1] || !this.adjacencyLists[vertex2]) return;
@@ -38,6 +35,19 @@ export class Graph {
       this.removeEdge(vertex, edge);
     }
     delete this.adjacencyLists[vertex];
+  }
+}
+
+type UnweightedAdjacencyLists = { [vertex: string]: string[] };
+
+export class UnweightedGraph extends Graph {
+  // declare allows to override Super field without compiling into JS:
+  // https://stackoverflow.com/a/70060417
+  declare adjacencyLists: UnweightedAdjacencyLists;
+  addEdge(vertex1: Vertex, vertex2: Vertex) {
+    if (!this.adjacencyLists[vertex1] || !this.adjacencyLists[vertex2]) return;
+    this.adjacencyLists[vertex1].push(vertex2);
+    this.adjacencyLists[vertex2].push(vertex1);
   }
 
   traverseDepthFirstRecursively(startingNode: Vertex) {
@@ -110,7 +120,23 @@ export class Graph {
         });
       }
     }
-
     return traversedNodeList;
+  }
+}
+
+class WeightedEdge {
+  constructor(public node: string, public weight: number) {}
+}
+
+type WeightedAdjacencyLists = { [vertex: string]: WeightedEdge[] };
+
+export class WeightedGraph extends Graph {
+  declare adjacencyLists: WeightedAdjacencyLists;
+
+  addEdge(vertex1: string, vertex2: string, weight: number): void {
+    if (!this.adjacencyLists[vertex1] || !this.adjacencyLists[vertex2]) return;
+
+    this.adjacencyLists[vertex1].push(new WeightedEdge(vertex2, weight));
+    this.adjacencyLists[vertex2].push(new WeightedEdge(vertex1, weight));
   }
 }

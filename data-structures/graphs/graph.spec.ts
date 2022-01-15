@@ -1,9 +1,9 @@
-import { Graph } from './graph';
+import { UnweightedGraph, WeightedGraph } from './graph';
 
-describe('Graph', () => {
-  let graph: Graph;
+describe('UnweightedGraph', () => {
+  let graph: UnweightedGraph;
   beforeEach(() => {
-    graph = new Graph();
+    graph = new UnweightedGraph();
   });
   it('has adjacency list', () => {
     expect(graph.adjacencyLists).not.toBeUndefined();
@@ -30,7 +30,7 @@ describe('Graph', () => {
       };
     });
     it('should do nothing if vertices are not found', () => {
-      graph = new Graph();
+      graph = new UnweightedGraph();
       graph.addEdge('Smith', 'Architect');
       expect(graph.adjacencyLists).toEqual({});
     });
@@ -103,9 +103,9 @@ describe('Graph', () => {
   });
 
   describe('traverseDepthFirstRecursively', () => {
-    let graph: Graph;
+    let graph: UnweightedGraph;
     beforeEach(() => {
-      graph = new Graph();
+      graph = new UnweightedGraph();
       graph.addVertex('A');
       graph.addVertex('B');
       graph.addVertex('C');
@@ -149,9 +149,9 @@ describe('Graph', () => {
   });
 
   describe('traverseDepthFirstIteratively', () => {
-    let graph: Graph;
+    let graph: UnweightedGraph;
     beforeEach(() => {
-      graph = new Graph();
+      graph = new UnweightedGraph();
       graph.addVertex('A');
       graph.addVertex('B');
       graph.addVertex('C');
@@ -195,9 +195,9 @@ describe('Graph', () => {
   });
 
   describe('traverseBreadthFirst', () => {
-    let graph: Graph;
+    let graph: UnweightedGraph;
     beforeEach(() => {
-      graph = new Graph();
+      graph = new UnweightedGraph();
       graph.addVertex('A');
       graph.addVertex('B');
       graph.addVertex('C');
@@ -237,6 +237,34 @@ describe('Graph', () => {
 
     it('returns an empty array when given an invalid node', () => {
       expect(graph.traverseBreadthFirst('Z')).toEqual([]);
+    });
+  });
+});
+
+describe('WeightedGraph', () => {
+  let graph: WeightedGraph;
+  beforeEach(() => {
+    graph = new WeightedGraph();
+    graph.addVertex('A');
+    graph.addVertex('B');
+    graph.addVertex('C');
+    graph.addVertex('D');
+    graph.addVertex('E');
+    graph.addVertex('F');
+  });
+  describe('addEdge', () => {
+    it('adds weighted edges to both vertices', () => {
+      graph.addEdge('A', 'B', 5);
+      expect(graph.adjacencyLists['A']).toEqual([{ node: 'B', weight: 5 }]);
+      expect(graph.adjacencyLists['B']).toEqual([{ node: 'A', weight: 5 }]);
+    });
+
+    it('does not do anything for invalid vertices', () => {
+      graph.addEdge('A', 'invalid', 5);
+      graph.addEdge('invalid', 'B', 5);
+      graph.addEdge('invalid', 'invalid', 5);
+      expect(graph.adjacencyLists['A']).toEqual([]);
+      expect(graph.adjacencyLists['B']).toEqual([]);
     });
   });
 });
