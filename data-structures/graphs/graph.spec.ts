@@ -267,4 +267,37 @@ describe('WeightedGraph', () => {
       expect(graph.adjacencyLists['B']).toEqual([]);
     });
   });
+
+  describe('getShortestPathWithDijkstra', () => {
+    beforeEach(() => {
+      graph.addEdge('A', 'B', 4);
+      graph.addEdge('A', 'C', 2);
+      graph.addEdge('B', 'E', 3);
+      graph.addEdge('C', 'D', 2);
+      graph.addEdge('C', 'F', 4);
+      graph.addEdge('D', 'E', 3);
+      graph.addEdge('D', 'F', 1);
+      graph.addEdge('E', 'F', 1);
+    });
+    it('returns shortest path array', () => {
+      expect(graph.getShortestPathWithDijkstra('A', 'E')).toEqual([
+        'A',
+        'C',
+        'D',
+        'F',
+        'E',
+      ]);
+    });
+
+    it('works with island', () => {
+      graph.addVertex('island');
+      expect(graph.getShortestPathWithDijkstra('A', 'E')).toEqual([
+        'A',
+        'C',
+        'D',
+        'F',
+        'E',
+      ]);
+    });
+  });
 });
