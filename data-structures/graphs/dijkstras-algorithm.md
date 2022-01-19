@@ -24,3 +24,4 @@ dijkstra(startNode: Vertex, finishNode: Vertex):
 
 - Add complexities
 - Add optimizations
+- Add applications
