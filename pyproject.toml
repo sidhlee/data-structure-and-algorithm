@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "data-structure-and-algorithm"
+version = "0.1.0"
+description = ""
+authors = ["Sid Hayoun Lee <sidhlee@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.931"
+pytest = "^6.2.5"
+flake8 = "^4.0.1"
+black = "^21.12b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
