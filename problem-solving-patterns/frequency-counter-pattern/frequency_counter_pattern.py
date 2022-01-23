@@ -41,3 +41,28 @@ def get_frequency_dict(list: List[Union[str, int]]):
         else:
             frequency_dict[item] = 1
     return frequency_dict
+
+
+def is_anagram(str1: str, str2: str) -> bool:
+    """Determines if two strings are anagram
+
+    Returns true if two empty strings are passed
+
+    Args:
+        str1 (str): First string to compare
+        str2 (str): Second string to compare
+
+    Returns:
+        bool: whether or not the given strings are anagram
+    """
+    if len(str1) != len(str2):
+        return False
+    dict1 = get_frequency_dict(str1)
+    dict2 = get_frequency_dict(str2)
+    for letter in dict1:
+        try:
+            if dict1[letter] != dict2[letter]:
+                return False
+        except KeyError:
+            return False
+    return True

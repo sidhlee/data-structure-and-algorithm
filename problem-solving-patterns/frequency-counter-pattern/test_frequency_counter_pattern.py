@@ -1,6 +1,6 @@
 import unittest
 from random import randrange
-from frequency_counter_pattern import same, same_naive
+from frequency_counter_pattern import same, same_naive, is_anagram
 from utils.time import time_func
 
 
@@ -45,3 +45,22 @@ class SameTestCase(unittest.TestCase):
         (delta_naive) = time_func(lambda: same_naive(arr_1, arr_2))
         (delta_frequency_dict) = time_func(lambda: same(arr_1, arr_2))
         self.assertGreater(delta_naive, delta_frequency_dict * 2)
+
+
+class IsAnagramTestCase(unittest.TestCase):
+    def test_success(self):
+        self.assertTrue(is_anagram("anagram", "nagaram"))
+        self.assertTrue(is_anagram("qwerty", "qeyrwt"))
+        self.assertTrue(is_anagram("texttwisttime", "timetwisttext"))
+
+    def test_two_empty_strings(self):
+        self.assertTrue(is_anagram("", ""))
+
+    def test_frequency_fail(self):
+        self.assertFalse(is_anagram("aaz", "zza"))
+
+    def test_same_length_fail(self):
+        self.assertFalse(is_anagram("rat", "car"))
+
+    def test_same_set_different_length_fail(self):
+        self.assertFalse(is_anagram("awesome", "awesom"))
