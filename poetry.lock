@@ -242,10 +242,18 @@ category = "dev"
 optional = false
 python-versions = ">=3.6"
 
+[[package]]
+name = "unittest"
+version = "0.0"
+description = ""
+category = "dev"
+optional = false
+python-versions = "*"
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "685c7ca6ab6ad974e00a325c21dc9fd6a5b3bfb2d4adbf12cfd89b4d21554e60"
+content-hash = "60356e95651fdf36de3c9d6c6e4d9a08f9f85bd3f3e078a88a1e704a2f5074ea"
 
 [metadata.files]
 atomicwrites = [
@@ -353,4 +361,7 @@ tomli = [
 typing-extensions = [
     {file = "typing_extensions-4.0.1-py3-none-any.whl", hash = "sha256:7f001e5ac290a0c0401508864c7ec868be4e701886d5b573a9528ed3973d9d3b"},
     {file = "typing_extensions-4.0.1.tar.gz", hash = "sha256:4ca091dea149f945ec56afb48dae714f21e8692ef22a395223bcd328961b6a0e"},
+]
+unittest = [
+    {file = "unittest2-0.0.0.tar.gz", hash = "sha256:1b492484bea7f68abda5fcc61412e77b6a105e5842355d630f8b75f01add3555"},
 ]
