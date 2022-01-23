@@ -1,7 +1,7 @@
 import unittest
 from random import randrange
 from frequency_counter_pattern import same, same_naive
-from utils.__init__ import time_func
+from utils.time import time_func
 
 
 class TestStringMethods(unittest.TestCase):
@@ -40,7 +40,7 @@ class SameTestCase(unittest.TestCase):
         self.assertFalse(same(arr_1, arr_2))
 
     def test_faster_than_naive(self):
-        arr_1 = [randrange(100) for n in range(100)]
+        arr_1 = [randrange(10000) for n in range(10000)]
         arr_2 = [n ** 2 for n in arr_1]
         (delta_naive) = time_func(lambda: same_naive(arr_1, arr_2))
         (delta_frequency_dict) = time_func(lambda: same(arr_1, arr_2))

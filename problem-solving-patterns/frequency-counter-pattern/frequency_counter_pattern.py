@@ -2,6 +2,7 @@ from typing import List, Union
 
 
 def same_naive(arr1: List[int], arr2: List[int]) -> bool:
+    """O(n^2) implementation"""
     if len(arr1) != len(arr2):
         return False
     arr2_copy = arr2.copy()  # don't mutate the input list
@@ -16,6 +17,7 @@ def same_naive(arr1: List[int], arr2: List[int]) -> bool:
 
 
 def same(arr1: List[int], arr2: List[int]) -> bool:
+    """O(n) using hashmap to comapre the two lists"""
     dict_1 = get_frequency_dict(arr1)
     dict_2 = get_frequency_dict(arr2)
     if len(dict_1) != len(dict_2):

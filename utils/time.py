@@ -1,4 +1,3 @@
-from termios import CBAUDEX
 from typing import Any, Callable
 from time import time
 
