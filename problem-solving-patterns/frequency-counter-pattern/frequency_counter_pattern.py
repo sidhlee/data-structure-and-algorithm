@@ -1,6 +1,20 @@
 from typing import List, Union
 
 
+def same_naive(arr1: List[int], arr2: List[int]) -> bool:
+    if len(arr1) != len(arr2):
+        return False
+    arr2_copy = arr2.copy()  # don't mutate the input list
+    for item in arr1:
+        try:
+            # removes item from arr2 with O(n)
+            arr2_copy.remove(item ** 2)
+        except ValueError:
+            # item doesn't exist in arr2
+            return False
+    return True
+
+
 def same(arr1: List[int], arr2: List[int]) -> bool:
     dict_1 = get_frequency_dict(arr1)
     dict_2 = get_frequency_dict(arr2)
