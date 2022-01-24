@@ -1,4 +1,4 @@
-from typing import Dict, List, Union
+from typing import Any, Dict, List, Union
 from collections import deque
 import math
 
@@ -122,3 +122,13 @@ def num_to_digits(num: int) -> List[int]:
 
 def get_number_of_digits(num: int) -> int:
     return math.floor(math.log10(num)) + 1
+
+
+def are_there_duplicates(*args: Any) -> bool:
+    dict = {}
+    for arg in args:
+        try:
+            dict[arg] += 1
+        except KeyError:
+            dict[arg] = 1
+    return True if any([dict[arg] > 1 for arg in args]) else False

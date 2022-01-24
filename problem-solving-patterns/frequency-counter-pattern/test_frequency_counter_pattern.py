@@ -1,6 +1,12 @@
 import unittest
 from random import randrange
-from frequency_counter_pattern import same, same_naive, is_anagram, same_frequency
+from frequency_counter_pattern import (
+    same,
+    same_naive,
+    is_anagram,
+    same_frequency,
+    are_there_duplicates,
+)
 from utils.time import time_func
 
 
@@ -75,3 +81,14 @@ class SameFrequencyTestCase(unittest.TestCase):
 
     def test_different_frequency_fail(self):
         self.assertFalse(same_frequency(112, 122))
+
+
+class AreThereDuplicatesTestCase(unittest.TestCase):
+    def test_int_success(self):
+        self.assertTrue(are_there_duplicates(1, 2, 3, 1))
+
+    def test_str_success(self):
+        self.assertTrue(are_there_duplicates("a", "b", "c", "a"))
+
+    def test_no_duplicates_fail(self):
+        self.assertFalse(are_there_duplicates(1, 2, 3))
