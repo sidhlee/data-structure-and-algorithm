@@ -1,4 +1,6 @@
-from typing import List, Union
+from typing import Dict, List, Union
+from collections import deque
+import math
 
 
 def same_naive(arr1: List[int], arr2: List[int]) -> bool:
@@ -66,3 +68,57 @@ def is_anagram(str1: str, str2: str) -> bool:
         except KeyError:
             return False
     return True
+
+
+def same_frequency(num1: int, num2: int) -> bool:
+    """Determines if two numbers have the same frequencies of digits
+
+    eg. same_frequency(182, 281) -> True, same_frequency(24, 14) -> False
+
+    Args:
+        num1 (int): First number to compare
+        num2 (int): Second number to compare
+
+    Returns:
+        bool: whether or not the given numbers have the same frequencies of digits
+    """
+    if get_number_of_digits(num1) != get_number_of_digits(num2):
+        return False
+    dict1 = get_digit_frequency_dict(num1)
+    dict2 = get_digit_frequency_dict(num2)
+    for digit in dict1:
+        try:
+            if dict1[digit] != dict2[digit]:
+                return False
+        except KeyError:
+            return False
+    return True
+
+
+def get_digit_frequency_dict(num: int) -> Dict[int, int]:
+    digits = num_to_digits(num)
+    dict = {}
+    for digit in digits:
+        try:
+            if dict[digit]:
+                dict[digit] += 1
+        except KeyError:
+            dict[digit] = 1
+    return dict
+
+
+def num_to_digits(num: int) -> List[int]:
+    # O(1) instead of O(n) using list.insert(0, val)
+    # https://stackoverflow.com/a/8538295
+    digits_queue = deque()
+
+    while num > 0:
+        digit = num % 10
+        digits_queue.appendleft(digit)
+        num = math.floor(num / 10)
+
+    return list(digits_queue)
+
+
+def get_number_of_digits(num: int) -> int:
+    return math.floor(math.log10(num)) + 1

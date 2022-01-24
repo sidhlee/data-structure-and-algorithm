@@ -1,6 +1,6 @@
 import unittest
 from random import randrange
-from frequency_counter_pattern import same, same_naive, is_anagram
+from frequency_counter_pattern import same, same_naive, is_anagram, same_frequency
 from utils.time import time_func
 
 
@@ -64,3 +64,14 @@ class IsAnagramTestCase(unittest.TestCase):
 
     def test_same_set_different_length_fail(self):
         self.assertFalse(is_anagram("awesome", "awesom"))
+
+
+class SameFrequencyTestCase(unittest.TestCase):
+    def test_success(self):
+        self.assertTrue(same_frequency(182, 281))
+
+    def test_different_number_fail(self):
+        self.assertFalse(same_frequency(123, 234))
+
+    def test_different_frequency_fail(self):
+        self.assertFalse(same_frequency(112, 122))
