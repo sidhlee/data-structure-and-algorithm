@@ -1,5 +1,5 @@
 import unittest
-from sliding_window_pattern import max_subarray_sum
+from sliding_window_pattern import max_subarray_sum, min_subarray_len
 
 
 class MaxSubarraySumTestCase(unittest.TestCase):
@@ -14,3 +14,18 @@ class MaxSubarraySumTestCase(unittest.TestCase):
 
     def test_subarray_bigger_than_array(self):
         self.assertIsNone(max_subarray_sum([1, 2], 3))
+
+
+class MinSubarrayLenTestCase(unittest.TestCase):
+    def test_success(self):
+        self.assertEqual(min_subarray_len([2, 3, 1, 2, 4, 3], 7), 2)
+        self.assertEqual(min_subarray_len([2, 1, 6, 5, 4], 9), 2)
+        self.assertEqual(
+            min_subarray_len([3, 1, 7, 11, 2, 9, 8, 21, 62, 33, 19], 52), 1
+        )
+        self.assertEqual(min_subarray_len([4, 3, 3, 8, 1, 2, 3], 11), 2)
+        self.assertEqual(min_subarray_len([1, 4, 16, 22, 5, 7, 8, 9, 10], 39), 3)
+        self.assertEqual(min_subarray_len([1, 4, 16, 22, 5, 7, 8, 9, 10], 55), 5)
+
+    def test_no_min_subarray(self):
+        self.assertEqual(min_subarray_len([1, 4, 16, 22, 5, 7, 8, 9, 10], 95), 0)
