@@ -92,9 +92,7 @@ def find_longest_substring(string: str) -> int:
 
         # the character exists in substring
         try:
-            prev_char_index = char_dict[char]
-            substring_includes_char = prev_char_index >= substring_head_index
-            if substring_includes_char:
+            if char_dict[char] >= substring_head_index:
                 # move substring head forward to exclude old duplicated character
                 substring_head_index = char_dict[char] + 1
                 # update the index of the duplicated character with the index of the new one
