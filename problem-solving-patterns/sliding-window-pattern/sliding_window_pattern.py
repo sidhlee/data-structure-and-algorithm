@@ -72,3 +72,46 @@ def min_subarray_len(numbers: List[int], min: int) -> int:
             return 0
 
     return subarray_len
+
+
+def find_longest_substring(string: str) -> int:
+    substring_head_index = 0
+    longest_substring_length = 0
+    char_dict = {}
+
+    for i, char in enumerate(string):
+
+        def update_longest_substring_length():
+            nonlocal longest_substring_length
+            current_substring_length = i - substring_head_index + 1
+            longest_substring_length = (
+                current_substring_length
+                if current_substring_length > longest_substring_length
+                else longest_substring_length
+            )
+
+        # the character exists in substring
+        try:
+            prev_char_index = char_dict[char]
+            substring_includes_char = prev_char_index >= substring_head_index
+            if substring_includes_char:
+                # move substring head forward to exclude old duplicated character
+                substring_head_index = char_dict[char] + 1
+                # update the index of the duplicated character with the index of the new one
+                char_dict[char] = i
+            update_longest_substring_length()
+
+        # character not found in the dictionary
+        except KeyError:
+            char_dict[char] = i
+            update_longest_substring_length()
+
+    return longest_substring_length
+
+
+#
+# thisisawesome
+#     h
+#      i
+# char_dict : { t: 0, h: 1, i: 4, s: 5}
+# longest_substring_length: 1
