@@ -1,6 +1,6 @@
 from typing import Callable
 import unittest
-from .recursion import (
+from recursion import (
     collect_odd_values,
     collect_odd_values_pure,
     power,
@@ -12,7 +12,7 @@ from .recursion import (
     is_palindrome,
     some_recursive,
     flatten_pure,
-    flatten_dynamic,
+    flatten_helper,
     capitalize_first,
     nested_even_sum,
     capitalize_words,
@@ -37,7 +37,7 @@ class PowerTestCase(unittest.TestCase):
 
     def test_success(self):
         self.assertEqual(power(2, 2), 4)
-        self.assertEqual(power(4, 4), 16)
+        self.assertEqual(power(4, 4), 256)
 
 
 class Factorial(unittest.TestCase):
@@ -58,7 +58,8 @@ class ProductsOfArrayTestCase(unittest.TestCase):
 
     def test_empty_array_fail(self):
         with self.assertRaises(Exception) as e:
-            self.assertEqual(e.exception, "?")
+            product_of_array([])
+        self.assertEqual(str(e.exception), "cannot pass an empty list")
 
 
 class SumRangeTestCase(unittest.TestCase):
@@ -101,7 +102,15 @@ class SomeRecursiveTestCase(unittest.TestCase):
 
     def test_fail(self):
         self.assertFalse(some_recursive([4, 6, 8], self.is_odd))
-        self.assertFalse(some_recursive([4, 6, 8]), lambda val: val > 10)
+        self.assertFalse(some_recursive([4, 6, 8], lambda val: val > 10))
+
+
+class FlattenHelperTestCase(unittest.TestCase):
+    def test_success(self):
+        self.assertEqual(flatten_helper([1, 2, 3, [4, 5]]), [1, 2, 3, 4, 5])
+        self.assertEqual(flatten_helper([1, [2, [3, 4], [[5]]]]), [1, 2, 3, 4, 5])
+        self.assertEqual(flatten_helper([[1], [2], [3]]), [1, 2, 3])
+        self.assertEqual(flatten_helper([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]]), [1, 2, 3])
 
 
 class FlattenPureTestCase(unittest.TestCase):
@@ -109,19 +118,7 @@ class FlattenPureTestCase(unittest.TestCase):
         self.assertEqual(flatten_pure([1, 2, 3, [4, 5]]), [1, 2, 3, 4, 5])
         self.assertEqual(flatten_pure([1, [2, [3, 4], [[5]]]]), [1, 2, 3, 4, 5])
         self.assertEqual(flatten_pure([[1], [2], [3]]), [1, 2, 3])
-        self.assertEqual(
-            flatten_pure([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]]), [1, 2, 3, 4, 5]
-        )
-
-
-class FlattenDynamicTestCase(unittest.TestCase):
-    def test_success(self):
-        self.assertEqual(flatten_dynamic([1, 2, 3, [4, 5]]), [1, 2, 3, 4, 5])
-        self.assertEqual(flatten_dynamic([1, [2, [3, 4], [[5]]]]), [1, 2, 3, 4, 5])
-        self.assertEqual(flatten_dynamic([[1], [2], [3]]), [1, 2, 3])
-        self.assertEqual(
-            flatten_dynamic([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]]), [1, 2, 3, 4, 5]
-        )
+        self.assertEqual(flatten_pure([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]]), [1, 2, 3])
 
 
 class CapitalizeFirstTestCase(unittest.TestCase):
