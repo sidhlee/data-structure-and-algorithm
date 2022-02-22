@@ -6,10 +6,10 @@ Bubble Sort swaps adjacent elements to bubble up the largest values to the top (
 
 ### Bubble Sort Pseudocode
 
-- Start looping from the end of the array towards the beginning.
-- Start inner loop from the beginning up to the outer cursor, swapping the adjacent items if the item has greater value than the next item. This will place the largest value within the inner loop to the end of the range, and eliminate that value from the next run through the inner loop.kli,m.
+- Start looping from the end of the array towards the beginning -> this is how we can get the diminishing inner loop!
+- Start inner loop from the beginning up to the outer cursor, **swapping the adjacent items** if the item has greater value than the next item. This will place the largest value within the inner loop to the end of the range, and eliminate that value from the next run through the inner loop.kli,m.
 - Return the sorted array
-- You can further optimize by returning early if there was no swaps in previous iteration meaning the array is already sorted.
+- You can further _optimize by returning early if there was no swaps in previous iteration_ meaning the array is already sorted.
 
 ### Bubble Sort Complexity
 
