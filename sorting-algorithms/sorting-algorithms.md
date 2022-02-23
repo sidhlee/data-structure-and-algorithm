@@ -1,5 +1,11 @@
 # Sorting Algorithm
 
+| Type      | How                                                                                  | Good when                                                | Avg | Best                                                  | Worst |
+| --------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------- | --- | ----------------------------------------------------- | ----- |
+| Bubble    | compare & swap neighbors to bubble up max values. break if not swapped in prev loop. | almost sorted array                                      | n2  | n                                                     | n2    |
+| Selection | find min value and keep swapping it with the i-th value.                             | swaps only once                                          | n2  | n2                                                    | n2    |
+| Insertion | Pick i-th item and keep sliding it to the left until finding right position.         | continuously adding new item to the already sorted array | n2  | 1 (when adding new max value to already sorted array) | n2    |
+
 ## Bubble Sort
 
 Bubble Sort swaps adjacent elements to bubble up the largest values to the top (or end of the list). After bubbling up the largest value to the top, it goes through the list again to bubble up the second largest value up to the second last place, just before the previously bubbled up value. The list to loop through gets reduced after each iteration until only the smallest value remain at the beginning.
