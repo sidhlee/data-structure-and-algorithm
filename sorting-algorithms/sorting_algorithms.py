@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from math import ceil, floor
 from typing import Any, List, TypeVar
 
 
@@ -122,12 +123,61 @@ def insertion_sort(arr: List[CT]) -> List[CT]:
     return arr_copy
 
 
-def sort_and_merge(arr1: List[CT], arr2: List[CT]) -> List[CT]:
-    return []
+def compare_and_sort(sorted_arr1: List[CT], sorted_arr2: List[CT]) -> List[CT]:
+    result = []
+    i = 0
+    j = 0
+    while i < len(sorted_arr1) and j < len(sorted_arr2):
+        if sorted_arr1[i] < sorted_arr2[j]:
+            result.append(sorted_arr1[i])
+            i += 1
+        else:
+            result.append(sorted_arr2[j])
+            j += 1
+    if i >= len(sorted_arr1) and j < len(sorted_arr2):
+        result += sorted_arr2[j:]
+    if i < len(sorted_arr1) and j >= len(sorted_arr2):
+        result += sorted_arr1[i:]
+
+    return result
 
 
 def merge_sort(arr: List[CT]) -> List[CT]:
-    return []
+    if len(arr) < 2:
+        return arr
+
+    mid = floor(len(arr) / 2)
+    left = arr[0:mid]
+    right = arr[mid:]
+
+    # keep breaking the arr in half until there is a single item
+    # backtrack to merge them into a single array.
+    return compare_and_sort(merge_sort(left), merge_sort(right))
+
+
+"""
+[1, 5, 2, 8, -3, 0, -65] -> [-65, -3, 0, 1, 2, 5, 8]
+len: 7
+mid: 3
+left: arr[0:3] -> [1, 5, 2] -> [1, 2, 5]
+    len: 3
+    mid: 1
+    left: [1]
+    right: [5, 2] -> [2, 5]
+        len: 2
+        mid: 1
+        left: [5]
+        right: [2]
+right: arr[3:] -> [8, -3, 0, -65] -> [-65, -3, 0, 8]
+    len: 4
+    mid: 2
+    left: [8, -3] -> [-3, 8]
+        left: [8]
+        right: [-3]
+    right: [0, -65] -> [-65, 0]
+        left: [0]
+        right: [-65]
+"""
 
 
 def pivot(arr: List[CT], head_index: int, tail_index: int) -> int:

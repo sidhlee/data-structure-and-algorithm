@@ -1,10 +1,10 @@
 # Sorting Algorithm
 
-| Type      | How                                                                                  | Good when                                                | Avg | Best                                                  | Worst |
-| --------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------- | --- | ----------------------------------------------------- | ----- |
-| Bubble    | compare & swap neighbors to bubble up max values. break if not swapped in prev loop. | almost sorted array                                      | n2  | n                                                     | n2    |
-| Selection | find min value and keep swapping it with the i-th value.                             | swaps only once                                          | n2  | n2                                                    | n2    |
-| Insertion | Pick i-th item and keep sliding it to the left until finding right position.         | continuously adding new item to the already sorted array | n2  | 1 (when adding new max value to already sorted array) | n2    |
+| Type      | How                                                                                              | Good when                                                | Avg | Best                                                  | Worst |
+| --------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------- | --- | ----------------------------------------------------- | ----- |
+| Bubble    | compare & swap neighbors to bubble up max values. break if not swapped in (i - 1).               | almost sorted array                                      | n2  | n                                                     | n2    |
+| Selection | find min value starting from j and keep swapping it with the value at i.                         | swaps only once                                          | n2  | n2                                                    | n2    |
+| Insertion | Pick the item at i and compare it with item at j counting backward until finding right position. | continuously adding new item to the already sorted array | n2  | 1 (when adding new max value to already sorted array) | n2    |
 
 ## Bubble Sort
 

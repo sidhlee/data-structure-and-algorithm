@@ -4,7 +4,7 @@ from sorting_algorithms import (
     bubble_sort,
     selection_sort,
     insertion_sort,
-    sort_and_merge,
+    compare_and_sort,
     merge_sort,
     pivot,
     quick_sort,
@@ -48,14 +48,20 @@ class InsertionSortTestCase(unittest.TestCase):
         self.assertEqual(new_result, [-100, *result])
 
 
-class SortAndMergeTestCase(unittest.TestCase):
+class CompareAndSortTestCase(unittest.TestCase):
     def test_success(self):
         self.assertEqual(
-            sort_and_merge([1, 4, 7], [2, 3, 8, 12]), [1, 2, 3, 4, 7, 8, 12]
+            compare_and_sort([1, 4, 7], [2, 3, 8, 12]), [1, 2, 3, 4, 7, 8, 12]
+        )
+        self.assertEqual(
+            compare_and_sort([1, 2, 5], [-65, -3, 0, 8]), [-65, -3, 0, 1, 2, 5, 8]
         )
 
     def test_one_empty_array(self):
-        self.assertEqual(sort_and_merge([], [2, 3, 8, 12]), [2, 3, 8, 12])
+        self.assertEqual(compare_and_sort([], [2, 3, 8, 12]), [2, 3, 8, 12])
+
+    def test_single_item_arrays(self):
+        self.assertEqual(compare_and_sort([1], [0]), [0, 1])
 
 
 class MergeSortTestCase(unittest.TestCase):
