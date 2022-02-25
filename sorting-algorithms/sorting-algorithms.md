@@ -79,7 +79,7 @@ These are the steps to implement merging function that takes two sorted arrays a
 ### Merge Sort Complexity
 
 - Time: O(n log(n)) - log(n) for splitting in half \* n for sorting and merging
-- Space: O(n) - n + (n/2 + n/2) + (n/4 + n/4) ... = C \* n = n
+- Space: O(n) - only one side of the branch will need to hold onto the arrays at any given time, so n + (n/2 + n/4 + ...) < 2n -> n
 
 ## Quick Sort
 
