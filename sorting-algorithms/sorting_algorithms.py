@@ -212,8 +212,8 @@ def quick_sort(arr: List[CT], head_index: int = 0, tail_index: int = None) -> Li
     # set default tail_index
     if tail_index is None:
         tail_index = len(arr) - 1
-    # base case
-    if head_index >= tail_index:
+    # base case - less than or equal to 1 array item (tail is the last item)
+    if tail_index - head_index < 1:
         return arr
 
     pivot_index = pivot(arr, head_index, tail_index)

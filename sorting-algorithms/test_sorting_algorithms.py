@@ -92,12 +92,27 @@ class PivotTestCase(unittest.TestCase):
         right_values = arr[pivot_index + 1 :]
         self.assertTrue(all([pivot_value < item for item in right_values]))
 
+    def test_duplicated_values(self):
+        arr = [3, 2, 1, 3, 2, 1]
+        self.assertEqual(pivot(arr), 4)
+        self.assertEqual(arr, [1, 2, 1, 2, 3, 3])
+
 
 class QuickSortTestCase(unittest.TestCase):
     def test_success(self):
         arr = [5, 2, 4, 1, 13, 8]
         quick_sort(arr)
         self.assertEqual(arr, [1, 2, 4, 5, 8, 13])
+
+    def test_repeated_values(self):
+        arr = [1, 2, 3, 1, 2, 3, 1, 2, 3]
+        quick_sort(arr)
+        self.assertEqual(arr, [1, 1, 1, 2, 2, 2, 3, 3, 3])
+
+    def test_single_value(self):
+        arr = [1]
+        quick_sort(arr)
+        self.assertEqual(arr, [1])
 
 
 class RadixSortTestCase(unittest.TestCase):
