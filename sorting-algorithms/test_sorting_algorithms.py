@@ -9,6 +9,10 @@ from sorting_algorithms import (
     pivot,
     quick_sort,
     radix_sort,
+    flatten,
+    get_num_digits,
+    get_max_digits,
+    get_ith_digit,
 )
 
 
@@ -116,6 +120,18 @@ class QuickSortTestCase(unittest.TestCase):
 
 
 class RadixSortTestCase(unittest.TestCase):
+    def test_flatten(self):
+        self.assertEqual(flatten([[1], [2], [3]]), [1, 2, 3])
+
+    def test_get_num_digits(self):
+        self.assertEqual(get_num_digits(123456), 6)
+
+    def test_max_digits(self):
+        self.assertEqual(get_max_digits([1, 11, 111]), 3)
+
+    def test_get_ith_digit(self):
+        self.assertEqual(get_ith_digit(123456, 2), 4)
+
     def test_success(self):
         self.assertEqual(radix_sort([1, 5, 2, 8, 3, 0, 65]), [0, 1, 2, 3, 5, 8, 65])
         self.assertEqual(

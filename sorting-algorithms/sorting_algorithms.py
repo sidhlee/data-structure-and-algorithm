@@ -223,5 +223,57 @@ def quick_sort(arr: List[CT], head_index: int = 0, tail_index: int = None) -> Li
     return arr
 
 
+def flatten(array):
+    flattened = []
+    for subarray in array:
+        for item in subarray:
+            flattened.append(item)
+    return flattened
+
+
+def get_num_digits(val):
+    num_digit = 0
+    while val > 0:
+        num_digit += 1
+        val = floor(val / 10)
+    return num_digit
+
+
+def get_max_digits(arr):
+
+    """Find the maximum number of digits of any item"""
+    digits = [get_num_digits(val) for val in arr]
+
+    return max(digits)
+
+
+def get_ith_digit(val, i):
+    return floor(val / 10 ** i) % 10
+
+
 def radix_sort(arr: List[CT]) -> List[CT]:
-    return []
+    # loop from the right-most digit to the highest digit
+    for i in range(get_max_digits(arr)):
+        # initialize buckets for base 10 numbers
+        buckets = [[] for _ in range(10)]
+        # for each place, we're sorting by the digit value
+        # as we go up in places, all the values less than the current place are already sorted among themselves
+        for val in arr:
+            ith_digit = get_ith_digit(val, i)
+            buckets[ith_digit].append(val)
+        arr = flatten(buckets)
+    return arr
+
+
+"""
+[111, 15, 22242, 84, 3, 0, 65]
+i=0, [[0], [111], [22242], [3], [84], [15, 65], [], [], [],..]
+[0, 111, 22242, 3, 84, 15, 65]
+i=1, [[0, 3], [111, 15], [], [3], [22242], [], [65], [], [84], [], []]
+[0, 3, 111, 15, 22242, 65, 84]
+i=2, [[0, 3, 15, 65, 84], [111], [22242], [], [], ...]
+[0, 3, 15, 65, 84, 111, 22242]
+i=3, [[0, 3, 15, 65, 84, 111], [22242], [], ...]
+i=4,
+i=5, [[0, 3, 15, 65, 84, 111, 22242], [], ...]
+"""

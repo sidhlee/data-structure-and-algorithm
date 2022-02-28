@@ -124,7 +124,7 @@ Quick Sort performs best when the pivot is chosen to be the median value of the 
 
 While the comparison sort algorithm has the lower bound of n log(n) time complexity, Radix sort is a non-comparison sort that utilizes a special property of integers where numbers with more digits are always greater than numbers with less digits.
 Radix sort distributes numbers in the list to the buckets 0 to 9 based on the the number's least significant digit and push them back to the array in the order they are stored in the buckets. As we repeat the same steps with n-th digit from the right, the numbers with n number of digits becomes sorted among themselves, and the numbers whose number of digits are less than n get stored in the bucket 0, already sorted in the previous iterations.
-It takes only as many iterations as the maximum number of digits found in the list to complete the sorting.
+It takes only as many iterations as the maximum number of digits found in the list to complete the sorting (eg. when max is 999, it takes 3 iterations).
 
 ### Radix Sort Helpers
 
@@ -138,6 +138,7 @@ It takes only as many iterations as the maximum number of digits found in the li
   - create the buckets from 0 to 9
   - place numbers in the bucket based on its i-th digit
   - Replace the input array with the values from the buckets going from 0 to 9
+  - As it moves to the higher digit, all the numbers less than the current digit are already sorted among themselves in the order of the buckets.
 - Return the array
 
 ### Radix Sort Complexity
