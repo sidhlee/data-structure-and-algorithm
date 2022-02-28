@@ -73,15 +73,20 @@ class PivotTestCase(unittest.TestCase):
     def test_returns_pivot_index(self):
         self.assertEqual(pivot([5, 2, 4, 1, 13, 8]), 3)
 
+    def test_reorganizes_items(self):
+        arr = [3, 2, 1]
+        pivot(arr)
+        self.assertEqual(arr, [1, 2, 3])
+
     def test_smaller_values_to_the_left(self):
-        arr = [5, 2, 4, 1, 13, 8]
+        arr = [5, 2, 13, 1, 4, 8]
         pivot_index = pivot(arr)
         pivot_value = arr[pivot_index]
         left_values = arr[0:pivot_index]
         self.assertTrue(all([item < pivot_value for item in left_values]))
 
     def test_greater_values_to_the_right(self):
-        arr = [5, 2, 4, 1, 13, 8]
+        arr = [5, 2, 13, 1, 4, 8]
         pivot_index = pivot(arr)
         pivot_value = arr[pivot_index]
         right_values = arr[pivot_index + 1 :]

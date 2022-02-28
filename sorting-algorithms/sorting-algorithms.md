@@ -1,10 +1,11 @@
 # Sorting Algorithm
 
-| Type      | How                                                                                              | Good when                                                | Avg | Best                                                  | Worst |
-| --------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------- | --- | ----------------------------------------------------- | ----- |
-| Bubble    | compare & swap neighbors to bubble up max values. break if not swapped in (i - 1).               | almost sorted array                                      | n2  | n                                                     | n2    |
-| Selection | find min value starting from j and keep swapping it with the value at i.                         | swaps only once                                          | n2  | n2                                                    | n2    |
-| Insertion | Pick the item at i and compare it with item at j counting backward until finding right position. | continuously adding new item to the already sorted array | n2  | 1 (when adding new max value to already sorted array) | n2    |
+| Type      | How                                                                                                                                | Good when                                                | Avg   | Best                                                  | Worst |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ----- | ----------------------------------------------------- | ----- |
+| Bubble    | compare & swap neighbors to bubble up max values. break if not swapped in (i - 1).                                                 | almost sorted array                                      | n2    | n                                                     | n2    |
+| Selection | find min value starting from j and keep swapping it with the value at i.                                                           | swaps only once                                          | n2    | n2                                                    | n2    |
+| Insertion | Pick the item at i and compare it with item at j counting backward until finding right position.                                   | continuously adding new item to the already sorted array | n2    | 1 (when adding new max value to already sorted array) | n2    |
+| Merge     | keep splitting arrays in half until it has one or less item, then compare two already sorted arrays to sort them into a new array. | stable order for same value items                        | nlogn | n (already sorted item)                               |
 
 ## Bubble Sort
 
@@ -93,10 +94,10 @@ We need a helper function named `pivot` to call inside the `quickSort` function 
 - Create the `pivotIndex` and initialize it with the value of the `startIndex`.
   - `pivotIndex` does not care about the value happens to be at the index while looping. It is just to keep track of the number of items smaller than the pivot.
 - Loop through the array from the start until the end index
-  - If the current item is smaller than the pivot, increment the `pivotIndex` and swap the current item with the item at the `pivotIndex`.
+  - If the current item is smaller than the pivot, bring it to the front by swapping the current item with the item at the `pivotIndex + 1` and increment the `pivotIndex`. We want to keep the pivot at the beginning of the array while placing items smaller than the pivot before the items greater than the pivot.
   - The current item will end up in the same position if there is no item whose value is greater than the pivot value.
   - For example, `pivotIndex` of 4 means that after sorting the given range of the array, there will be 4 items (at index 0, 1, 2, and 3) smaller than the pivot regardless of their order.
-- After we reach the end of the loop, swap the pivot with the item at the pivot index.
+- After we reach the end of the loop, swap the pivot with the item at the pivot index. This will place the last item that was smaller than the pivot at the beginning of the array.
 - `pivot` function does not care about the order of items in either side of the pivot. Its return value only indicates the position of the pivot within the given range and we know that any value smaller than the pivot is placed to the left and any item greater to the right.
 
 ### Quick Sort Implementation
@@ -108,7 +109,7 @@ We need a helper function named `pivot` to call inside the `quickSort` function 
   - Then it will backtrack to traverse to the "right" side of the tree.
 - Call `pivot` with the start index being the `pivotIndex` + 1.
 - After finishing backtracking, it will return the sorted array.
-- Need the base case of start index greater than or equal to the end index. It will return the input array as is when that happens.
+- Set the base case where start index is greater than or equal to the end index. It will return the input array as is when that happens.
 
 ### Quick Sort Complexity
 

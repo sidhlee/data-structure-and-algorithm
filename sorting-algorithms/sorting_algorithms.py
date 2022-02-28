@@ -180,12 +180,47 @@ right: arr[3:] -> [8, -3, 0, -65] -> [-65, -3, 0, 8]
 """
 
 
-def pivot(arr: List[CT], head_index: int, tail_index: int) -> int:
-    pass
+def pivot(arr: List[CT], head_index: int = 0, tail_index: int = None) -> int:
+    if tail_index is None:
+        tail_index = len(arr) - 1
+
+    pivot_index = head_index
+    curr_index = pivot_index + 1
+    while curr_index <= tail_index:
+        if arr[curr_index] < arr[head_index]:
+            swap(arr, curr_index, pivot_index + 1)
+            # found smaller value, move index that pivot needs to move to
+            pivot_index += 1
+        curr_index += 1
+
+    swap(arr, pivot_index, head_index)
+    return pivot_index
 
 
-def quick_sort(arr: List[CT]) -> List[CT]:
-    return []
+"""
+pi=0, ci=1, [5, 2, 13, 1, 4, 8] move 2 to index 1
+pi=1, ci=2, [5, 2, 13, 1, 4, 8] 
+pi=1, ci=3, [5, 2, 1, 13, 4, 8] move 1 to index 2 
+pi=2, ci=4, [5, 2, 1, 4, 13, 8] move 4 to index 3
+pi=3, ci=5, [5, 2, 1, 4, 13, 8]
+pi=3, ci=6, ci out of range, break out of loop
+swap 4 with 5 [4, 2, 1, 5, 13, 8]
+"""
+
+
+def quick_sort(arr: List[CT], head_index: int = 0, tail_index: int = None) -> List[CT]:
+    # set default tail_index
+    if tail_index is None:
+        tail_index = len(arr) - 1
+    # base case
+    if head_index >= tail_index:
+        return arr
+
+    pivot_index = pivot(arr, head_index, tail_index)
+    quick_sort(arr, head_index, pivot_index - 1)
+    quick_sort(arr, pivot_index + 1, tail_index)
+
+    return arr
 
 
 def radix_sort(arr: List[CT]) -> List[CT]:
