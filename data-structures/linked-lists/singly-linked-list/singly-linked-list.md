@@ -22,7 +22,7 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 `pop` removes a node from the tail.
 
 - If there are no nodes in the list, return `undefined`
-- Loop through the list until you reach the tail
+- Loop through the list until you reach the item before the tail
 - Set the `next` of the 2nd last node to be`null`
 - Set the 2nd last node to be `tail`
 - Decrement the `length` of the list by one
@@ -45,13 +45,13 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 - Creates a new node with the given value.
 - If the `head` value is `null`, then set the new node to be the head, otherwise set the `next` of the new node to be the existing head and update the list's head.
 - Increment the `length` by one.
-- Return the instance
+- Return the value of the instance
 
 ### `get(index): Node | undefined`
 
 `get` finds a node at the given index
 
-- Loop through the list until you reach the index and return the node.
+- Loop through the list until you reach the index and return the node value.
 
 ### `set(val, index): SinglyLinkedList`
 
@@ -85,14 +85,14 @@ Singly Linked List is a linked list where nodes are linked to the next node in a
 
 `reverse` reverses the list in place.
 
-- Only do reverse when there are at least to elements.
+- Only do reverse when there are at least two elements.
 - Set second element to be `currentNode` and iterate from it until the end of the list.
-- Temporarily store `currentNode.next` to move to the next node.since we're going to overwrite it with the previous node.
+- Temporarily store `currentNode.next` to move to the next node since we're going to overwrite it with the previous node.
 - Set `currentNode.next` to the previous node.
 - Advance previous node by setting it to the current node.
 - Advance current node by setting it to the saved next node.
 - Swap head with tail
-- Return the instance
+- Return the reversed list
 
 ## Singly Linked List Complexity
 
