@@ -55,10 +55,11 @@ Insertion sort iterates through the array and inserts each item into the sorted 
 
 ### Insertion Sort Pseudocode
 
-- Start from the second item in the array.
-- Insert the item to the right place in the subarray to the left where the first item in the array is already included.
-- No need to swap if the last item in the subarray is smaller than the one being inserted because the subarray is always sorted.
-- Repeat until the end of the array is reached.
+- Start the outer loop from the second item in the array. outer loop index points to the inserting item.
+- Start the inner loop from i - 1 and compare the current item to the inserting item. While loop works better because we're going to conditionally decrement the index.
+- If current inner loop item is greater than the inserting item, copy the item to the right and decrement inner loop index.
+- Else, break out the inner loop.
+- When out of the inner loop, copy the inserting item at the j + 1, which is the index of the last item copied to the right OR the current index of the inserting item if it was greater than or equal to its neighbor on the left as the inner loop starts.
 
 ### Insertion Sort Complexity
 
