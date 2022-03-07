@@ -83,6 +83,17 @@ class SinglyLinkedList(BaseLinkedList):
     def __init__(self):
         super().__init__()
 
+    def push(self, value):
+        node = Node(value)
+        if self.head is None or self.tail is None:
+            self.head = node
+            self.tail = node
+        else:
+            self.tail.next = node
+            self.tail = node
+        self.length += 1
+        return self
+
     def pop(self):
 
         if self.head is not None:
@@ -107,27 +118,58 @@ class SinglyLinkedList(BaseLinkedList):
         else:
             return None
 
-    def push(self, value):
-        node = Node(value)
-        if self.head is None or self.tail is None:
-            self.head = node
-            self.tail = node
-        else:
-            self.tail.next = node
-            self.tail = node
+    def unshift(self, value):
+
+        new_node = Node(value)
+        new_node.next = self.head
+        self.head = new_node
         self.length += 1
+        if self.length == 1:
+            self.tail = new_node
+
+        return self
 
     def shift(self):
-        ...
+        if self.length == 0:
+            return None
+        shifted = self.head
+        self.head = shifted.next
+        self.length -= 1
 
-    def unshift(self):
-        ...
+        if self.length == 0:
+            self.head = None
+            self.tail = None
 
-    def get(self):
-        ...
+        return shifted.value
 
-    def set(self):
-        ...
+    def get(self, index: int):
+        if index >= self.length or not self.head or not self.tail:
+            raise IndexError
+        if index == self.length - 1:
+            return self.tail.value
+        current_index = 0
+        current_node = self.head
+        while current_index < index and current_node.next is not None:
+            current_index += 1
+            current_node = current_node.next
+        return current_node.value
+
+    def set(self, value, index):
+        if index >= self.length or not self.head or not self.tail:
+            raise IndexError
+        if index == 0:
+            self.head.value = value
+        elif index == self.length - 1:
+            self.tail.value = value
+        else:
+            current_index = 0
+            current_node = self.head
+            while current_node.next is not None and current_index < index:
+                current_index += 1
+                current_node = current_node.next
+            current_node.value = value
+
+        return self
 
     def insert(self):
         ...
