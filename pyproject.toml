@@ -13,6 +13,7 @@ pytest = "^6.2.5"
 flake8 = "^4.0.1"
 black = "^21.12b0"
 unittest = "^0.0"
+pylint = "^2.12.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

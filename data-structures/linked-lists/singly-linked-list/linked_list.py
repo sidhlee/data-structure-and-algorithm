@@ -10,23 +10,29 @@ class BaseLinkedList(ABC):
     head: Union[Node, None]
     tail: Union[Node, None]
 
-    @property
-    @abstractmethod
-    def length(self):
-        """The number of nodes in the linked list."""
-        pass
+    def __init__(self):
+        self.length = 0
+        self.head = None
+        self.tail = None
+        super().__init__()
 
-    @property
-    @abstractmethod
-    def head(self):
-        """The first node in the linked list."""
-        pass
+    # @property
+    # @abstractmethod
+    # def length(self):
+    #     """The number of nodes in the linked list."""
+    #     pass
 
-    @property
-    @abstractmethod
-    def tail(self):
-        """The last node in the linked list."""
-        pass
+    # @property
+    # @abstractmethod
+    # def head(self):
+    #     """The first node in the linked list."""
+    #     pass
+
+    # @property
+    # @abstractmethod
+    # def tail(self):
+    #     """The last node in the linked list."""
+    #     pass
 
     @abstractmethod
     def push(self: T, value: Any) -> T:
@@ -74,4 +80,60 @@ class BaseLinkedList(ABC):
 
 
 class SinglyLinkedList(BaseLinkedList):
-    pass
+    def __init__(self):
+        super().__init__()
+
+    def pop(self):
+
+        if self.head is not None:
+            popped_value = self.tail.value
+            current_node = self.head
+            current_node_temp = None
+
+            def is_tail(node: Node):
+                return node.next is None
+
+            while not is_tail(current_node):
+                current_node_temp = current_node
+                current_node = current_node.next
+            # current_node is now the one before the tail
+            self.tail = current_node_temp
+            self.tail.next = None
+            self.length -= 1
+            if self.length == 0:
+                self.head = None
+                self.tail = None
+            return popped_value
+        else:
+            return None
+
+    def push(self, value):
+        node = Node(value)
+        if self.head is None or self.tail is None:
+            self.head = node
+            self.tail = node
+        else:
+            self.tail.next = node
+            self.tail = node
+        self.length += 1
+
+    def shift(self):
+        ...
+
+    def unshift(self):
+        ...
+
+    def get(self):
+        ...
+
+    def set(self):
+        ...
+
+    def insert(self):
+        ...
+
+    def remove(self):
+        ...
+
+    def reverse(self):
+        ...
