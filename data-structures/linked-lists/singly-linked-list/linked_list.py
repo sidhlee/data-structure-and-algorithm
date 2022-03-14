@@ -171,8 +171,33 @@ class SinglyLinkedList(BaseLinkedList):
 
         return self
 
-    def insert(self):
-        ...
+    def insert(self, value: Any, inserting_index: int):
+        if not (0 <= inserting_index <= self.length):
+            raise IndexError
+        inserting_node = Node(value)
+
+        if inserting_index == 0:
+            return self.unshift(value)
+
+        # Inserting after tail
+        if inserting_index == self.length:
+            return self.push(value)
+
+        # all other cases: 0 < inserting_index <= self.length
+        current_node = self.head
+        # python-way of non-null assertion
+        assert current_node is not None
+        current_index = 0
+        while current_index < self.length and current_node.next is not None:
+            if current_index == inserting_index - 1:
+                prev_node = current_node
+                next_node = current_node.next
+                prev_node.next = inserting_node
+                inserting_node.next = next_node
+                self.length += 1
+                return self
+            current_node = current_node.next
+            current_index += 1
 
     def remove(self):
         ...

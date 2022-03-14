@@ -113,3 +113,27 @@ class SinglyLinkedListTestCase(unittest.TestCase):
         self.sut.set("two", 1).set("three", 2)
         self.assertEqual(self.sut.head.next.value, "two")
         self.assertEqual(self.sut.tail.value, "three")
+
+    def test_insert(self):
+        self.sut.insert("first", 0).insert("third", 1).insert("second", 1)
+        self.assertEqual(self.sut.head.value, "first")
+        self.assertEqual(self.sut.head.next.value, "second")
+        self.assertEqual(self.sut.tail.value, "third")
+        self.assertEqual(self.sut.length, 3)
+
+    def test_insert_empty_list(self):
+        self.sut.insert("first", 0)
+        self.assertEqual(self.sut.head.value, "first")
+        self.assertEqual(self.sut.tail.value, "first")
+        self.assertEqual(self.sut.length, 1)
+
+    def test_insert_at_tail(self):
+        self.sut.insert("first", 0).insert("second", 1).insert("third", 2)
+        self.assertEqual(self.sut.head.value, "first")
+        self.assertEqual(self.sut.head.next.value, "second")
+        self.assertEqual(self.sut.tail.value, "third")
+        self.assertEqual(self.sut.length, 3)
+
+    def test_insert_index_out_of_range(self):
+        with self.assertRaises(IndexError):
+            self.sut.insert("first", 1)
