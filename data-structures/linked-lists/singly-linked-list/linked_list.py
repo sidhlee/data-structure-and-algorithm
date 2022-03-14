@@ -151,7 +151,7 @@ class SinglyLinkedList(BaseLinkedList):
         if index >= self.length or not self.head or not self.tail:
             raise IndexError
         if index == self.length - 1:
-            return self.tail.value
+            return self.tail
         current_index = 0
         current_node = self.head
         while current_index < index and current_node.next is not None:
@@ -195,8 +195,15 @@ class SinglyLinkedList(BaseLinkedList):
             self.length += 1
             return self
 
-    def remove(self):
-        ...
+    def remove(self, index):
+        prev_node = self.get_node(index - 1)
+        removed_node = self.get_node(index)
+        next_node = removed_node.next
+        prev_node.next = next_node
+        self.length -= 1
+        # cleanup
+        removed_node.next = None
+        return removed_node.value
 
     def reverse(self):
         ...

@@ -142,3 +142,19 @@ class SinglyLinkedListTestCase(unittest.TestCase):
     def test_insert_index_out_of_range(self):
         with self.assertRaises(IndexError):
             self.sut.insert("first", 1)
+
+    def test_remove_success(self):
+        self.sut.push(0).push(1).push(2)
+        removed_value = self.sut.remove(1)
+        self.assertEqual(removed_value, 1)
+        self.assertEqual(self.sut.head.next, self.sut.tail)
+        self.assertEqual(self.sut.length, 2)
+
+    def test_remove_empty_list(self):
+        with self.assertRaises(IndexError):
+            self.sut.remove(0)
+
+    def test_remove_out_of_range(self):
+        self.sut.push(0).push(1).push(2)
+        with self.assertRaises(IndexError):
+            self.sut.remove(3)
