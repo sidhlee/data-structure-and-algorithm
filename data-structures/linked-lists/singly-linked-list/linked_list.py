@@ -59,6 +59,11 @@ class BaseLinkedList(ABC):
         pass
 
     @abstractmethod
+    def get_node(self, index: int) -> Any:
+        """Find a node by its index and return the node."""
+        pass
+
+    @abstractmethod
     def set(self: T, value: Any, index: int) -> T:
         """Updates a node value at the given index."""
         pass
@@ -142,7 +147,7 @@ class SinglyLinkedList(BaseLinkedList):
 
         return shifted.value
 
-    def get(self, index: int):
+    def get_node(self, index: int):
         if index >= self.length or not self.head or not self.tail:
             raise IndexError
         if index == self.length - 1:
@@ -152,7 +157,12 @@ class SinglyLinkedList(BaseLinkedList):
         while current_index < index and current_node.next is not None:
             current_index += 1
             current_node = current_node.next
-        return current_node.value
+
+        return current_node
+
+    def get(self, index: int):
+        node = self.get_node(index)
+        return node.value
 
     def set(self, value, index):
         if index >= self.length or not self.head or not self.tail:
@@ -172,32 +182,18 @@ class SinglyLinkedList(BaseLinkedList):
         return self
 
     def insert(self, value: Any, inserting_index: int):
-        if not (0 <= inserting_index <= self.length):
-            raise IndexError
-        inserting_node = Node(value)
-
         if inserting_index == 0:
             return self.unshift(value)
-
-        # Inserting after tail
-        if inserting_index == self.length:
+        elif inserting_index == self.length:
             return self.push(value)
-
-        # all other cases: 0 < inserting_index <= self.length
-        current_node = self.head
-        # python-way of non-null assertion
-        assert current_node is not None
-        current_index = 0
-        while current_index < self.length and current_node.next is not None:
-            if current_index == inserting_index - 1:
-                prev_node = current_node
-                next_node = current_node.next
-                prev_node.next = inserting_node
-                inserting_node.next = next_node
-                self.length += 1
-                return self
-            current_node = current_node.next
-            current_index += 1
+        else:
+            inserting_node = Node(value)
+            prev_node = self.get_node(inserting_index - 1)
+            next_node = prev_node.next
+            prev_node.next = inserting_node
+            inserting_node.next = next_node
+            self.length += 1
+            return self
 
     def remove(self):
         ...

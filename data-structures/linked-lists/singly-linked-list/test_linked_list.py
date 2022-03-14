@@ -76,6 +76,11 @@ class SinglyLinkedListTestCase(unittest.TestCase):
         self.assertEqual(self.sut.head.value, 1)
         self.assertEqual(self.sut.tail.value, 1)
 
+    def test_get_node_success(self):
+        self.sut.push(1).push(2).push(3)
+        node = self.sut.get_node(1)
+        self.assertEqual(node, self.sut.head.next)
+
     def test_get_empty_list(self):
         with self.assertRaises(IndexError):
             self.sut.get(0)
