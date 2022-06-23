@@ -13,7 +13,7 @@ Only the filled cells need to be validated according to the mentioned rules.
  
 
 Example 1: 
-'./valid_sudoku_example1.png'
+'./valid_sudoku_1.png'
 
 Input: board = 
 [["5","3",".",".","7",".",".",".","."]
