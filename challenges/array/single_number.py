@@ -52,10 +52,24 @@ class Solution:
     def singleNumber_math(self, nums: List[int]) -> int:
         """
         2022-06-14T12:50:27.938Z
-        Runtime: 170 ms
-        Memory Usage: 17.1 MB
+        Runtime: 123 ms (99.77%)
+        Memory Usage: 17.2 MB (0%)
 
         If there is very specific constraints we can take advantage, try using math.
         This solution is not O(1) space though.
         """
         return sum(set(nums)) * 2 - sum(nums)
+
+    def singleNumber_xor(self, nums: List[int]) -> int:
+        """
+        2022-06-24T11:45:05.886Z
+        Runtime: 152 ms (79%)
+        Memory Usage: 16.9 MB (20%)
+
+        Used XOR properties to cancel out all the duplicated numbers
+        Linear and no extra memory used.
+        Also returns early for len(nums) < 2.
+        """
+        for i in range(1, len(nums)):
+            nums[0] ^= nums[i]
+        return nums[0]
