@@ -77,6 +77,20 @@ class Solution:
         """
         return list(str(int("".join((str(d) for d in digits))) + 1))
 
+    def plusOne_tuple_over_list(self, digits: List[int]) -> List[int]:
+        """
+        2022-06-24T12:36:43.689Z
+        Runtime: 36 ms (86%)
+        Memory Usage: 13.7 MB (96%)
+
+        Use tuple when you're not mutating it
+        - Tuples only use minimum memory it requires
+        - Tuples have little bit faster lookup/instantiation time.
+          - This adds up on large iterations
+        """
+        plus_one = int("".join((str(n) for n in digits))) + 1
+        return list(str(plus_one))
+
     def plusOne_math(self, digits: List[int]) -> List[int]:
         """
         2022-06-16T11:46:23.787Z

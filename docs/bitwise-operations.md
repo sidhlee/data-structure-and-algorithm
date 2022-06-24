@@ -48,3 +48,10 @@ This properties can be used to find the only number in a array that appears odd 
 ```py
 a^b^c^a^b == a^a^b^b^c == 0^0^c == c
 ```
+
+XOR on set returns symmetrical differences.
+
+```text
+>>> set([1, 2, 3]) ^ set([2, 3, 4])
+{1, 4}
+```

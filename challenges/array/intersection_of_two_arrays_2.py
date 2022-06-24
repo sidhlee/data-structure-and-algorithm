@@ -32,15 +32,36 @@ from typing import List
 
 
 class Solution:
-    """
-    2022-06-15T12:56:03.460Z
-    Runtime: 46 ms
-    Memory Usage: 13.9 MB
+    def intersect_counter(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        """
+        2022-06-15T12:56:03.460Z
+        Runtime: 46 ms
+        Memory Usage: 13.9 MB
 
-    Constraints allow us to create hashmap ( <= 1000) to avoid O(n^2) loops
-    Use collections.Counter and binary operator (&) to get the intersection of to counters
+        Constraints allow us to create hashmap ( <= 1000) to avoid O(n^2) loops
+        Use collections.Counter and binary operator (&) to get the intersection of to counters
 
-    """
-
-    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        Counter & Counter -> intersection
+        Counter | Counter -> Union
+        c1 - c2 -> left outer
+        c.most_common() -> sorts counter by frequency
+        """
         return (Counter(nums1) & Counter(nums2)).elements()
+
+    def intersect_forgot_counter_operations(
+        self, nums1: List[int], nums2: List[int]
+    ) -> List[int]:
+        """
+        2022-06-24T12:00:54.981Z
+        Runtime: 58 ms (78%)
+        Memory Usage: 14 MB (51%)
+
+        Basically same as above, but longer.
+        """
+        c1 = Counter(nums1)
+        c2 = Counter(nums2)
+        result = []
+        for n in c1:
+            if c2[n]:
+                result += [n] * min(c1[n], c2[n])
+        return result
