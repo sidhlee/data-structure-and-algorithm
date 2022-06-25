@@ -77,3 +77,19 @@ class Solution:
                     nums[j] = n
                 j += 1
         nums[j:] = [0] * (len(nums) - j)
+
+    def moveZeroes_access_with_index(self, nums: List[int]) -> None:
+        """
+        2022-06-25T15:38:10.158Z
+        Runtime: 219 ms (67%)
+        Memory Usage: 15.5 MB (65%)
+
+        If you're going to access the array item more than once, enumerate is better
+        """
+        i = 0
+        for j in range(len(nums)):
+            if nums[j] != 0:
+                if i != j:
+                    nums[i] = nums[j]
+                i += 1
+        nums[i:] = [0] * (len(nums) - i)
