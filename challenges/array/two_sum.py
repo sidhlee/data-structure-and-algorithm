@@ -33,6 +33,24 @@ Only one valid answer exists.
  
 
 Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
+
+Hint1:
+A really brute force way would be to search for all possible pairs of numbers but that would be too slow.
+Again, it's best to try out brute force solutions for just for completeness. It is from these brute force solutions that you can come up with optimizations.
+
+Hint2:
+So, if we fix one of the numbers, say
+x
+, we have to scan the entire array to find the next number
+y
+which is
+value - x
+where value is the input parameter. 
+Can we change our array somehow so that this search becomes faster?
+
+Hint3:
+The second train of thought is, without changing the array,
+can we use additional space somehow? Like maybe a hash map to speed up the search?
 """
 
 from typing import List
@@ -74,3 +92,27 @@ class Solution:
                 return [visited[other_num], i]
             else:
                 visited[n] = i
+
+    def twoSum_no_else(self, nums: List[int], target: int) -> List[int]:
+        """
+        2022-06-25T17:59:02.214Z
+        Runtime: 85 ms (71%)
+        Memory Usage: 15.1 MB (50%)
+
+        If you check after adding to the dict:
+        1. If the added value is 0.5 * target, it becomes the other value (b) itself
+            eg) [3, 2, 4], 6
+        2. Even if we compare the current index and the stored value's index
+           to avoid referring to itself as the other value,
+           duplicated values can overwrite the index of the existing key and the current index and the
+           stored value's index will always be the same.
+            eg) [3, 3], 6
+        Adding after the check prevents both.
+
+        """
+        dict = {}
+        for i, v in enumerate(nums):
+            b = target - v
+            if b in dict:
+                return [dict[b], i]
+            dict[v] = i
