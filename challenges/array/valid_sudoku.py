@@ -125,3 +125,55 @@ class Solution:
                     group.add(board[m][n])
             group.clear()
         return True
+
+    def isValidSudoku_with_slicing(self, board: List[List[str]]) -> bool:
+        """
+        2022-06-25T20:43:00.141Z
+        Runtime: 91 ms (98%)
+        Memory Usage: 13.8 MB (99%)
+
+        Couldn't remember adding to a set to check duplicates inside the loop
+        -> this should be faster because we're returning false as soon as possible
+        without filtering through the whole array. (wouldn't make much difference because len(arr) is always 9)
+        -> this also allows to loop through the subgrid and validate value by value.
+
+        Interestingly this approach is up to par with the above solution,
+        probably because the size of the list is constant at 81.
+
+        Notes to visualize the problem:
+            - indices to find ways to form subgrid
+            123 00 01 02  03 04 05
+            456 10 11 12  13 14 15
+            789 20 21 22  23 24 25
+
+            - copied from test input to verify subgrid slicing
+            ["5","3",".",".","7",".",".",".","."],
+            ["6",".",".","1","9","5",".",".","."],
+            [".","9","8",".",".",".",".","6","."],
+            ["8",".",".",".","6",".",".",".","3"],
+            ["4",".",".","8",".","3",".",".","1"],
+            ["7",".",".",".","2",".",".",".","6"],
+            [".","6",".",".",".",".","2","8","."],
+            [".",".",".","4","1","9",".",".","5"],
+            [".",".",".",".","8",".",".","7","9"]
+
+        """
+
+        def is_valid(numbers):
+            arr = [x for x in numbers if x != "."]
+            return len(arr) == len(set(arr))
+
+        for row in board:
+            if not is_valid(row):
+                return False
+        for col in list(map(list, zip(*board))):
+            if not is_valid(col):
+                return False
+        for i in range(3):
+            for j in range(3):
+                s = slice(3 * j, 3 * (j + 1))
+                subgrid = board[3 * i][s] + board[3 * i + 1][s] + board[3 * i + 2][s]
+                if not is_valid(subgrid):
+                    return False
+
+        return True
