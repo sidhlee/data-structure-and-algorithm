@@ -103,5 +103,33 @@ class Solution:
         456 ->  258 ->  852
         789     369     963
 
+        ** This solution returns a list of tuples because * operator spreads iterator into tuples.
+
         """
         matrix[:] = zip(*matrix[::-1])
+
+    def rotate_return_list(self, matrix: List[List[int]]) -> None:
+        """
+        2022-06-25T21:34:19.603Z
+        Runtime: 34 ms
+        Memory Usage: 13.9 MB
+
+        This solution returns a list though many testers will not check the type.
+        consider skipping mapping mapping.
+
+        * zip always returns tuples
+
+        123 147 741
+        456 258 852
+        789 369 963
+
+        123 789 741
+        456 456 851
+        789 123 963
+
+        >>> nums[:] = zip([1, 2, 3], [2, 3, 4])
+        >>> nums
+        [(1, 2), (2, 3), (3, 4)]
+        """
+        matrix.reverse()
+        matrix[:] = list(map(list, zip(*matrix)))
