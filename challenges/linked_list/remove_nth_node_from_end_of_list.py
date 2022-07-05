@@ -76,3 +76,30 @@ class Solution:
         else:
             pre.next = pre.next.next
         return head
+
+    def removeNthFromEnd_no_next_next(
+        self, head: Optional[ListNode], n: int
+    ) -> Optional[ListNode]:
+        """
+        2022-07-05 07:54:01
+        Runtime: 37 ms (86%)
+        Memory Usage: 13.9 MB (69%)
+
+        Comparing a variable to a scalar value is easier to reason about than comparing to another variable.
+        Because we're returning head, we have to make the head to point to its next when we want to remove it.
+        """
+        i, prev = 0, None
+        left = right = head
+        while right:
+            if i >= n:
+                prev = left
+                left = left.next
+            i += 1
+            right = right.next
+        # removing non-head
+        if prev:
+            prev.next = left.next
+        else:
+            # removing head
+            head = left.next
+        return head
