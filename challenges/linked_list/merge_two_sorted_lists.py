@@ -76,3 +76,54 @@ class Solution:
         # 1. other points at None and there are more nodes following curr -> all good
         # 2. curr reached the end and other has more nodes -> we still get into the if block and and connect curr to other
         return head
+
+    def mergeTwoLists_pure(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        """
+        2022-07-05 06:55:16
+        Runtime: 54 ms (57%)
+        Memory Usage: 13.8 MB (79%)
+
+        Does not mutate the input lists and returns a new merged head.
+        """
+        if not list1 or not list2:
+            return list1 if not list2 else list2
+        curr1, curr2 = (list1, list2) if list1.val < list2.val else (list2, list1)
+        merged = ListNode(curr1.val)
+        curr_merged = merged
+        curr1 = curr1.next
+        while curr1 and curr2:
+            if curr1.val < curr2.val:
+                curr_merged.next = curr1
+                curr1 = curr1.next
+            else:
+                curr_merged.next = curr2
+                curr2 = curr2.next
+            curr_merged = curr_merged.next
+        # connect the remaining nodes
+        curr_merged.next = curr1 if curr1 else curr2
+        return merged
+
+    def mergeTwoLists_recursion(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        """
+        2022-07-06 07:22:38
+        Runtime: 41 ms (87%)
+        Memory Usage: 13.8 MB (79%)
+
+        Using recursion - diminishing input strategy
+        - connect to the smaller node recursively passing next of the smaller node
+        - For base case, return other list when one of the list passed is None
+        """
+        if list1 is None:
+            return list2
+        if list2 is None:
+            return list1
+        if list1.val < list2.val:
+            list1.next = self.mergeTwoLists_recursion(list1.next, list2)
+            return list1
+        else:
+            list2.next = self.mergeTwoLists_recursion(list1, list2.next)
+            return list2
