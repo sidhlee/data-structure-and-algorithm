@@ -110,3 +110,22 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         return True
+
+    def hasCycle_try_catch(self, head: Optional[ListNode]) -> bool:
+        """
+        2022-07-06 08:05:33
+        Runtime: 82 ms (53%)
+        Memory Usage: 17.5 MB (66%)
+
+        Theoretically this should be faster since we don't check in between iteration,
+        but leet code runtime is flaky
+        """
+        if head is None:
+            return False
+        slow, fast = head, head.next
+        while slow != fast:
+            try:
+                slow, fast = slow.next, fast.next.next
+            except AttributeError:
+                return False
+        return True
