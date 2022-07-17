@@ -44,6 +44,8 @@ class Solution:
         - There are duplicates of the same sub-trees -> use memoization.
 
         './climbing_stairs_1.png'
+
+        TODO: iterative solution. - calculate parent node's possibilities by summing up left and right.
         """
         dict = {}
 
