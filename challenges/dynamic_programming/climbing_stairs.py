@@ -43,6 +43,7 @@ class Solution:
         - At every node, the # of possibilities is the sum of possibilities from left and right child.
         - There are duplicates of the same sub-trees -> use memoization.
 
+        './climbing_stairs_1.png'
         """
         dict = {}
 
