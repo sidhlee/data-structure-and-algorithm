@@ -120,3 +120,39 @@ class Solution:
                 # nums2 exhausted. we're done!
                 if p2 == n:
                     break
+
+    def merge_sort_desc(
+        self, nums1: List[int], m: int, nums2: List[int], n: int
+    ) -> None:
+        """
+        2022-07-16 21:36:43
+        Runtime: 51 ms (65%)
+        Memory Usage: 13.8 MB (86%)
+
+        - two arrays are already sorted
+        - larger of the last items from both array will be inserted into the last slot of first array
+        - If we run out of 2nd array first, we know that the 1st array is already sorted
+        - If we run out of 1st array before 2nd, we need to loop through the remaining 2nd array to fill out the 1st array
+
+        - Working from the end of the array is better since we can keep the original items while writing values.
+        - Can we do this from the beginning of the array?
+          -> No. Unless we all items in nums1 is less than the first item in nums2,
+          some of the values in nums1 will be overwritten by values from nums2 and
+          we need to store those values somewhere so that we can copy them over after the last value copied from nums2
+          -> working backward solves this problem
+
+        TIL: If there's a way to not override the original data, go for it!
+        """
+        p1, p2, i = m - 1, n - 1, m + n - 1
+        while p1 >= 0 and p2 >= 0:
+            if nums1[p1] > nums2[p2]:
+                nums1[i] = nums1[p1]
+                p1 -= 1
+            else:
+                nums1[i] = nums2[p2]
+                p2 -= 1
+            i -= 1
+        while p2 >= 0:
+            nums1[i] = nums2[p2]
+            p2 -= 1
+            i -= 1
