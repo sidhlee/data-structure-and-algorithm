@@ -19,28 +19,34 @@ export class BinarySearchTree {
 
   insert(value: Comparable) {
     const newNode = new Node(value);
-    if (!this.root) {
+
+    if (this.root === null) {
       this.root = newNode;
-    } else {
-      let currentNode: Node | null = this.root;
-      while (currentNode) {
-        if (value < currentNode.value) {
-          if (currentNode.left) {
-            currentNode = currentNode.left;
-          } else {
-            currentNode.left = newNode;
-            currentNode = null;
-          }
-        } else if (value > currentNode.value) {
-          if (currentNode.right) {
-            currentNode = currentNode.right;
-          } else {
-            currentNode.right = newNode;
-            currentNode = null;
-          }
+      return this;
+    }
+
+    let currentNode = this.root;
+
+    while (currentNode) {
+      if (newNode.value < currentNode.value) {
+        if (currentNode.left === null) {
+          currentNode.left = newNode;
+          break;
+        } else {
+          currentNode = currentNode.left;
         }
+      } else if (newNode.value > currentNode.value) {
+        if (currentNode.right === null) {
+          currentNode.right = newNode;
+          break;
+        } else {
+          currentNode = currentNode.right;
+        }
+      } else {
+        throw new Error('Duplicated key is invalid in BST');
       }
     }
+
     return this;
   }
 
