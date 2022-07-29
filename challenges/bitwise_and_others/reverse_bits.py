@@ -50,6 +50,8 @@ class Solution:
         """
         From 22ms submission
 
+        Use index to select the bit from the right and
+        shift it to the left to keep merging it with the result at the correct places.
         """
         res = 0
         for i in range(32):
