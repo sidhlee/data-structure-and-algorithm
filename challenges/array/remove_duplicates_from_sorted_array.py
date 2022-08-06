@@ -119,3 +119,27 @@ class Solution:
                     nums[k + 1] = nums[i]
                 k += 1
         return k + 1
+
+    def removeDuplicates_curr_unique_num(self, nums: List[int]) -> int:
+        """
+        2022-08-06 09:30:07
+        Runtime: 86 ms (97%)
+        Memory Usage: 15.5 MB (61%)
+
+        We keep:
+        - index to copy unique numbers onto
+        - curr_unique_num to compare current number
+
+        Improvements:
+        - for loop reduces 1 line for incrementing when using while loop
+        - only one index pointer and using var to store temp values for comparison
+            -> removes one condition block
+            -> much simpler (we need to just check if they'are duplicated. so just store value to compare, not the index of the duplicate number)
+        """
+        i_copy = 1
+        curr_unique_num = nums[0]
+        for i in range(1, len(nums)):
+            if nums[i] != curr_unique_num:
+                nums[i_copy] = curr_unique_num = nums[i]
+                i_copy += 1
+        return i_copy
