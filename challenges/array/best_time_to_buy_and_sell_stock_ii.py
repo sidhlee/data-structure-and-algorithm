@@ -44,6 +44,13 @@ class Solution:
 
         starting from index 1 and looking back is a good way to avoid index out of range exception
         when you're comparing neighboring values in the same array.
+
+        Exploit the requirement:
+        - Because we can sell and buy again immediately, we can keep selling as long as today's price is higher than yesterday's,
+        and immediately buy again at the today's price.
+        - The requirement only cares about the maximum profit one can make regardless of how many transaction one makes.
+        This assumes the best possible scenario where the one buys the stock at the first bottom and sell at the top before hitting the
+        end of array.
         """
         profit = 0
         for i in range(1, len(prices)):
