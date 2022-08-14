@@ -78,3 +78,16 @@ class Solution:
         # slicing creates a new list
         nums[:k] = reversed(nums[:k])
         nums[k:] = reversed(nums[k:])
+
+    def rotate_without_creating_new_list(self, nums: List[int], k: int) -> None:
+        """
+        2022-08-14 19:39:35
+        Runtime: 312 ms (67%)
+        Memory Usage: 25.3 MB (76%)
+
+        list concatenation with + creates a new list and consumes extra memory.
+        Use tuple assignment to swap the front and the back of the list in place without concatenation.
+        """
+        k = k % len(nums)
+        if k != 0:
+            nums[:k], nums[k:] = nums[-k:], nums[: len(nums) - k]
