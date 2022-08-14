@@ -57,3 +57,13 @@ class Solution:
             if len(s) != i + 1:
                 return True
         return False
+
+    def containsDuplicate_one_line(self, nums: List[int]) -> bool:
+        """
+        2022-08-14 19:54:21
+        Runtime: 521 ms (80%)
+        Memory Usage: 26.1 MB (31%)
+
+        uses the least amount lines
+        """
+        return len(set(nums)) != len(nums)
