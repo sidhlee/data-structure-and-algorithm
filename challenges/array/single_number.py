@@ -73,3 +73,18 @@ class Solution:
         for i in range(1, len(nums)):
             nums[0] ^= nums[i]
         return nums[0]
+
+    def singleNumber_xor_no_mutation(self, nums: List[int]) -> int:
+        """
+        2022-08-15 07:34:16
+        Runtime: 135 ms (96%)
+        Memory Usage: 16.7 MB (51%)
+
+        If we do XOR(^) on series of numbers, a pair of the same number will produce 0 regardless of their positions in the chain.
+        Any number ^ 0 produces the number itself (including zero).
+        This solution does not mutate the input list as above and a but easier to read.
+        """
+        result = 0
+        for n in nums:
+            result ^= n
+        return result
