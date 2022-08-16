@@ -124,3 +124,18 @@ class Solution:
                 digits[i] += 1
                 return digits
         return [1] + digits
+
+    def plusOne_math_fewer_lines(self, digits: List[int]) -> List[int]:
+        """
+        2022-08-16 08:49:41
+        Runtime: 31 ms (97%)
+        Memory Usage: 13.7 MB (97%)
+
+        Since only thing we do inside condition block is assignment,
+        condensed if else block into 1 line.
+        """
+        for i in range(len(digits) - 1, -1, -1):
+            digits[i] = digits[i] + 1 if digits[i] != 9 else 0
+            if digits[i] != 0:
+                return digits
+        return [1] + digits
