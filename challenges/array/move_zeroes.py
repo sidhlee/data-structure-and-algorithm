@@ -93,3 +93,20 @@ class Solution:
                     nums[i] = nums[j]
                 i += 1
         nums[i:] = [0] * (len(nums) - i)
+
+    def moveZeroes_no_extra_space(self, nums: List[int]) -> None:
+        """
+        2022-08-17 08:25:37
+        Runtime: 177 ms (91%)
+        Memory Usage: 15.6 MB (66%)
+
+        creating a list with a zero then multiplying it costs O(m) space where m is the number of zeroes.
+        Using another for loop gives us constant space with O(2n) time.
+        """
+        insert_at = 0
+        for v in nums:
+            if v != 0:
+                nums[insert_at] = v
+                insert_at += 1
+        for i in range(insert_at, len(nums)):
+            nums[i] = 0
