@@ -65,6 +65,9 @@ class Solution:
 
         This one barely passes the time limit 🥲
         Still O(n^2) but inner loop becomes smaller and smaller
+
+        2022-08-17 08:40:48
+        Why did I map the array and sorted? this is unnecessary! 😰
         """
         nums[:] = [{"i": i, "v": v} for (i, v) in enumerate(nums)]
         nums.sort(key=lambda d: d["v"])
@@ -116,3 +119,17 @@ class Solution:
             if b in dict:
                 return [dict[b], i]
             dict[v] = i
+
+    def twoSum_use_assumption(self, nums: List[int], target: int) -> List[int]:
+        """
+        2022-08-17 08:45:50
+        Runtime: 3302 ms (28%)
+        Memory Usage: 14.9 MB (96%)
+
+        Don't need to create extra data structure, but we're visiting same element twice -> use map!
+        Return early if the answer's found.
+        """
+        for i, n in enumerate(nums):
+            for j in range(i + 1, len(nums)):
+                if n + nums[j] == target:
+                    return [i, j]
