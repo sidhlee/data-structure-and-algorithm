@@ -48,7 +48,7 @@ from typing import List
 
 
 class Solution:
-    def isValidSudoku_floor_division(self, board: List[List[str]]) -> bool:
+    def isValidSudoku_create_lists_first(self, board: List[List[str]]) -> bool:
         """
         2022-06-19T22:11:55.519Z
         Runtime: 99 ms
@@ -65,6 +65,9 @@ class Solution:
         [36 37 38 46 47 48 56 57 58]
 
         We can use nested loop since we have small upper bound.
+
+        2022-08-18 08:59:46
+        But this solution creates all lists to loop upfront even though we could return early.
         ...
 
 
@@ -99,6 +102,10 @@ class Solution:
         - Use set to find existing number with O(1).
         - Validate within the inner loop to return as early as possible
         - Clear set after inner loop is done to limit memory usage
+
+        2022-08-18 09:02:07
+        This solutions makes the assumption that all cells have either "." or values between [1, 9]
+        , which is NOT provided by the requirements.
         """
         group = set()
         for i in range(9):
@@ -160,6 +167,7 @@ class Solution:
         """
 
         def is_valid(numbers):
+            # also makes the same assumption as above
             arr = [x for x in numbers if x != "."]
             return len(arr) == len(set(arr))
 
@@ -177,3 +185,43 @@ class Solution:
                     return False
 
         return True
+
+    def isValidSudoku_robust_validator(self, board: List[List[str]]) -> bool:
+        """
+        2022-08-19 08:06:59
+        Runtime: 99 ms (94%)
+        Memory Usage: 13.9 MB (83%)
+
+        - Uses util functions outside the class -> might be faster since reusing functions between testcases
+        - is_valid function is more robust
+        """
+        for row in board:
+            if not is_valid(row):
+                return False
+        # we don't need reversed since we don't care about the order when validating
+        for col in list(zip(*reversed(board))):
+            if not is_valid(col):
+                return False
+        for i in range(3):
+            for j in range(3):
+                if not is_valid(get_subgrid(board, i, j)):
+                    return False
+        return True
+
+
+def is_valid(nums: List[str]):
+    s = set(range(1, 10))
+    for n in [int(x) for x in nums if x != "."]:
+        if n in s:
+            s.remove(n)
+        else:
+            return False
+    return True
+
+
+def get_subgrid(board, i, j):
+    # We could do this manually one by one since there are only 3 rows.
+    subgrid = []
+    for m in range(3 * i, 3 * (i + 1)):
+        subgrid += board[m][3 * j : 3 * (j + 1)]
+    return subgrid
