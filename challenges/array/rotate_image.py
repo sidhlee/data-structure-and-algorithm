@@ -108,6 +108,17 @@ class Solution:
         """
         matrix[:] = zip(*matrix[::-1])
 
+    def rotate_one_liner_2(self, matrix: List[List[int]]) -> None:
+        """
+        2022-08-19 08:37:21
+        Runtime: 39 ms (89%)
+        Memory Usage: 13.8 MB (75%)
+
+        matrix will be a list a tuple eg. [(1,2), (3, 4), ..], but passes the test
+        reversed is faster than matrix[::-1] & more readable
+        """
+        matrix[:] = zip(*reversed(matrix))
+
     def rotate_return_list(self, matrix: List[List[int]]) -> None:
         """
         2022-06-25T21:34:19.603Z
@@ -133,3 +144,33 @@ class Solution:
         """
         matrix.reverse()
         matrix[:] = list(map(list, zip(*matrix)))
+
+    def rotate_reverse_once(self, matrix: List[List[int]]) -> None:
+        """
+         1 2 3     9 6 3    7 4 1
+         4 5 6 ->  8 5 2 -> 8 5 2
+         7 8 9     7 4 1    9 6 3
+
+        '9'2 3    9 2 3    9'6'3
+         4 5 6 ->'8'5 6 -> 8 5 2
+         7 8'1'   7'4'1    7 4 1
+
+         0,0 <-> 2,2
+         0,1 <-> 1,2
+         2,2 <-> 2,2
+
+         1,0 <-> 2,1
+         1,1 <-> 1,1
+         1,2 <-> 0,1
+
+         Rotate the array across reversed diagonal (/)
+         Then only 1 reverse is required to get to the desired formation.
+        """
+        l = len(matrix)
+        for c in range(l - 1):
+            for r in range(l - 1 - c):
+                matrix[r][c], matrix[l - c - 1][l - r - 1] = (
+                    matrix[l - c - 1][l - r - 1],
+                    matrix[r][c],
+                )
+        matrix.reverse()
