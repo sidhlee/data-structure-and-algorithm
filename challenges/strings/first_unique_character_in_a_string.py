@@ -55,19 +55,25 @@ class Solution:
         Runtime: 158 ms (55%)
         Memory Usage: 14.1 MB (97%)
 
-        If we're not returning early, we don't need to manually save it to the dict.
+        If we're not returning early (i.e. we have to finish looping at least once),
+        we don't need to manually save it to the dict.
         Instead, we can turn them into a counter.
 
         Also, we don't care about the indices of the duplicates. We just need to check
         if the character shows up more than once. so appending index to the list is not necessary.
 
-        We returning the index from the original string, so it make sense to iterate
+        We return the index from the original string, so it make sense to iterate
         through the original string and stop where the counter has the only one occurrence.
+        -> we're still returning early so it's <= O(2n)
 
         * counter doesn't guarantee the element order
+
+        2022-08-21 08:39:48
+        We need to iterate through the entire string at least once.
+        -> create a counter and return when curr character count is 1 (return early)
         """
         c = Counter(s)
-        for i in range(len(s)):
+        for i in range(len(s)):  # could use enumerate
             if c[s[i]] == 1:
                 return i
         return -1
