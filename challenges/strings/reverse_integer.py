@@ -41,8 +41,8 @@ class Solution:
         x.reverse()
         x = "".join(x)
 
-        if (is_negative and -int(x) < -(2**31)) or (
-            not is_negative and int(x) > 2**31 - 1
+        if (is_negative and -int(x) < -(2 ** 31)) or (
+            not is_negative and int(x) > 2 ** 31 - 1
         ):
             return 0
 
@@ -60,3 +60,17 @@ class Solution:
         if (r > pow(2, 31) - 1) or (r < pow(-2, 31)):
             return 0
         return int(r) if x >= 0 else -int(r)
+
+    def reverse_keep_the_sign(self, x: int) -> int:
+        """
+        2022-08-20 20:54:05
+        Runtime: 30 ms (97%)
+        Memory Usage: 14 MB (0%)
+
+        stripping sign on the reversed number seems better.
+        can use this if we somehow need to keep that information within the reversed string.
+        (but hey, reversed and the original integer should ALWAYS have the same sign!)
+        """
+        r = "".join(list(reversed(str(x))))
+        r = int(r) if r[-1] != "-" else -int(r[:-1])
+        return r if -(2 ** 31) <= r <= 2 ** 31 - 1 else 0
