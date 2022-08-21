@@ -39,3 +39,17 @@ class Solution:
             t = s[i]
             s[i] = s[~i]
             s[~i] = t
+
+    def reverseString_two_pointers(self, s: List[str]) -> None:
+        """
+        2022-08-20 20:09:11
+        Runtime: 209 ms (92%)
+        Memory Usage: 18.3 MB (86%)
+
+        more readable
+        """
+        l, r = 0, len(s) - 1
+        while l < r:
+            s[l], s[r] = s[r], s[l]
+            l += 1
+            r -= 1
