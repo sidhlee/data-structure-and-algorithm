@@ -1,7 +1,7 @@
 {
   "jest.jestCommandLine": "yarn test",
   "cSpell.words": ["Subarray"],
-  "workbench.colorTheme": "Darcula Pycharm with Dark GUI",
+  "workbench.colorTheme": "Default Dark+",
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
   "python.testing.unittestArgs": ["-v", "-s", ".", "-p", "test_*.py"],
