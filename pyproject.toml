@@ -5,15 +5,13 @@ description = ""
 authors = ["Sid Hayoun Lee <sidhlee@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.931"
 pytest = "^6.2.5"
 flake8 = "^4.0.1"
 black = "^21.12b0"
-unittest = "^0.0"
-pylint = "^2.12.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

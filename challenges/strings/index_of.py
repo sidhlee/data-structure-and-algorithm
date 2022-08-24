@@ -41,3 +41,11 @@ class Solution:
             if haystack[i : i + len(needle)] == needle:
                 return i
         return -1
+
+    def strStr_one_line(self, haystack: str, needle: str) -> int:
+        '''
+        2022-08-24 08:34:42
+        Runtime: 30 ms (95%)
+        Memory Usage: 13.8 MB (65%)
+        '''
+        return haystack.find(needle)

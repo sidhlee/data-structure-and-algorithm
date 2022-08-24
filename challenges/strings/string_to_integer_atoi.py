@@ -1,3 +1,5 @@
+import re
+
 """
 Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).
 
@@ -48,7 +50,6 @@ Step 3: "   -42" ("42" is read in)
 The parsed integer is -42.
 Since -42 is in the range [-231, 231 - 1], the final result is -42.
 Example 3:
-
 Input: s = "4193 with words"
 Output: 4193
 Explanation:
@@ -97,4 +98,35 @@ class Solution:
 
         num = -1 * int(num) if sign == "-" else int(num)
 
-        min(max(num, -pow(2, 31)), pow(2, 31) - 1)
+        return min(max(num, -pow(2, 31)), pow(2, 31) - 1)
+
+    def myAtoi_shorter(self, s: str) -> int:
+        '''
+        2022-08-23 18:54:58
+        Runtime: 40 ms (87%)
+        Memory Usage: 13.9 MB (29%)
+
+        shorter because empty string is checked later
+        '''
+        s = s.strip()
+        sign = 1
+        if s and s[0] in ("-", "+"):
+            sign = 1 if s[0] == '+' else -1
+            s = s[1:]
+        for i, char in enumerate(s):
+            if not char.isnumeric():
+                s = s[:i]
+                break
+        if not s:
+            return 0
+        return min(2**31 - 1, max(-(2**31), int(s) * sign))
+
+    def myAtoi_regex(self, s: str) -> int:
+        '''
+        2022-08-23 19:30:58
+        Runtime: 58 ms (45%)
+        Memory Usage: 13.9 MB (80%)
+        '''
+        match = re.search(r'^\s*([-+]?\d+)', s)
+        num_str = match.group(1) if match else None
+        return min(2**31 - 1, max(-(2**31), int(num_str))) if num_str else 0
