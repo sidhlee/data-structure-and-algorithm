@@ -129,3 +129,19 @@ class Solution:
             except AttributeError:
                 return False
         return True
+
+    def hasCycle_fast_slow(self, head: Optional[ListNode]) -> bool:
+        """
+        2022-08-31 18:56:36
+        Runtime: 67 ms (79%)
+        Memory Usage: 17.5 MB (94%)
+
+        remembered!
+        """
+        fast = slow = head
+        while fast and fast.next and slow:
+            fast = fast.next.next
+            slow = slow.next
+            if fast is slow:
+                return True
+        return False
