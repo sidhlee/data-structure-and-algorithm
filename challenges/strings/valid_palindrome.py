@@ -64,25 +64,25 @@ class Solution:
         return True
 
     def isPalindrome_two_pointers_lower_later(self, s: str) -> bool:
-        '''
+        """
         2022-08-22 08:58:47
         Runtime: 120 ms (11%)
         Memory Usage: 14.3 MB (86%)
 
         convert to lowercase inside loop, but not as fast as expected
-        '''
+        """
         left = 0
         right = len(s) - 1
         while left < right:
             head, tail = s[left].lower(), s[right].lower()
-            is_head_alnum, is_tail_alnum = head.isalnum(), tail.isalnum() 
+            is_head_alnum, is_tail_alnum = head.isalnum(), tail.isalnum()
             if is_head_alnum and is_tail_alnum and head != tail:
                 return False
             elif not is_head_alnum:
-                left+=1
+                left += 1
                 continue
             elif not is_tail_alnum:
-                right-=1
+                right -= 1
                 continue
             else:
                 left, right = left + 1, right - 1

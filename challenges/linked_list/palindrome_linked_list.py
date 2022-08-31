@@ -61,3 +61,34 @@ class Solution:
             head = head.next
             right = right.next
         return True
+
+    def isPalindrome_reverse_while_finding_middle(
+        self, head: Optional[ListNode]
+    ) -> bool:
+        """
+        2022-08-31 16:42:42
+        Runtime: 770 ms (97%)
+        Memory Usage: 31.1 MB (98%)
+
+        Instead of looping twice for finding the list size and reversing up to the middle,
+        we use the second index counter to reverse the first half of where the right pointer is in each iteration.
+        """
+        right = left = head
+        i = j = 0
+        prev = None
+        while right:
+            if j < i / 2:
+                j += 1
+                temp = left.next
+                left.next = prev
+                prev = left
+                left = temp
+            right = right.next
+            i += 1
+        if i % 2 != 0:
+            left = left.next
+        while left and prev:
+            if left.val != prev.val:
+                return False
+            left, prev = left.next, prev.next
+        return True
