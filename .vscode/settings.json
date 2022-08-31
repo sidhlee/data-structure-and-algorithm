@@ -1,7 +1,7 @@
 {
   "jest.jestCommandLine": "yarn test",
   "cSpell.words": ["Subarray"],
-  "workbench.colorTheme": "Darcula Pycharm with Dark GUI",
+  "workbench.colorTheme": "Default Dark+",
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
   "python.testing.unittestArgs": ["-v", "-s", ".", "-p", "test_*.py"],
@@ -9,5 +9,8 @@
   "python.testing.unittestEnabled": false,
   "python.testing.pytestArgs": ["."],
   "python.linting.pylintEnabled": false,
-  "python.linting.mypyEnabled": false
+  "python.linting.mypyEnabled": false,
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "black",
+  "editor.formatOnSave": true
 }
