@@ -45,6 +45,10 @@ class Solution:
         From one level up, take the larger value of the left and right children
         and add 1 for itself (this also applies to the leaf node).
 
+        This method use DFS and increments max_depth during the backtracking.
+        It always takes the max between left and right -> last step would be on the root node
+        When current node is None we return 0 -> if both left and right are None, the parent is a leaf node -> start adding 1 to the depth and keep backtracking
+
         TODO: try dfs approach where you pass the child node and the incrementing level to the inner helper
         and when reaching the leaf, update the result property if the level is greater than the current result.
         -> In OPP, you don't need nonlocal! just use class field
@@ -60,3 +64,27 @@ class Solution:
             max(self.maxDepth_recursion(root.left), self.maxDepth_recursion(root.right))
             + 1
         )
+
+    def maxDepth_iterative_dynamic(self, root: Optional[TreeNode]) -> int:
+        '''
+        2022-09-03 09:21:25
+        Runtime: 37 ms (99%)
+        Memory Usage: 15.3 MB (81%)
+
+        Finding max -> we don't care about the order -> can use stack instead of queue
+        Push left and right and update max as we go only if curr_node is not None
+
+        Edge cases covered:
+        - When there's zero node in the tree, max_depth stays 0
+        - When curr_node is the leaf node, we're appending None for left and right
+        - but we're only updating max_depth only when the curr_node is not None
+        '''
+        max_depth = 0
+        stack = [(root, 1)]
+        while stack:
+            curr_node, curr_depth = stack.pop()
+            if curr_node:
+                stack.append((curr_node.left, curr_depth + 1))
+                stack.append((curr_node.right, curr_depth + 1))
+                max_depth = max(max_depth, curr_depth) # leaf node would have null for both left and right
+        return max_depth

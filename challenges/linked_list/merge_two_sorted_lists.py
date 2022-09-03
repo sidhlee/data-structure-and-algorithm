@@ -127,3 +127,26 @@ class Solution:
         else:
             list2.next = self.mergeTwoLists_recursion(list1, list2.next)
             return list2
+
+    def mergeTwoLists_start_with_empty_node(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        '''
+        2022-08-30 18:53:04
+        Runtime: 36 ms (96%)
+        Memory Usage: 13.8 MB (79%)
+
+        No need to do the same comparison before getting into the loop.
+        Start with an empty node and keep chaining after it.
+        We can return what's next to the empty head.
+        '''
+        head = ListNode()
+        curr = head
+        while list1 and list2:
+            if list1.val < list2.val:
+                curr.next = list1
+                list1 = list1.next
+            else:
+                curr.next = list2
+                list2 = list2.next
+            curr = curr.next
+        curr.next = list1 if list1 else list2
+        return head.next

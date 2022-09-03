@@ -103,3 +103,32 @@ class Solution:
             # removing head
             head = left.next
         return head
+
+    def removeNthFromEnd__loop_twice(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        '''
+        2022-08-29 21:37:36
+        Runtime: 51 ms (54%)
+        Memory Usage: 14 MB (0%)
+
+        loop through once to get the size of the list, then loop once more to access the removing node and prev node.
+        -> we could just follow n-steps behind the pointer to access removing node and prev node in the first loop!
+        '''
+        if not head.next and n == 1:
+            return None
+        sz = 0
+        curr_node = head
+        while curr_node:
+            sz += 1
+            curr_node = curr_node.next
+        curr_node = head
+        prev_node = None
+        for i in range(sz):
+            if i == sz - n:
+                if curr_node.next:
+                    curr_node.val = curr_node.next.val
+                    curr_node.next = curr_node.next.next
+                else:
+                    prev_node.next = None
+                return head
+            prev_node = curr_node
+            curr_node = curr_node.next
