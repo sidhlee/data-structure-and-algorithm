@@ -92,7 +92,6 @@ class Solution:
         def is_sym(node1, node2):
             if node1 is root.right and node2 is root.left:
                 return True
-            self.visited_root = True
             if node1 is None and node2 is None:
                 return True
             if (node1 is None) != (node2 is None):
@@ -103,3 +102,27 @@ class Solution:
             return is_sym(node1.left, node2.right) and is_sym(node1.right, node2.left)
 
         return is_sym(root, root)
+
+    def isSymmetric_recursion_skip_root_node(self, root: Optional[TreeNode]) -> bool:
+        '''
+        2022-09-07 07:37:02
+        Runtime: 47 ms (67%)
+        Memory Usage: 14 MB (61%)
+
+        Take advantage of assumption: length >= 1 and start at level 1 instead of root node.
+        Now we don't need extra check from the inner function.
+        
+        Optimization idea:
+        - Now we're calling inner 2 more times to check for the leaf node passing outer children and inner children.
+        - We can check whether nth_left and nth_right are both leaf nodes then return nth_left.val == nth_right.val inside inner function.
+        - Avoiding/catching AttributeError might be tricky.
+        '''
+        def inner(nth_left, nth_right):
+            if nth_left is None and nth_right is None:
+                return True
+            elif nth_left is None or nth_right is None:
+                return False
+            elif nth_left.val != nth_right.val:
+                return False
+            return inner(nth_left.left, nth_right.right) and inner(nth_left.right, nth_right.left)
+        return inner(root.left, root.right)
