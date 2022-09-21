@@ -71,10 +71,12 @@ class Solution:
         1. right comes to the left
             - mid was bad
             - right comes to mid and mid was at the left
+              - mid is left when left and right are next to each other
+            - eg. [1, 2] bad = 1, 2
         2. left comes to the right
             - mid was good
             - right was at mid + 1
-        In both cases, bad must be between (left, right]
+            - eg. [1, 2] bad = 2
 
         What if left is bad at the beginning?
         -> range keeps being reduced in half until right comes to left (case 1)
