@@ -121,6 +121,39 @@ class Solution:
                 if p2 == n:
                     break
 
+    def merge_with_slice(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        2022-09-20 08:39:48
+        Runtime: 40 ms (92%)
+        Memory Usage: 14 MB (38%)
+
+        2 pointers seem to work better with WHILE loop
+        because it's easier to move them conditionally
+
+        Do not return anything, modify nums1 in-place instead.
+        m = true length of the nums1
+        n = true length of the nums2
+        m + n == len(nums1)
+        0 represents null
+        [1] m=1 [] n=0 -> [1]
+        [0] m=0 [1] n=1 -> [1]
+        [1, 3, 0] m=2 [2] n=1 -> [1, 2, 3]
+        """
+        if not nums2:
+            return
+        if m == 0:
+            nums1[:] = nums2
+            return
+        i = j = 0
+        while i < m + n and j < n:
+            if nums1[i] > nums2[j]:
+                # num1[i: m+n-1] gets smaller each time
+                nums1[i:] = nums2[j:j + 1] + nums1[i: m + n - 1]
+                j += 1
+            i += 1
+        if j < n:
+            nums1[m + j:] = nums2[j:]
+
     def merge_sort_desc(
         self, nums1: List[int], m: int, nums2: List[int], n: int
     ) -> None:
@@ -156,3 +189,30 @@ class Solution:
             nums1[i] = nums2[p2]
             p2 -= 1
             i -= 1
+
+    def merge_desc_optimized(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        '''
+        2022-09-21 08:22:39
+        Runtime: 43 ms (87%)
+        Memory Usage: 14 MB (38%)
+
+        Use for loop to iterate backward on first array.
+        if pointers go out of range on either array, 
+        we concat the remaining (reached the end of num1) OR
+        return None (reached the end of nums2 - nums1 is already sorted)
+        '''
+        # set pointers at the last elements
+        i, j = m - 1, n - 1
+        # iterate backward on first array
+        for p1 in range(len(nums1) - 1, -1, -1):
+            if i < 0:
+                nums1[: p1 + 1] = nums2[: j + 1]
+                return None
+            if j < 0:
+                return None
+            if nums1[i] > nums2[j]:
+                nums1[p1] = nums1[i] 
+                i -= 1
+            else:
+                nums1[p1] = nums2[j]
+                j -= 1
