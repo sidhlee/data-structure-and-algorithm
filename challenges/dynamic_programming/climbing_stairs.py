@@ -63,3 +63,30 @@ class Solution:
             return result
 
         return inner(n)
+
+    def climbStairs_bottom_up(self, n: int) -> int:
+        '''
+        2022-09-23 08:57:21
+        Runtime: 28 ms (97%)
+        Memory Usage: 13.8 MB (96%)
+
+        decision tree until stairs_traveled = n
+                       0  1, 2, 3, 4, 5
+        possible ways: 8  5  3  2  1  
+        perm from any one spot -> 1 or 2 steps
+        BOTTOM UP appraoch:
+        - From step 4, we have 1 way to reach step 5
+        - From step 3, we have 2 ways (3 > 4 > 5, 3 > 5)  
+        - From step 2, we can get to step 4(1) or step 3(2): 1 + 2 = 3
+        - From step 1, we can get to step 3(2) or step 2(3): 2 + 3 = 5
+        - From step 0, we can get to step 2(3) or step 1(5): 3 + 5 = 8
+        perms at current step depends on the the perms at step + 1 and perms at step + 2
+
+        Time: we start computing bottom up from step 2 to step 0 -> O(n - 2) 
+        space: we need 2 temp vars to store perms on 2 steps we can land on from the current step -> O(2)
+        '''
+        ways_one_left = 0
+        ways_two_left = 1
+        for i in range(n - 1, -1, -1):
+            ways_two_left, ways_one_left = ways_two_left + ways_one_left, ways_two_left
+        return ways_two_left
