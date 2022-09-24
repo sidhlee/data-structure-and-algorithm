@@ -33,7 +33,7 @@ To reach nth step, what could have been your previous steps? (Think about the st
 
 
 class Solution:
-    def climbStairs(self, n: int) -> int:
+    def climbStairs_memo_bottom_up(self, n: int) -> int:
         """
         Runtime: 32 ms (90%)
         Memory Usage: 13.8 MB (96%)
@@ -63,6 +63,41 @@ class Solution:
             return result
 
         return inner(n)
+
+    def climbStairs_memo_top_down(self, n: int) -> int:
+        '''
+        2022-09-24 08:21:16
+        Runtime: 28 ms (97%)
+        Memory Usage: 13.8 MB (57%)
+
+        From step 3 we can climb up to 4 or 5
+        -> from step 3, the permutation will be the sum of permutations from 4 and 5
+        -> so we need to assign 1 for step 5 even though it doesn't really make sense to climb up from 5 to 5
+            0 1 2 3 4 5
+                2 1 1
+
+        Top-down is easier to visualize and understand.
+        we traverse down with DFS until the base case,
+        and sum all available permutations of the children while backtracking.
+        Cache the result so that the node with the same state doesn't need to re-calculate
+                     n = 5
+                     0 (8)
+                 1(5)  2
+              2(3)3   3 4
+           3(2)4
+        4(1)5(1)
+        '''
+        cache = {}
+
+        def inner(step: int):
+            if step >= n - 1:
+                return 1
+            one = cache.get(step + 1) or inner(step + 1)
+            two = cache.get(step + 2) or inner(step + 2)
+            if step not in cache:
+                cache[step] = one + two
+            return one + two
+        return inner(0)
 
     def climbStairs_bottom_up(self, n: int) -> int:
         '''
