@@ -42,3 +42,22 @@ class Solution:
             min_price = min(price, min_price)
             max_profit = max(price - min_price, max_profit)
         return max_profit
+
+    def maxProfit_start_from_second(self, prices: List[int]) -> int:
+        '''
+        2022-09-24 19:04:22
+        Runtime: 1181 ms (85%)
+        Memory Usage: 25 MB (86%)
+        
+        Since there will be at least one price,
+        set the first price as the lowest then
+        iterate from the second price.
+
+        sliding window -> update the result as we go!
+        '''
+        profit = 0
+        lowest = prices[0]
+        for i in range(1, len(prices)):
+            lowest = min(lowest, prices[i])
+            profit = max(profit, prices[i] - lowest)
+        return profit
