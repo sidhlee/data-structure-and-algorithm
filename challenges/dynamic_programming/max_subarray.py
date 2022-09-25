@@ -92,3 +92,37 @@ class Solution:
             # - sum is decreased by negative num
             # - but the sum is still positive, so keep the sum
         return max_sub
+
+    def maxSubArray_reset_and_add(self, nums: List[int]) -> int:
+        '''
+        2022-09-25 12:53:17
+        Runtime: 844 ms (83%)
+        Memory Usage: 27.8 MB (96%)
+        1. Init: 
+        - set the max_sum with the first number
+        - set the current sum to 0
+        2. loop through the numbers
+            a. reset curr_sum to 0 if negative. This is the same resetting
+            subarray head to the current number since the part coming before is not
+            contributing to the max sum
+            b. add current number to the curr_sum
+            c. If the updated curr_sum is greater than max_sum, we update max_sum.
+            max_sum will NOT update if the curr_sum is equal to the max_sum.
+        This works for:
+        - single negative number
+        - all negative numbers
+        
+        You can also update max_sum only if curr_sum is greater than curr_sum,
+        then reset the curr_sum if less than zero.
+        This works if there's one negative number
+        ''' 
+        max_sum = nums[0]
+        curr_sum = 0
+        for i in range(len(nums)):
+            # check current sum and reset to 0 if negative before adding the current number
+            curr_sum = max(0, curr_sum)
+            # adding the current number after reset will work for single negative number and all neggative numbers
+            curr_sum += nums[i]
+            max_sum = max(max_sum, curr_sum)     
+        return max_sum
+            
