@@ -41,10 +41,12 @@ class Solution:
             * In the next iteration, max two step away is the same as max one step away
             eg. [2, 1, 1, 2]
 
+        This seems to be more complicated compared to the bottom-up approach
         """
         mx_one_before = nums[0]
         mx_two_before = 0
         for i in range(1, len(nums)):
+            # starting from the second house
             curr_num = nums[i]
             if mx_two_before + curr_num > mx_one_before:
                 temp = mx_one_before
@@ -53,3 +55,55 @@ class Solution:
             else:
                 mx_two_before = mx_one_before
         return mx_one_before
+
+    def rob_bottom_up(self, nums: List[int]) -> int:
+        '''
+        2022-09-25 16:16:54
+        Runtime: 38 ms (84%)
+        Memory Usage: 13.8 MB (97%)
+
+        Assumptions:
+        - either the last or second last house is robbed
+        - either we skip 1 house or 2 houses to make max profit
+        - either we start from first or second house
+
+        Start looping from the last house, and keep updating the cache with
+        the sum of the current value and the the value of i + 2 or i + 3 whichever is greater. 
+        1. Store the index:value pair to the cache.
+        2. If index + 2 exists in cache, store the sum of current value and the value of index + 2
+        3. If index + 3 exists in cache, store the sum of current value and the max between i + 2 or i + 3
+        4. After the loop is done, return the bigger value from i or i + 1 from the cache
+
+        - The max profit from the current house is the value of the current house
+        added by the profit I'll make from the next house, which can be i + 2, or i + 3.
+
+        [2, 1, 1, 2]
+        skip is either 1 or 2.
+        no need to skip more than 3: robbing house in the middle for more profit
+        can start from i = 0 or 1
+        2 -> 1
+        2 -> 2
+        [5, 10, 2, 1, 10, 5]
+                   ------>
+                   --------->
+                ------>
+                ---------->
+            ------->
+            --------->10
+         ------>
+         ---------->
+
+        5 > 2 > 10
+        5 > 2 > 5
+        5 > 1 > 5
+        10 > 10
+        10 > 1 > 5
+        '''
+        profits = {}
+        for i in range(len(nums) - 1, -1, -1):
+            profits[i] = nums[i]
+            if i + 2 in profits:
+                profits[i] = nums[i] + profits[i + 2]
+            if i + 3 in profits:
+                profits[i] = nums[i] + max(profits[i + 2], profits[i + 3])
+        return max(profits[0], profits[1]) if profits.get(1) else profits[0]
