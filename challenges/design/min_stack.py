@@ -49,12 +49,15 @@ class MinStack_keep_mins:
 
     def __init__(self):
         self.stack = []
+        # you need to keep the list of mins so that you can pop all numbers
+        # and still be able to return current min
         self.mins = []
 
     def push(self, val: int) -> None:
         # if you only keep the values less than the last min,
         # you lose the min when popping values equal to the min
         # if not self.min or (self.min and val <= self.min[-1]):
+        # also, when mins array is empty, push any value into it
         if not self.mins or val <= self.mins[-1]:
             self.mins.append(val)
         self.stack.append(val)

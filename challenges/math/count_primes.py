@@ -55,3 +55,16 @@ class Solution:
                 for j in range(i * i, n, i):
                     nums[j] = 0
         return len([x for x in nums if x])
+
+    def countPrimes_again(self, n: int) -> int:
+        '''
+        2022-09-27 20:02:42
+        '''
+        nums = [0, 0] + [1] * (n - 2)
+        for i in range(2, len(nums)):
+            if nums[i]:
+                # start from i * i since i * 2, i * 3, .. i * (i - 1) are already marked as false
+                # in previous iterations
+                for j in range(i * i, n, i):
+                    nums[j] = 0
+        return sum(nums)
