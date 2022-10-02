@@ -75,4 +75,4 @@ class Solution:
         The biggest power of 3 within the constraint: 3486784401 = 3 * 3 * 3 * ... * 3
         -> power of three must be only composed with 3's
         """
-        return n > 0 and 3486784401 % n == 0
+        return n > 0 and 3**19 % n == 0
