@@ -45,13 +45,25 @@ class Solution:
             bin_str += "1" if n & 1 else "0"
             n >>= 1
         return int(bin_str, 2)
+    
+    def reverseBits_str_conversion(self, n: int) -> int:
+        '''
+        2022-10-04 21:33:21
+        Runtime: 51 ms (63%)
+        Memory Usage: 13.7 MB (94%)
+
+        - convert int to bin string padded with 0 
+        - reverse the string with slice and convert back to int
+        '''
+        bin_str = bin(n)[2:].rjust(32, '0')
+        return int(bin_str[::-1], 2)
 
     def reverseBits_no_conversion(self, n: int) -> int:
         """
         From 22ms submission
 
-        Use index to select the bit from the right and
-        shift it to the left to keep merging it with the result at the correct places.
+        Use index to select the nth bit from the right and
+        shift it to the nth from the left and merge it with the current result with | (OR)
         """
         res = 0
         for i in range(32):

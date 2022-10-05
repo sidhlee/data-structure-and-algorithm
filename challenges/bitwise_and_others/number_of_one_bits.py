@@ -1,3 +1,5 @@
+from collections import Counter
+
 """
 Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
 
@@ -36,8 +38,20 @@ class Solution:
         2022-07-27 07:18:31
         Runtime: 41 ms (70%)
         Memory Usage: 13.9 MB (50%)
+
+        - bin(int) returns binary string with "0b" prefix. fastest.
         """
         return len([x for x in str(bin(n)) if x == "1"])
+
+    def hammingWeight(self, n: int) -> int:
+        '''
+        2022-10-02 13:40:27
+        Runtime: 40 ms (79%)
+        Memory Usage: 13.8 MB (50%)
+
+        - format(n, 'b') returns binary string without prefix, but little slower than bin()
+        '''
+        return Counter(format(n, "b"))["1"]
 
     def hammingWeight_bitwise(self, n: int) -> int:
         """
@@ -45,7 +59,7 @@ class Solution:
         Runtime: 44 ms (62%)
         Memory Usage: 13.9 MB (50%)
 
-        bitwise operator & returns 1 if the right-mote bit matches 1 else 0.
+        bitwise operator & returns 1 if the LSB matches 1 else 0.
         >> (right shift) shifts bits to the right the given number of times.
 
         eg.
