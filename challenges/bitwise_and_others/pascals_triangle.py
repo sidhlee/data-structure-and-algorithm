@@ -26,7 +26,7 @@ Constraints:
 
 
 class Solution:
-    def generate(self, numRows: int) -> List[List[int]]:
+    def generate_look_behind(self, numRows: int) -> List[List[int]]:
         """
         2022-08-02 08:31:30
         Runtime: 43 ms (64%)
@@ -40,11 +40,35 @@ class Solution:
         n 1    2      3        4          5                 6
         [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1], [1, 5, 10, 10, 5, 1]]
         """
-
+        # Use the constraint to start with the first row
         res = [[1]]
+        # now you can start from the second row
         for i in range(1, numRows):
             sub_arr = [1]
+            # also start from the second index so that we can look behind
             for j in range(1, i):
+                # not getting here when i = 1
+                # starts from 3rd row & working with prev row so we end at the same index as prev row
                 sub_arr.append(res[i - 1][j - 1] + res[i - 1][j])
+            # after loop, just need to add 1 to the curr arr    
             res.append(sub_arr + [1])
         return res
+
+    def generate_look_ahead(self, numRows: int) -> List[List[int]]:
+        '''
+        2022-10-07 08:53:21
+        Runtime: 32 ms (94%)
+        Memory Usage: 13.8 MB (66%)
+
+        look-behind works better since you don't need condition to check index range
+        starting late and looking behind is much simpler in terms of managing index range
+        '''
+        rows = []
+        for i in range(numRows):
+            curr_row = [1]
+            for j in range(i):
+                prev_row = rows[i - 1]
+                # append 0 as the last number
+                curr_row.append(prev_row[j] + (prev_row[j + 1] if j < len(prev_row) - 1 else 0))
+            rows.append(curr_row)
+        return rows
