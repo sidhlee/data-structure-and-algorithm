@@ -34,11 +34,46 @@ Follow up: Could you implement a solution using only O(1) extra space complexity
 
 
 class Solution:
-    def missingNumber(self, nums: List[int]) -> int:
+    def missingNumber_combined_logic(self, nums: List[int]) -> int:
         """
         Runtime: 141 ms (93%)
         Memory Usage: 15.3 MB (35%)
 
-        Using the math formula to get the expected sum of the sequence.
+        Uses len(nums) instead of n so that when there is zero in the list,
+        we get the n + 1 as the missing number.
+        When there is no zero in the list, 
+        we'll get zero as the missing number.
         """
         return int(len(nums) * (len(nums) + 1) / 2) - sum(nums)
+    
+    def missingNumber_separate_logic(self, nums: List[int]) -> int:
+        '''
+        2022-10-11 08:37:57
+        Runtime: 159 ms (85%)
+        Memory Usage: 15.3 MB (21%) 
+        
+        Uses iteration to find the max number and if zero is included in the list.
+        Easier to understand
+        
+        [0] -> 1
+        [1] -> 0 (only case when there's no 0)
+        [0, 2] -> 1
+        [0, 1] -> 2
+        [0, 3, 2] -> 1 
+        
+        numbers are not ordered
+        there is maximum 1 missing number
+        0 + 1 + 2 + 3 + 4 + 5 = (1 + 5) * 5 / 2 = 15
+        0 + 1 + 2 + 3 + 4 = (1 + 4) * 4 / 2 = 10
+        (min + max) * 
+        '''
+        total = mx = 0
+        has_zero = False
+        for num in nums:
+            total += num
+            mx = max(mx, num)
+            has_zero = has_zero or num == 0
+        diff = int((1 + mx) * mx / 2) - total
+        if not has_zero:
+            return 0
+        return mx + 1 if diff == 0 else diff
