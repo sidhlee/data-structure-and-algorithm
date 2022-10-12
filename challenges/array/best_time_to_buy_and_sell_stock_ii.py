@@ -87,3 +87,20 @@ class Solution:
                     j += 1
 
         return profit
+
+    def maxProfit_price_and_holding(self, prices: List[int]) -> int:
+        '''
+        2022-10-12 08:35:31
+        Runtime: 92 ms (73%)
+        Memory Usage: 15.2 MB (69%)
+
+        We're updating holding with the current price every time
+        -> we don't need the variable and just use the prev value
+        '''
+        profit = 0
+        holding = prices[0]
+        for price in prices:
+            if price > holding:
+                profit += price - holding
+            holding = price
+        return profit
