@@ -143,3 +143,20 @@ class Solution:
                 nums[i_copy] = curr_unique_num = nums[i]
                 i_copy += 1
         return i_copy
+
+    def removeDuplicates_check_behind_insert_at(self, nums: List[int]) -> int:
+        '''
+        2022-10-12 08:15:05
+        Runtime: 135 ms (75%)
+        Memory Usage: 15.6 MB (66%)
+        
+        Check the insert_at - 1 for the last inserted number to compare
+        This will run O(n) on the sorted unique numbers, but we need O(n) for checking all list items anyways
+        and mutating list item is cheap.
+        '''
+        insert_at = 1
+        for i in range(1, len(nums)):
+            if nums[i] > nums[insert_at - 1]:
+                nums[insert_at] = nums[i]
+                insert_at += 1
+        return insert_at
