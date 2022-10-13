@@ -91,3 +91,17 @@ class Solution:
         k = k % len(nums)
         if k != 0:
             nums[:k], nums[k:] = nums[-k:], nums[: len(nums) - k]
+
+    def rotate_without_creating_new_list_2(self, nums: List[int], k: int) -> None:
+        '''
+        2022-10-13 08:10:59
+        Runtime: 390 ms (66%)
+        Memory Usage: 25.3 MB (75%)
+
+        Instead of using variable as the negative index
+        which does't behave consistently when it's 0,
+        create another variable to get the beginning index of shifting subarray
+        '''
+        k_mod = k % len(nums)
+        k_last = len(nums) - k_mod
+        nums[:k_mod], nums[k_mod:] = nums[k_last:], nums[:k_last]
