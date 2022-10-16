@@ -174,3 +174,9 @@ class Solution:
                     matrix[r][c],
                 )
         matrix.reverse()
+
+    def rotate_reverse_and_zip_and_map_to_list(self, matrix: List[List[int]]) -> None:
+        '''
+        2022-10-16 16:25:53
+        '''
+        matrix[:] = map(list, zip(*matrix[::-1]))
