@@ -74,3 +74,26 @@ class Solution:
         r = "".join(list(reversed(str(x))))
         r = int(r) if r[-1] != "-" else -int(r[:-1])
         return r if -(2 ** 31) <= r <= 2 ** 31 - 1 else 0
+
+    def reverse_math(self, x: int) -> int:
+        '''
+        2022-10-16 17:09:45
+        Runtime: 36 ms (91%)
+        Memory Usage: 13.8 MB (97%)
+
+        mod 10 to get LSD. multiple previous result by 10 and add the LSD 
+        '''
+        res = 0
+        sign = 1
+        if x < 0:
+            sign = -1
+            x = -x
+        while x > 0:
+            lsd = x % 10
+            if res * 10 + lsd < 2**31:
+                res = res * 10 + lsd
+            # or catch out of range error
+            else:
+                return 0
+            x = x // 10
+        return sign * res
