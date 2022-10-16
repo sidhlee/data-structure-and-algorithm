@@ -53,3 +53,11 @@ class Solution:
             s[l], s[r] = s[r], s[l]
             l += 1
             r -= 1
+
+    def reverseString_tilde_swap(self, s: List[str]) -> None:
+        '''
+        2022-10-16 16:35:26
+        ~0 == -1, ~1 == -2
+        '''
+        for i in range(len(s) // 2):
+            s[i], s[~i] = s[~i] , s[i]
