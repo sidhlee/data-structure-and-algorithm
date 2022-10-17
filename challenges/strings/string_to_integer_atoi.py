@@ -120,6 +120,28 @@ class Solution:
         if not s:
             return 0
         return min(2**31 - 1, max(-(2**31), int(s) * sign))
+    
+    def myAtoi_build_res_with_math(self, s: str) -> int:
+        '''
+        2022-10-17 07:28:46
+        Runtime: 57 ms (66%)
+        Memory Usage: 13.9 MB (78%)
+        
+        Instead of converting ranges of string into int, build the result inside the loop
+        one digit at a time.
+        This is not necessary for the current requirement.
+        '''
+        s = s.strip()
+        sign = 1
+        res = 0
+        if s and s[0] in ['-', '+']:
+            sign = int(s[0] + '1')
+            s = s[1:]
+        for char in s:
+            if not char.isnumeric():
+                break
+            res = res * 10 + int(char)
+        return min(max(sign * res, -2**31), 2**31 - 1)
 
     def myAtoi_regex(self, s: str) -> int:
         '''
