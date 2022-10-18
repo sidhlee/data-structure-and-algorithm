@@ -58,3 +58,16 @@ class Solution:
                     return strs[0][:i]
         # if we came this far, the first string is the longest common prefix
         return strs[0]
+
+    def longestCommonPrefix_pop(self, strs: List[str]) -> str:
+        '''
+        2022-10-18 08:06:06
+
+        Easier to read but mutates input array
+        '''
+        last = strs.pop()
+        for i in range(len(last)):
+            for word in strs:
+                if i >= len(word) or last[i] != word[i]:
+                    return last[:i]
+        return last
