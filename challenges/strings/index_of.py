@@ -49,3 +49,13 @@ class Solution:
         Memory Usage: 13.8 MB (65%)
         '''
         return haystack.find(needle)
+
+    def strStr_optimized(self, haystack: str, needle: str) -> int:
+        '''
+        2022-10-18 07:47:27
+        will only compare if the first letter matches
+        '''
+        for i in range(len(haystack) - len(needle) + 1):
+            if haystack[i] == needle[0] and haystack[i:i + len(needle)] == needle:
+                return i
+        return -1
