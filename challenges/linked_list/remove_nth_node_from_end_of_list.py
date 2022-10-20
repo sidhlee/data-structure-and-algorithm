@@ -1,8 +1,6 @@
 """
 Given the head of a linked list, remove the nth node from the end of the list and return its head.
 
- 
-
 Example 1:
 './remove_nth_node_from_end_of_list_01.jpeg'
 
@@ -16,7 +14,6 @@ Example 3:
 
 Input: head = [1,2], n = 1
 Output: [1]
- 
 
 Constraints:
 
@@ -24,7 +21,6 @@ The number of nodes in the list is sz.
 1 <= sz <= 30
 0 <= Node.val <= 100
 1 <= n <= sz
- 
 
 Follow up: Could you do this in one pass?
 
@@ -104,15 +100,23 @@ class Solution:
             head = left.next
         return head
 
-    def removeNthFromEnd__loop_twice(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        '''
+    def removeNthFromEnd__loop_twice(
+        self, head: Optional[ListNode], n: int
+    ) -> Optional[ListNode]:
+        """
         2022-08-29 21:37:36
         Runtime: 51 ms (54%)
         Memory Usage: 14 MB (0%)
 
         loop through once to get the size of the list, then loop once more to access the removing node and prev node.
         -> we could just follow n-steps behind the pointer to access removing node and prev node in the first loop!
-        '''
+
+        2022-10-20 08:08:25
+        However, if we have prev_node, we don't need curr_node to remove target.
+        We can simply set the prev_node to the next of target, which includes the case when the target is the last node.
+
+        Conditions within loops can usually be taken out of the loop
+        """
         if not head.next and n == 1:
             return None
         sz = 0
@@ -123,12 +127,54 @@ class Solution:
         curr_node = head
         prev_node = None
         for i in range(sz):
+            # i: 0 1 2 [3] 4
+            # p: 0 1 2
+            # c: 1 2 3
+            # when curr_node is the target
             if i == sz - n:
+                # if not the last node, set the curr_node to the next node
                 if curr_node.next:
                     curr_node.val = curr_node.next.val
                     curr_node.next = curr_node.next.next
                 else:
+                    # if last node, remove by setting prev node
                     prev_node.next = None
                 return head
             prev_node = curr_node
             curr_node = curr_node.next
+
+    def removeNthFromEnd_2n_simpler(
+        self, head: Optional[ListNode], n: int
+    ) -> Optional[ListNode]:
+        """
+        2022-10-20 07:55:07
+
+        We can assume that we're removing at least one node,
+        so we can have separate logic for removing the first node.
+        - set head to the second node and return
+
+        If we're not removing the first node then there must be more than 2 nodes in the list.
+        Loop to access the prev node of the target
+        and set the prev node's next to the next of the target.
+        - This includes the case when the target is the last node.
+        -> prev.next = None
+        """
+        # Find the list length
+        sz = 0
+        curr = head
+        while curr:
+            curr = curr.next
+            sz += 1
+
+        # Removing the first node. This includes removing only node.
+        if sz == n:
+            head = head.next
+            return head
+
+        # Get prev node and remove target
+        prev = head
+        for i in range(sz - n - 1):
+            prev = prev.next
+        prev.next = prev.next.next
+
+        return head
