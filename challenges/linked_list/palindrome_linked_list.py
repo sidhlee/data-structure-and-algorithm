@@ -92,3 +92,40 @@ class Solution:
                 return False
             left, prev = left.next, prev.next
         return True
+
+    def isPalindrome_reverse_first_half_one_index(
+        self, head: Optional[ListNode]
+    ) -> bool:
+        """
+        2022-10-25 07:10:17
+
+        We can move left every second time to find middle
+        - left is right / 2 when there are even number of nodes
+        - left is right / 2 - 1 when there are odd number of nodes
+        eg.
+        i = 0 1 2 3 4
+        R = 0 1 2 3 4
+        L = 0 0 1 1 2
+        """
+        # find middle
+        i = 0
+        left = right = head
+        prev = None
+        while right:
+            right = right.next
+            if i % 2 == 1:
+                temp = left.next
+                left.next = prev
+                prev = left
+                left = temp
+            i += 1
+        # move left to the right of the middle when there are odd number of nodes
+        if i % 2 == 1:
+            left = left.next
+        # if prev is None, there is one or no node in the list
+        while left and prev:
+            if left.val != prev.val:
+                return False
+            prev = prev.next
+            left = left.next
+        return True

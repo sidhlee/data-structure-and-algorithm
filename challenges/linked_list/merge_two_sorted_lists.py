@@ -128,8 +128,31 @@ class Solution:
             list2.next = self.mergeTwoLists_recursion(list1, list2.next)
             return list2
 
-    def mergeTwoLists_start_with_empty_node(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        '''
+    def mergeTwoLists_recursion_pure(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        """
+        2022-10-24 18:55:03
+        """
+
+        def chain_next(node1, node2):
+            if not node1 or not node2:
+                return node2 if not node1 else node1
+            if node1.val < node2.val:
+                node1.next = chain_next(node1.next, node2)
+                return node1
+            else:
+                node2.next = chain_next(node1, node2.next)
+                return node2
+
+        head = ListNode()
+        head.next = chain_next(list1, list2)
+        return head.next
+
+    def mergeTwoLists_start_with_empty_node(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        """
         2022-08-30 18:53:04
         Runtime: 36 ms (96%)
         Memory Usage: 13.8 MB (79%)
@@ -137,7 +160,7 @@ class Solution:
         No need to do the same comparison before getting into the loop.
         Start with an empty node and keep chaining after it.
         We can return what's next to the empty head.
-        '''
+        """
         head = ListNode()
         curr = head
         while list1 and list2:
@@ -149,4 +172,33 @@ class Solution:
                 list2 = list2.next
             curr = curr.next
         curr.next = list1 if list1 else list2
+        return head.next
+
+    def mergeTwoLists_return_next_pure(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        """
+        2022-10-24 17:42:13
+        Does not mutate the input lists.
+        If you create an empty node as the head and return the next,
+        it also handles the case where one or both of them are None because
+        next node is initialized as None.
+        After getting out of the loop because one of both of pointers are empty,
+        we're attaching the first pointer if it's not empty.
+        This takes care of all the following cases:
+        - p1 not None, p2 None
+        - p2 not None, p1 None
+        - p1 None, p2 None
+        """
+        curr1, curr2 = list1, list2
+        curr = head = ListNode()
+        while curr1 and curr2:
+            if curr1.val < curr2.val:
+                curr.next = curr1
+                curr1 = curr1.next
+            else:
+                curr.next = curr2
+                curr2 = curr2.next
+            curr = curr.next
+        curr.next = curr1 if curr1 else curr2
         return head.next
