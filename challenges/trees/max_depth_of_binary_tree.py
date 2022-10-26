@@ -66,7 +66,7 @@ class Solution:
         )
 
     def maxDepth_iterative_dynamic(self, root: Optional[TreeNode]) -> int:
-        '''
+        """
         2022-09-03 09:21:25
         Runtime: 37 ms (99%)
         Memory Usage: 15.3 MB (81%)
@@ -78,7 +78,7 @@ class Solution:
         - When there's zero node in the tree, max_depth stays 0
         - When curr_node is the leaf node, we're appending None for left and right
         - but we're only updating max_depth only when the curr_node is not None
-        '''
+        """
         max_depth = 0
         stack = [(root, 1)]
         while stack:
@@ -86,5 +86,28 @@ class Solution:
             if curr_node:
                 stack.append((curr_node.left, curr_depth + 1))
                 stack.append((curr_node.right, curr_depth + 1))
-                max_depth = max(max_depth, curr_depth) # leaf node would have null for both left and right
+                max_depth = max(
+                    max_depth, curr_depth
+                )  # leaf node would have null for both left and right
+        return max_depth
+
+    def maxDepth_stack_dynamic_better(self, root: Optional[TreeNode]) -> int:
+        """
+        2022-10-26 08:10:30
+        Runtime: 48 ms (87%)
+        Memory Usage: 15.3 MB (90%)
+
+        This still uses O(n) space but less than a recursion which stores entire stack frame.
+        By checking the child node, we don't append the null node and this will save
+        maximum max_depth ^ 2 number of iterations.
+        """
+        max_depth = 0
+        stack = [(root, 1)]
+        while stack and stack[0][0]:
+            node, depth = stack.pop()
+            max_depth = max(max_depth, depth)
+            if node.left:
+                stack.append((node.left, depth + 1))
+            if node.right:
+                stack.append((node.right, depth + 1))
         return max_depth
