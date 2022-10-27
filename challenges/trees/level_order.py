@@ -59,14 +59,14 @@ class Solution:
         return result
 
     def levelOrder_linear(self, root: Optional[TreeNode]) -> List[List[int]]:
-        '''
+        """
         2022-09-11 19:23:54
         Runtime: 42 ms (82%)
         Memory Usage: 14.2 MB (53%)
 
         append to the temp list with BFS with the level of the node,
         then construct the result by looping through the temp list.
-        '''
+        """
         if not root:
             return []
         queue = deque([(root, 0)])
@@ -86,13 +86,13 @@ class Solution:
         return result
 
     def levelOrder_recursion(self, root: Optional[TreeNode]) -> List[List[int]]:
-        '''
+        """
         Runtime: 48 ms (68%)
         Memory Usage: 14.9 MB (10%)
 
         recursion version of the above.
         NOT memory efficient, but more readable (have to keep all call stack frames)
-        '''
+        """
         result = []
 
         def inner(node, level=0):
@@ -103,19 +103,20 @@ class Solution:
             result[level].append(node.val)
             inner(node.left, level + 1)
             inner(node.right, level + 1)
+
         inner(root)
         return result
 
     def levelOrder_linear_optimized(self, root: Optional[TreeNode]) -> List[List[int]]:
-        '''
+        """
         Runtime: 38 ms (90%)
         Memory Usage: 14.2 MB (85%)
 
         queue nodes with their levels
         Use BFS to enqueue child nodes with level incremented from the dequeued node,
         and append the value of dequeued node to the result array at the matching index which should be same as the node level.
-        we check for the dequeued node, so an empty root node would not append anything to the result. 
-        '''
+        we check for the dequeued node, so an empty root node would not append anything to the result.
+        """
         queue = deque([(root, 0)])
         result = []
         while queue:
@@ -129,3 +130,22 @@ class Solution:
                 if node.right:
                     queue.append((node.right, level + 1))
         return result
+
+    def levelOrder_check_before_loop(self, root: Optional[TreeNode]) -> List[List[int]]:
+        """
+        2022-10-27 08:14:13
+
+        queue should be empty if there's no node -> easier to read
+        """
+        res = []
+        queue = deque([(root, 0)]) if root else None
+        while queue:
+            node, level = queue.popleft()
+            if len(res) == level:
+                res.append([])
+            res[level].append(node.val)
+            if node.left:
+                queue.append((node.left, level + 1))
+            if node.right:
+                queue.append((node.right, level + 1))
+        return res
