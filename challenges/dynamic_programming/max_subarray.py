@@ -94,11 +94,11 @@ class Solution:
         return max_sub
 
     def maxSubArray_reset_and_add(self, nums: List[int]) -> int:
-        '''
+        """
         2022-09-25 12:53:17
         Runtime: 844 ms (83%)
         Memory Usage: 27.8 MB (96%)
-        1. Init: 
+        1. Init:
         - set the max_sum with the first number
         - set the current sum to 0
         2. loop through the numbers
@@ -111,11 +111,11 @@ class Solution:
         This works for:
         - single negative number
         - all negative numbers
-        
+
         You can also update max_sum only if curr_sum is greater than curr_sum,
         then reset the curr_sum if less than zero.
         This works if there's one negative number
-        ''' 
+        """
         max_sum = nums[0]
         curr_sum = 0
         for i in range(len(nums)):
@@ -123,6 +123,62 @@ class Solution:
             curr_sum = max(0, curr_sum)
             # adding the current number after reset will work for single negative number and all neggative numbers
             curr_sum += nums[i]
-            max_sum = max(max_sum, curr_sum)     
+            max_sum = max(max_sum, curr_sum)
         return max_sum
-            
+
+    def maxSubArray_reset_with_binary_condition(self, nums: List[int]) -> int:
+        """
+        2022-11-07 08:51:40
+        We can keep track of the max sum of all subarrays with max function.
+        Set the first value as the current sum and start looping from the second item.
+        If the current sum is negative, set the current value as the current sum
+        else, add current value to the current sum
+        [1, -2, 3]
+
+        Easier to reason: curr_sum < 0 or not
+        - max_sum is attained through updating as we go
+        - only need to reset the starting point of the subarray
+            - if curr_sum < 0, reset to current value
+        eg.
+        [-1, -2, -3]
+        - we keep updating the starting point, but the max_sum is kept at -1
+        - we're implicitly updating the right bound of the subarray
+
+        [-2, -3, -1]
+        """
+        max_sum = curr_sum = nums[0]
+        for i in range(1, len(nums)):
+            if curr_sum < 0:
+                curr_sum = nums[i]
+            else:
+                curr_sum += nums[i]
+            max_sum = max(max_sum, curr_sum)
+        return max_sum
+
+    def maxSubArray_reset_easier(self, nums: List[int]) -> int:
+        """
+        2022-11-08 07:21:25
+        Makes more sense to name the first item as the prev_sum since we're starting from the second.
+        If the prev_sum is negative, set the current number as the curr_sum
+        else, add current number to the prev_sum and name it curr_sum
+        Then we update the max_sum if the curr_sum is greater than max sum covering the follow cases:
+        - prev_sum is negative and current sum is also negative
+            - don't update. subarray is still the first value of the list
+        - prev_sum is negative and current sum is positive or 0
+            - update the max_sum with the current value, which will be the beginning of the subarray
+        - prev_sum is positive and current value is positive
+            - update the max_sum with the prev_sum + current value = current sum
+        - prev_sum is positive and current value is negative or 0
+            - don't update.
+
+        In all cases, we update the current subarray sum and only update max_sum when the current sum is higher.
+        """
+        max_sum = prev_sum = nums[0]
+        for i in range(1, len(nums)):
+            if prev_sum < 0:
+                curr_sum = nums[i]
+            else:
+                curr_sum = prev_sum + nums[i]
+            max_sum = max(max_sum, curr_sum)
+            prev_sum = curr_sum
+        return max_sum
