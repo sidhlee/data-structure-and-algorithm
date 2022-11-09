@@ -56,8 +56,29 @@ class Solution:
                 mx_two_before = mx_one_before
         return mx_one_before
 
+    def rob_look_behind_easier(self, nums: List[int]) -> int:
+        """
+        2022-11-09 06:54:47
+
+        Get the max profit at the current house by comparing max profit upto the second and third last house.
+        Update overall max profit with the current max profit if it's greater than max profit up to the last house
+        """
+        max_profit = nums[0]
+        mp_upto_last = nums[0]
+        mp_upto_second_last = 0
+        mp_upto_third_last = 0
+        for i in range(1, len(nums)):
+            curr_mp = max(mp_upto_second_last + nums[i], mp_upto_third_last + nums[i])
+            max_profit = max(curr_mp, mp_upto_last)
+
+            # Advance pointers
+            mp_upto_third_last = mp_upto_second_last
+            mp_upto_second_last = mp_upto_last
+            mp_upto_last = curr_mp
+        return max_profit
+
     def rob_bottom_up(self, nums: List[int]) -> int:
-        '''
+        """
         2022-09-25 16:16:54
         Runtime: 38 ms (84%)
         Memory Usage: 13.8 MB (97%)
@@ -68,7 +89,7 @@ class Solution:
         - either we start from first or second house
 
         Start looping from the last house, and keep updating the cache with
-        the sum of the current value and the the value of i + 2 or i + 3 whichever is greater. 
+        the sum of the current value and the the value of i + 2 or i + 3 whichever is greater.
         1. Store the index:value pair to the cache.
         2. If index + 2 exists in cache, store the sum of current value and the value of index + 2
         3. If index + 3 exists in cache, store the sum of current value and the max between i + 2 or i + 3
@@ -98,7 +119,7 @@ class Solution:
         5 > 1 > 5
         10 > 10
         10 > 1 > 5
-        '''
+        """
         profits = {}
         for i in range(len(nums) - 1, -1, -1):
             profits[i] = nums[i]
