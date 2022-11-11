@@ -56,27 +56,6 @@ class Solution:
                 mx_two_before = mx_one_before
         return mx_one_before
 
-    def rob_look_behind_easier(self, nums: List[int]) -> int:
-        """
-        2022-11-09 06:54:47
-
-        Get the max profit at the current house by comparing max profit upto the second and third last house.
-        Update overall max profit with the current max profit if it's greater than max profit up to the last house
-        """
-        max_profit = nums[0]
-        mp_upto_last = nums[0]
-        mp_upto_second_last = 0
-        mp_upto_third_last = 0
-        for i in range(1, len(nums)):
-            curr_mp = max(mp_upto_second_last + nums[i], mp_upto_third_last + nums[i])
-            max_profit = max(curr_mp, mp_upto_last)
-
-            # Advance pointers
-            mp_upto_third_last = mp_upto_second_last
-            mp_upto_second_last = mp_upto_last
-            mp_upto_last = curr_mp
-        return max_profit
-
     def rob_bottom_up(self, nums: List[int]) -> int:
         """
         2022-09-25 16:16:54
@@ -128,3 +107,54 @@ class Solution:
             if i + 3 in profits:
                 profits[i] = nums[i] + max(profits[i + 2], profits[i + 3])
         return max(profits[0], profits[1]) if profits.get(1) else profits[0]
+
+    def rob_look_behind_easier(self, nums: List[int]) -> int:
+        """
+        2022-11-09 06:54:47
+
+        Get the max profit at the current house by comparing max profit upto the second and third last house.
+        Update overall max profit with the current max profit if it's greater than max profit up to the last house
+
+        O(n) time and O(1) space solution.
+        This seems better than looping backward and storing intermediate results.
+
+        """
+        max_profit = nums[0]
+        # this should be 0
+        mp_upto_last = nums[0]
+        mp_upto_second_last = 0
+        # we don't need this. max upto last = max(last num + max_upto_third_last, max_upto_second_last)
+        mp_upto_third_last = 0
+        for i in range(1, len(nums)):
+
+            curr_mp = max(mp_upto_second_last + nums[i], mp_upto_third_last + nums[i])
+            max_profit = max(curr_mp, mp_upto_last)
+
+            # Advance pointers
+            mp_upto_third_last = mp_upto_second_last
+            mp_upto_second_last = mp_upto_last
+            mp_upto_last = curr_mp
+        return max_profit
+
+    def rob_max_upto_curr_and_last(self, nums: List[int]) -> int:
+        """
+        2022-11-11 08:11:38
+
+        THIS PROBLEM IS ABOUT HAVING TWO TRACKERS FOR MAX VALUE
+        - curr_max & max_upto_last
+
+        Simpler version of hte above.
+        Initialize last max and second last max as 0 and keep updating them as we loop through the numbers
+         [2, 7, 9, 3, 1]
+         n=2  m1=0  m2=0  m=max(2 + m2, m1) -> 2
+         n=7  m1=2  m2=0  m=max(7 + m2, m1) -> 7
+         n=9  m1=7  m2=2  m=max(9 + m2, m1) -> 11
+         n=3  m1=11 m2=7  m=max(3 + m2, m1) -> 11
+         n=1  m1=11 m2=11 m=max(1 + 11, 11) -> 12
+        """
+        mx_upto_last = mx_upto_second_last = 0
+        for num in nums:
+            curr_mx = max(mx_upto_second_last + num, mx_upto_last)
+            mx_upto_second_last = mx_upto_last
+            mx_upto_last = curr_mx
+        return curr_mx
