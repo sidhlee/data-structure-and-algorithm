@@ -79,8 +79,9 @@ class Solution:
 
         If you don't need to iterate, and need to toggle switches on integer value, list is faster than set.
         """
-        if n <= 2:
-            return 0
+        # don't need this since sieve would be empty when n <= 2
+        # if n <= 2:
+        #     return 0
         sieve = {n for n in range(2, n)}
         for i in range(2, math.floor(math.sqrt(n)) + 1):
             if i in sieve:
