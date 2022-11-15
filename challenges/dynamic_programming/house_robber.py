@@ -158,3 +158,20 @@ class Solution:
             mx_upto_second_last = mx_upto_last
             mx_upto_last = curr_mx
         return curr_mx
+
+    def rob_current_max(self, nums: List[int]) -> int:
+        """
+        2022-11-14 07:59:35
+
+        max profit at current position = max(curr_val + max up to n+2, max to to n + 1)
+        - if mx_n_plus1 == mx_n_plus2: stealing current house makes greater profit
+
+        Moving from the last house to the first house,
+        max profit at the current position is determined by current value + max profit from n + 2 or max profit from n + 1, whichever is greater.
+        """
+        mx_n_plus1 = mx_n_plus2 = 0
+        for num in nums[::-1]:
+            curr_mx = max(num + mx_n_plus2, mx_n_plus1)
+            mx_n_plus2 = mx_n_plus1
+            mx_n_plus1 = curr_mx
+        return curr_mx
