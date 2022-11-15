@@ -1,3 +1,5 @@
+import math
+
 """
 Given an integer n, return the number of prime numbers that are strictly less than n.
 
@@ -57,9 +59,9 @@ class Solution:
         return len([x for x in nums if x])
 
     def countPrimes_again(self, n: int) -> int:
-        '''
+        """
         2022-09-27 20:02:42
-        '''
+        """
         nums = [0, 0] + [1] * (n - 2)
         for i in range(2, len(nums)):
             if nums[i]:
@@ -68,3 +70,20 @@ class Solution:
                 for j in range(i * i, n, i):
                     nums[j] = 0
         return sum(nums)
+
+    def countPrimes_set_fails_time_limit(self, n: int) -> int:
+        """
+        2022-11-15 08:12:53
+        Uses the same logic as above, but maybe set.discard(val) is slower than setting list value at a given index.
+        - discard needs to check whether the value exists in the set -> 2x more things to do for each iteration.
+
+        If you don't need to iterate, and need to toggle switches on integer value, list is faster than set.
+        """
+        if n <= 2:
+            return 0
+        sieve = {n for n in range(2, n)}
+        for i in range(2, math.floor(math.sqrt(n)) + 1):
+            if i in sieve:
+                for j in range(i * i, n, i):
+                    sieve.discard(j)
+        return len(sieve)
