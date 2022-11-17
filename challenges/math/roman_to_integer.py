@@ -95,20 +95,12 @@ class Solution:
         return num
 
     def romanToInt_backward_2(self, s: str) -> int:
-        '''
+        """
         2022-10-02 02:10:46
         we don't need to convert string to list.
         Also, if..continue can just be if elif
-        '''
-        rom_to_num = {
-            "M": 1000,
-            "D": 500,
-            "C": 100,
-            "L": 50,
-            "X": 10,
-            "V": 5,
-            "I": 1
-        }
+        """
+        rom_to_num = {"M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1}
         result = rom_to_num[s[len(s) - 1]]
         for i in range(len(s) - 2, -1, -1):
             if s[i] == "I" and s[i + 1] in ("X", "V"):
@@ -118,24 +110,38 @@ class Solution:
             elif s[i] == "C" and s[i + 1] in ("M", "D"):
                 result -= 100
             else:
-                result += rom_to_num[s[i]]  
+                result += rom_to_num[s[i]]
         return result
 
+    def romanToInt_backward3(self, s: str) -> int:
+        """
+        2022-11-17 08:30:11
+        collapses 3 checks into one condition
+
+        Long OR condition can be further simplified with if dict[char] < dict[right_char]
+        """
+        dict = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+        res = 0
+        right_char = None
+        for char in s[::-1]:
+            if (
+                (char == "I" and right_char in ("V", "X"))
+                or (char == "X" and right_char in ("L", "C"))
+                or (char == "C" and right_char in ("D", "M"))
+            ):
+                res -= dict[char]
+            else:
+                res += dict[char]
+            right_char = char
+        return res
+
     def romanToInt_collapsing_elifs(self, s: str) -> int:
-        '''
+        """
         2022-10-02 02:25:17
         If you can find the common logic across multiple elif statements,
         you can collapse them into one condition!
-        '''
-        rom_to_num = {
-            "M": 1000,
-            "D": 500,
-            "C": 100,
-            "L": 50,
-            "X": 10,
-            "V": 5,
-            "I": 1
-        }
+        """
+        rom_to_num = {"M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1}
         result = rom_to_num[s[len(s) - 1]]
         for i in range(len(s) - 2, -1, -1):
             if rom_to_num[s[i]] < rom_to_num[s[i + 1]]:
