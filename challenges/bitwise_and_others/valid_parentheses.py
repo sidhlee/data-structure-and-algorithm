@@ -98,3 +98,19 @@ class Solution:
                 if not stack or stack.pop() != close_to_open[c]:
                     return False
         return len(stack) == 0
+
+    def isValid_check_for_quick_return(self, s: str) -> bool:
+        """
+        2022-11-19 17:28:19
+        If a certain condition allows you to return early, check that condition first.
+        eg. If the current value is closing bracket, but if the stack is empty or the value on top of the stack is not the matching open bracket -> invalid
+        """
+        dict = {")": "(", "]": "[", "}": "{"}
+        stack = []
+        for bracket in s:
+            if bracket in dict:
+                if not stack or stack.pop() != dict[bracket]:
+                    return False
+            else:
+                stack.append(bracket)
+        return len(stack) == 0

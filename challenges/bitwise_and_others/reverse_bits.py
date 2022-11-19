@@ -45,18 +45,28 @@ class Solution:
             bin_str += "1" if n & 1 else "0"
             n >>= 1
         return int(bin_str, 2)
-    
+
     def reverseBits_str_conversion(self, n: int) -> int:
-        '''
+        """
         2022-10-04 21:33:21
         Runtime: 51 ms (63%)
         Memory Usage: 13.7 MB (94%)
 
-        - convert int to bin string padded with 0 
+        - convert int to bin string padded with 0
         - reverse the string with slice and convert back to int
-        '''
-        bin_str = bin(n)[2:].rjust(32, '0')
+        """
+        bin_str = bin(n)[2:].rjust(32, "0")
         return int(bin_str[::-1], 2)
+
+    def reverseBits_one_liner(self, n: int) -> int:
+        """
+        2022-11-18 19:18:21
+        1. use f string to parse n as a binary
+        2. pad zeroes on the left (rjust)
+        3. reverse the string
+        4. convert from binary to int
+        """
+        return int(f"{n:b}".rjust(32, "0")[::-1], 2)
 
     def reverseBits_no_conversion(self, n: int) -> int:
         """
