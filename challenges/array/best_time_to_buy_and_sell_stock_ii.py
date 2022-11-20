@@ -58,6 +58,16 @@ class Solution:
                 profit += prices[i] - prices[i - 1]
         return profit
 
+    def maxProfit_compare_curr_prev(self, prices: List[int]) -> int:
+        """
+        2022-11-19 20:37:14
+        add only the positive difference
+        """
+        profit = 0
+        for i in range(1, len(prices)):
+            profit += max(0, prices[i] - prices[i - 1])
+        return profit
+
     def maxProfit_two_pointers_with_while(self, prices: List[int]) -> int:
         """
         2022-06-21T12:01:28.389Z
@@ -89,14 +99,14 @@ class Solution:
         return profit
 
     def maxProfit_price_and_holding(self, prices: List[int]) -> int:
-        '''
+        """
         2022-10-12 08:35:31
         Runtime: 92 ms (73%)
         Memory Usage: 15.2 MB (69%)
 
         We're updating holding with the current price every time
         -> we don't need the variable and just use the prev value
-        '''
+        """
         profit = 0
         holding = prices[0]
         for price in prices:
