@@ -41,8 +41,8 @@ class Solution:
         x.reverse()
         x = "".join(x)
 
-        if (is_negative and -int(x) < -(2 ** 31)) or (
-            not is_negative and int(x) > 2 ** 31 - 1
+        if (is_negative and -int(x) < -(2**31)) or (
+            not is_negative and int(x) > 2**31 - 1
         ):
             return 0
 
@@ -73,16 +73,16 @@ class Solution:
         """
         r = "".join(list(reversed(str(x))))
         r = int(r) if r[-1] != "-" else -int(r[:-1])
-        return r if -(2 ** 31) <= r <= 2 ** 31 - 1 else 0
+        return r if -(2**31) <= r <= 2**31 - 1 else 0
 
     def reverse_math(self, x: int) -> int:
-        '''
+        """
         2022-10-16 17:09:45
         Runtime: 36 ms (91%)
         Memory Usage: 13.8 MB (97%)
 
-        mod 10 to get LSD. multiple previous result by 10 and add the LSD 
-        '''
+        mod 10 to get LSD. multiple previous result by 10 and add the LSD
+        """
         res = 0
         sign = 1
         if x < 0:
@@ -97,3 +97,19 @@ class Solution:
                 return 0
             x = x // 10
         return sign * res
+
+    def reverse_math2(self, x: int) -> int:
+        """
+        2022-11-20 19:13:40
+        sign the LSD before adding to the result
+        """
+        res = 0
+        sign = 1 if x >= 0 else -1
+        x = x * sign
+        while x:
+            lsd = x % 10
+            res = res * 10 + sign * lsd
+            if res > 2**31 - 1 or res < -(2**31):
+                return 0
+            x //= 10
+        return res
