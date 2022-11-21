@@ -79,32 +79,34 @@ class Solution:
         return -1
 
     def firstUniqChar_use_dict(self, s: str) -> int:
-        '''
+        """
         2022-10-17 05:41:07
         Runtime: 212 ms (53%)
         Memory Usage: 14 MB (95%)
-        
+
         manually creates a dict with all unique characters and their indices.
-        
+
         Dictionary:
         1. create a dict - loop through the string and manually populate letters with index: O(n)
         2. create dict_values object and loop through to find non-repeating index
         -> O(2n) + 2 objects created
         * Converting objects cost space!
-        
+
         Counter:
         1. create a counter O(n)
-        2. loop through the given string: O(n) 
+        2. loop through the given string: O(n)
             - Find the letter from the counter and check if the value is 1: O(1)
             - If the value is 1, return the string index
         -> O(2n) + 1 object created
-        '''
+        """
         chars = {}
+        # here, we need to loop entire string to find out about the duplication
         for i, char in enumerate(s):
             if char in chars:
                 chars[char] = -1
             else:
                 chars[char] = i
+        # we can return as soon as find non repeating character
         for i in chars.values():
             if i != -1:
                 return i
