@@ -73,6 +73,26 @@ class Solution:
             pre.next = pre.next.next
         return head
 
+    def removeNthFromEnd_follow_n_steps_behind(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        '''
+        2022-11-26 13:25:19
+        Variable names are easier to understand
+        '''
+        i = 0
+        target = curr = head
+        prev = None
+        while curr:
+            curr = curr.next
+            if i >= n:
+                prev = target
+                target = target.next
+            i += 1
+        if target == head:
+            head = head.next
+        else:
+            prev.next = target.next
+        return head
+
     def removeNthFromEnd_follow_behind_easier(
         self, head: Optional[ListNode], n: int
     ) -> Optional[ListNode]:
