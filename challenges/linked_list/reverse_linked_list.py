@@ -109,3 +109,41 @@ class Solution:
             prev = curr  # move prev to curr
             curr = temp  # move curr to saved next
         return prev
+    
+    def reverseList_recursion(self, head: Optional[ListNode]) -> Optional[ListNode]:  
+        '''
+        2022-11-28 08:10:24
+        
+        This uses conditional recursive call
+        '''
+        # This is not the base case since we only make next recursive call when next node exists
+        # but for type-checking
+        if head is None:
+            return None
+        # save current head to a variable
+        new_head = head
+        # only make the next recursive call when next node exists. Last node will not get into this block.
+        if head.next:
+            # We bubble up the last node to the top-most callstack by setting the returning variable to the return value of the lower stack frame
+            new_head = self.reverseList(head.next)
+            # Make next node to point to the current node
+            head.next.next = head
+        # Without typechecking, this line raises an exception.
+        # Remove the link to the next node in order to avoid cycle.
+        head.next = None
+        return new_head
+    
+    def reverseList_recursion_cleaner(self, head: Optional[ListNode]) -> Optional[ListNode]:  
+        '''
+        2022-11-28 08:21:14
+        Better readability with explicit base case.
+        - Still need type-checking for non-empty head.
+        - Bubbling-up is more clear
+        '''
+        if head is None or head.next is None:
+            return head
+        else:
+            last_node = self.reverseList(head.next)
+            head.next.next = head
+            head.next = None
+        return last_node
