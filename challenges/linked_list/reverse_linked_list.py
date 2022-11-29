@@ -147,3 +147,14 @@ class Solution:
             head.next.next = head
             head.next = None
         return last_node
+    
+    def reverseList_simpler(self, head: Optional[ListNode]) -> Optional[ListNode]:  
+        '''
+        2022-11-29 08:48:44
+        '''
+        if not head or not head.next:
+            return head;        
+        new_head = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None        
+        return new_head
