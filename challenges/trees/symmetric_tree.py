@@ -120,9 +120,22 @@ class Solution:
         def inner(nth_left, nth_right):
             if nth_left is None and nth_right is None:
                 return True
-            elif nth_left is None or nth_right is None:
+            elif nth_left is None or nth_right is None: 
                 return False
             elif nth_left.val != nth_right.val:
                 return False
             return inner(nth_left.left, nth_right.right) and inner(nth_left.right, nth_right.left)
+        return inner(root.left, root.right)
+    
+    def isSymmetric_recursion_better_condition(self, root: Optional[TreeNode]) -> bool:
+        '''
+        2022-12-02 09:05:15
+        condition more readable
+        '''
+        def inner(left_node, right_node):
+            if left_node is None and right_node is None:
+                return True
+            elif left_node and right_node and left_node.val == right_node.val:
+                return inner(left_node.left, right_node.right) and inner(left_node.right, right_node.left)
+            return False
         return inner(root.left, root.right)
