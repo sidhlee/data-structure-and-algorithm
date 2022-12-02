@@ -56,3 +56,15 @@ class Solution:
             return inner(root.left, min, root.val) and inner(root.right, root.val, max)
 
         return inner(root)
+    
+    def isValidBST_v2(self, root: Optional[TreeNode]) -> bool:
+        '''
+        2022-12-02 08:52:37
+        '''
+        def inner(node, upper, lower):
+            if not node:
+                return True
+            if lower < node.val < upper:
+                return inner(node.left, node.val, lower) and inner(node.right, upper, node.val) 
+            return False
+        return inner(root.left, root.val, -2**31 -1) and inner(root.right, 2**31, root.val)
