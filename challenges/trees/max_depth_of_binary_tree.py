@@ -34,7 +34,18 @@ class TreeNode:
 
 
 class Solution:
-    def maxDepth_recursion(self, root: Optional[TreeNode]) -> int:
+    def maxDepth_recursion_bubble_up(self, root: Optional[TreeNode]) -> int:
+        '''
+        2022-12-01 09:00:24
+        Creates inner function to count the depth on the way down and bubble up the max_depth when it reaches the leaf node
+        '''
+        def inner(node, curr_depth):
+            if not node:
+                return curr_depth - 1
+            return max(inner(node.left, curr_depth + 1), inner(node.right, curr_depth + 1))
+        return inner(root, 1)
+    
+    def maxDepth_recursion_compute_way_up(self, root: Optional[TreeNode]) -> int:
         """
         2022-07-07 07:57:09
         Runtime: 68 ms (41%)
@@ -52,7 +63,9 @@ class Solution:
         TODO: try dfs approach where you pass the child node and the incrementing level to the inner helper
         and when reaching the leaf, update the result property if the level is greater than the current result.
         -> In OPP, you don't need nonlocal! just use class field
-
+        
+        2022-12-01 09:02:32
+        This approach computes the depth on the way up by adding 1 to the return value at each level.
         """
         # covers when the initial input is None
         if root is None:
