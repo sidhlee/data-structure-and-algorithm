@@ -133,3 +133,20 @@ class Solution:
             inner(right_sub, node.right)
         inner(nums, root)
         return root
+    
+    def sortedArrayToBST_conditional_recursive_call(self, nums: List[int]) -> Optional[TreeNode]:
+        '''
+        2022-12-05 08:51:36
+        Thanks to the assumption that there is at least one number in the list,
+        we can remove the base case where nums list is empty,
+        then only make recursive calls if the left or right subarray exists.
+        
+        - This removes extra call where passed list is empty
+        '''
+        mid_index = len(nums) // 2 
+        node = TreeNode(nums[mid_index])            
+        if mid_index>= 1:
+            node.left = self.sortedArrayToBST(nums[:mid_index])
+        if mid_index + 1 <= len(nums) - 1:
+            node.right = self.sortedArrayToBST(nums[mid_index + 1:])
+        return node
