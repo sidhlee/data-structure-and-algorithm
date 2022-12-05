@@ -142,6 +142,7 @@ class Solution:
         then only make recursive calls if the left or right subarray exists.
         
         - This removes extra call where passed list is empty
+        - Also using the fact that node is initialized with left and right child already set to None
         '''
         mid_index = len(nums) // 2 
         node = TreeNode(nums[mid_index])            
