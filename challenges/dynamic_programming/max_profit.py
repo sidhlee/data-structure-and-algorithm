@@ -81,3 +81,14 @@ class Solution:
             else:
                 min_price = prices[i]
         return max_profit
+    
+    def maxProfit_simple_and_easy(self, prices: List[int]) -> int:
+        '''
+        2022-12-08 08:20:11
+        '''
+        bottom = prices[0]
+        mx = 0
+        for p in prices:
+            mx = max(mx, p - bottom) # update max if current price - bottom is greater than max
+            bottom = min(bottom, p) # update bottom if current price is lower
+        return mx
