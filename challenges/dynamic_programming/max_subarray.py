@@ -182,3 +182,35 @@ class Solution:
             max_sum = max(max_sum, curr_sum)
             prev_sum = curr_sum
         return max_sum
+
+    def maxSubArray_shorter_but_harder(self, nums: List[int]) -> int:
+        '''
+        2022-12-09 08:10:48
+        - we need to include at least one element in curr_sum (subarray) even if it's less than 0.
+            - to handle the case where the list only have negative numbers
+        - if curr_sum > 0, we're expanding existing subarray with current number
+        - keep updating max_sum with the current subarray
+        Edge cases:
+        [1]
+        [-2, -1]
+        [-1]
+        '''
+        curr_sum = 0
+        max_sum = nums[0]
+        for num in nums:
+            curr_sum = curr_sum + num if curr_sum > 0 else num
+            max_sum = max(max_sum, curr_sum)
+        return max_sum
+    
+    def maxSubArray_shorter_and_easier(self, nums: List[int]) -> int:
+        '''
+        2022-12-09 08:26:43
+        - use slice to skip first element when looping        
+        '''
+        prev_sum = max_sum = nums[0]
+        for num in nums[1:]:
+            # cut off before current number if prev_sum is not contributing ( <= 0)
+            current_sum = prev_sum + num if prev_sum > 0 else num
+            max_sum = max(max_sum, current_sum) # keep track of max_sum
+            prev_sum = current_sum
+        return max_sum
