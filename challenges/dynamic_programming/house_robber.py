@@ -175,3 +175,15 @@ class Solution:
             mx_n_plus2 = mx_n_plus1
             mx_n_plus1 = curr_mx
         return curr_mx
+
+    def rob_slightly_better_name(self, nums: List[int]) -> int:
+        '''
+        2022-12-12 08:53:34
+        But not perfect
+        '''
+        mx_curr_plus_two = mx_curr_plus_one = 0
+        for num in nums[::-1]:
+            mx_curr = max(mx_curr_plus_two + num, mx_curr_plus_one)
+            mx_curr_plus_two = mx_curr_plus_one
+            mx_curr_plus_one = mx_curr
+        return mx_curr
