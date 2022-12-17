@@ -45,6 +45,12 @@ class MinStack_keep_mins:
     2022-07-23 16:38:52
     Runtime: 81 ms (72%)
     Memory Usage: 17.8 MB (73%)
+    
+    Only append to the min array when the value is leq to the last item
+    because we don't need to keep any values greater than the min value.
+    When any values greater than min gets popped off the stack, we don't need to make any changes to the min stack.
+    The only time we need to pop off the min stack is when the popped off value that matches the current min value.
+    
     """
 
     def __init__(self):
