@@ -88,3 +88,19 @@ class Solution:
                 for j in range(i * i, n, i):
                     sieve.discard(j)
         return len(sieve)
+    
+    def countPrimes_sieve_upto_sqrt(self, n: int) -> int:
+        '''
+        2022-12-17 16:43:13
+        '''
+        if n <= 2:
+            return 0
+        sieve = [0, 0] + [1] * (n - 2)
+        # Because the inner loop is starting from i^2, we don't even need to start the outer loop if i * i >= n. 
+        # so we're looping while i * i < n -> i < sqrt(n)
+        for i in range(2, math.floor(n ** 0.5) + 1):
+            if sieve[i]:
+                # i * 2, i * 3, ... i * (i - 1) are already marked off in previous iterations
+                for j in range(i * i, n, i):
+                    sieve[j] = 0
+        return sum(sieve)
