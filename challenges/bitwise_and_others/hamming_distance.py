@@ -41,6 +41,17 @@ class Solution:
                 count += 1
             xor >>= 1
         return count
+    
+    def hammingDistance_add_lsd(self, x: int, y: int) -> int:
+        '''
+        2022-12-18 19:30:59
+        '''
+        z = x ^ y
+        distance = 0
+        while z:
+            distance += (z & 1)
+            z >>= 1
+        return distance
 
     def hammingDistance_one_line(self, x: int, y: int) -> int:
         """
