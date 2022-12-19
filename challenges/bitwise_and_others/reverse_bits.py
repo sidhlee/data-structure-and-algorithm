@@ -92,7 +92,8 @@ class Solution:
         After shifting 31 times and n's LSB becomes result's 32nd bit from the right,
         we add the last bit to the result.
         
-        Using index seems more elegant. (also not mutating the input, n)
+        For set number of bits (eg. 32bit), you can use index to shift bits to the reversed place. 
+        (also not mutating the input, n)
         '''
         res = 0
         for _ in range(31):
