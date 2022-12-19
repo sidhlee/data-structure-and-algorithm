@@ -78,9 +78,25 @@ class Solution:
         res = 0
         for i in range(32):
             # select ith bit from the right
-            bit = (n >> i) & 1
+            ith_bit = (n >> i) & 1
             # shift the selected bit to the ith from the left and
             # use OR to merge it with the current result
-            res = res | bit << (31 - i)
+            res = res | ith_bit << (31 - i)
 
         return res
+    
+    def reverseBit_add_lsb_and_shift(self, n: int) -> int:
+        '''
+        2022-12-18 20:22:58
+        keep adding LSB from n and shift left.
+        After shifting 31 times and n's LSB becomes result's 32nd bit from the right,
+        we add the last bit to the result.
+        
+        Using index seems more elegant. (also not mutating the input, n)
+        '''
+        res = 0
+        for _ in range(31):
+            res += (n & 1)
+            res <<= 1            
+            n >>= 1
+        return res + n
