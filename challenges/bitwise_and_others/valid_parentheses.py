@@ -114,3 +114,23 @@ class Solution:
             else:
                 stack.append(bracket)
         return len(stack) == 0
+    
+    def isValid_pop_only_if_match(self, s: str) -> bool:
+        '''
+        2022-12-20 05:35:14
+        popping during the match seems to be better since 
+        we don't need to keep the opening bracket when the current character is closing one.
+        No match -> return False
+        match -> continue
+        '''
+        o2c = { ")": "(", "]": "[", "}": "{"}
+        stack = []
+        for c in s:
+            if c in o2c: 
+                if not stack or stack[-1] != o2c[c]:
+                    return False
+                else:
+                    stack.pop()
+            else:
+                stack.append(c)
+        return not stack
