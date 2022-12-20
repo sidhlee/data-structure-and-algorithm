@@ -66,6 +66,15 @@ class Solution:
         0 + 1 + 2 + 3 + 4 + 5 = (1 + 5) * 5 / 2 = 15
         0 + 1 + 2 + 3 + 4 = (1 + 4) * 4 / 2 = 10
         (min + max) * 
+        
+        2022-12-20 06:44:12
+        This is wasteful because we know that the numbers are sequential **regardless of their order**.
+        -> If len(nums) == 5, we know that there is one number that completes the sequence
+        -> we can use the math to find the sum of the sequence then loop through the array to find the actual sum
+        - 0, 1, 2, 3, 4 -> 5
+        - 1, 2, 3, 4, 5 -> 0
+        - 0, 1, 2, 4, 5 -> 3
+    
         '''
         total = mx = 0
         has_zero = False
