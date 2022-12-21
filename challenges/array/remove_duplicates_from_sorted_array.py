@@ -173,3 +173,14 @@ class Solution:
                 nums[i + 1] = nums[j]
                 i += 1
         return i + 1
+
+    def removeDuplicates_v2(self, nums: List[int]) -> int:
+        """
+        2022-12-21 08:20:06
+        """
+        k = 0
+        for i in range(1, len(nums)):
+            if nums[i] > nums[k]:
+                k += 1
+                nums[k] = nums[i]
+        return k + 1
