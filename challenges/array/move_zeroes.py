@@ -110,3 +110,14 @@ class Solution:
                 insert_at += 1
         for i in range(insert_at, len(nums)):
             nums[i] = 0
+
+    def moveZeroes_simplest(self, nums: List[int]) -> None:
+        """
+        2022-12-22 08:40:37
+        """
+        i = 0
+        for j in range(len(nums)):
+            if nums[j] !=0:
+                nums[i] = nums[j]
+                i += 1
+        nums[i:] = [0] * (len(nums) - i)
