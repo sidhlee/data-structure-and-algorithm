@@ -207,6 +207,32 @@ class Solution:
                 if not is_valid(get_subgrid(board, i, j)):
                     return False
         return True
+    
+    def isValidSudoku_readable(self, board: List[List[str]]) -> bool:
+        '''
+        2022-12-23 07:45:41
+        '''
+        def is_valid(nums):
+            # using constraints to only check invalid cases
+            only_nums = [n for n in nums if n != '.']
+            return len(set(only_nums)) == len(only_nums)
+
+        for row in board:
+            if not is_valid(row):
+                return False
+        
+        for col in zip(*board):
+            if not is_valid(col):
+                return False
+
+        for i in range(3):
+            for j in range(3):
+                col_slice = slice(3*j, 3*(j+1)) # create reusable slice object 
+                grid = board[3*i][col_slice] + board[3*i+1][col_slice] + board[3*i+2][col_slice]
+                if not is_valid(grid):
+                    return False
+        
+        return True
 
 
 def is_valid(nums: List[str]):
