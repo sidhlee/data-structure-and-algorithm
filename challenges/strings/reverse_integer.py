@@ -113,3 +113,17 @@ class Solution:
                 return 0
             x //= 10
         return res
+    
+    def reverse_math3(self, x: int) -> int:
+        """
+        2022-12-25 14:11:11
+        """
+        res = 0
+        sign = 1 if x >= 0 else -1
+        x = abs(x)
+        while x:
+            res = res * 10 + (x % 10)
+            if not (-2**31 <= res * sign <= 2**31 - 1):
+                return 0
+            x //= 10
+        return res * sign
