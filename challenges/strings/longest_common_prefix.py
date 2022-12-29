@@ -71,3 +71,15 @@ class Solution:
                 if i >= len(word) or last[i] != word[i]:
                     return last[:i]
         return last
+    
+    def longestCommonPrefix_res(self, strs: List[str]) -> str:
+        '''
+        2022-12-29 12:00:02
+        '''
+        res = ""
+        for i, c in enumerate(strs[0]):
+            for s in strs[1:]:
+                if i >= len(s) or s[i] != c:
+                    return res
+            res += c
+        return res
