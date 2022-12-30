@@ -139,6 +139,7 @@ class Solution:
         remembered!
         """
         fast = slow = head
+        # no need to check for slow
         while fast and fast.next and slow:
             fast = fast.next.next
             slow = slow.next
