@@ -129,3 +129,28 @@ class Solution:
             prev = prev.next
             left = left.next
         return True
+    
+    def isPalindrome_prev_curr_right(self, head: Optional[ListNode]) -> bool:
+        '''
+        2022-12-30 14:50:13
+        My brain likes curr when there is a prev.
+        '''
+        curr = right = head
+        prev = None
+        i = 0
+        while right:
+            right = right.next
+            if i % 2 == 1:
+                temp = curr.next
+                curr.next = prev
+                prev = curr
+                curr = temp
+            i += 1
+        if i % 2 == 1:
+            curr = curr.next
+        while prev:
+            if prev.val != curr.val:
+                return False
+            prev = prev.next
+            curr = curr.next
+        return True
