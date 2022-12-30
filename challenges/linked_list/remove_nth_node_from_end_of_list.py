@@ -220,3 +220,25 @@ class Solution:
         prev.next = prev.next.next
 
         return head
+
+    def removeNthFromEnd_loop_once_easier(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        '''
+        2022-12-30 10:50:15        
+        '''
+        # naming target node as curr is easier to understand because it's the one after the prev node
+        prev, curr, right = None, head, head
+        # named probing node as right rather than curr because we're only using it to advance the prev and curr.
+        while right:
+            right = right.next
+            # if curr is n behind the right node, we start advancing the curr and prev
+            if n <= 0:
+                prev = curr
+                curr = curr.next
+            n -= 1
+        # if curr is not the head node, we use prev to remove curr    
+        if prev:
+            prev.next = curr.next
+            return head
+        # if prev is None (= curr is at head), we return head.next to remove curr
+        else:
+            return head.next
