@@ -68,3 +68,16 @@ class Solution:
                 return inner(node.left, node.val, lower) and inner(node.right, upper, node.val) 
             return False
         return inner(root.left, root.val, -2**31 -1) and inner(root.right, 2**31, root.val)
+
+    def isValidBST_not_within_range(self, root: Optional[TreeNode]) -> bool:
+        '''
+        2023-01-03 05:35:17
+        For checking if the value is within given range, take advantage of python's shorthand syntax
+        '''
+        def inner(node, lower, upper):
+            if not node:
+                return True
+            elif node and not (lower < node.val < upper):
+                return False
+            return inner(node.left, lower, node.val) and inner(node.right, node.val, upper)
+        return inner(root.left, -2**31 - 1, root.val) and inner(root.right, root.val, 2**31)
