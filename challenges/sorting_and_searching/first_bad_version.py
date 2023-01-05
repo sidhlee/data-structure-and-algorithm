@@ -93,3 +93,19 @@ class Solution:
             else:
                 left = mid + 1
         return right
+
+    def firstBadVersion_better_naming(self, n: int) -> int:
+        '''
+        2023-01-05 06:14:48
+        '''
+        mn_first_bad, mx_first_bad = 1, n
+        while mn_first_bad < mx_first_bad:
+            mid = (mn_first_bad + mx_first_bad) // 2
+            if isBadVersion(mid):
+                # mid can be the first bad version, but we don't know.
+                # all we know is that we don't need to look at versions after this.
+                mx_first_bad = mid
+            else:
+                # curr mid is good. first bad could be the next one.
+                mn_first_bad = mid + 1
+        return mx_first_bad

@@ -139,3 +139,15 @@ class Solution:
         for i in range(n, 0, -1):
             curr, prev = curr + prev, curr
         return curr
+    
+    def climbStairs_better_naming(self, n: int) -> int:
+        '''
+        2023-01-05 06:12:15
+        '''
+        next_perm = 0
+        curr_perm = 1
+        for _ in range(n , 0, -1):
+            temp = curr_perm
+            curr_perm += next_perm
+            next_perm = temp
+        return curr_perm  
