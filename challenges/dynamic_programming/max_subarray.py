@@ -214,3 +214,17 @@ class Solution:
             max_sum = max(max_sum, current_sum) # keep track of max_sum
             prev_sum = current_sum
         return max_sum
+    
+    def maxSubArray_best(self, nums: List[int]) -> int:
+        '''
+        2023-01-05 08:17:43
+        best version so far
+        '''
+        subarr_sum = max_sum = nums[0]
+        for n in nums[1:]:
+            if subarr_sum < 0:
+                subarr_sum = 0
+            subarr_sum += n
+            max_sum = max(max_sum, subarr_sum)
+
+        return max_sum
