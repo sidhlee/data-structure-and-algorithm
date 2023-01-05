@@ -92,3 +92,15 @@ class Solution:
             mx = max(mx, p - bottom) # update max if current price - bottom is greater than max
             bottom = min(bottom, p) # update bottom if current price is lower
         return mx
+    
+    def maxProfit_better_naming(self, prices: List[int]) -> int:
+        '''
+        2023-01-05 06:38:15
+        Also uses slicing the looping list
+        '''
+        bottom = prices[0]
+        mx_profit = 0
+        for p in prices[1:]:
+            mx_profit = max(mx_profit, p - bottom)
+            bottom = min(bottom, p)
+        return mx_profit
