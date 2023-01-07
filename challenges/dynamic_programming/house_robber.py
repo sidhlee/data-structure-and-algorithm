@@ -187,3 +187,12 @@ class Solution:
             mx_curr_plus_two = mx_curr_plus_one
             mx_curr_plus_one = mx_curr
         return mx_curr
+    
+    def rob_start_from_second_last(self, nums: List[int]) -> int:
+        curr_mx, next_mx = nums[-1], 0
+        for n in nums[-2::-1]: # slice is always start:end:step
+            # update the values from back to front (same direction as the loop)
+            next_next_mx = next_mx
+            next_mx = curr_mx
+            curr_mx = max(n + next_next_mx, next_mx)
+        return curr_mx
