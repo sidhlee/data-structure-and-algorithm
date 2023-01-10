@@ -104,3 +104,13 @@ class Solution:
                 for j in range(i * i, n, i):
                     sieve[j] = 0
         return sum(sieve)
+    
+    def countPrimes_best(self, n: int) -> int:
+        '''
+        2023-01-10 08:36:26
+        '''
+        sieve = [0, 0] + [1] * (n - 2) # index up to n - 1
+        for i in range(2, math.floor(math.sqrt(n)) + 1): # when n = 10, increments up to 3
+            for j in range(i * i, n, i):
+                sieve[j] = 0
+        return sum(sieve)
