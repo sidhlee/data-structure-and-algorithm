@@ -62,3 +62,17 @@ class Solution:
         Uses O(n) space for creating binary string
         """
         return bin(x ^ y).count("1")
+    
+    def hammingDistance_shift_two(self, x: int, y: int) -> int:
+        '''
+        2023-01-11 06:36:56
+        Maybe less efficient than XORing in the beginning and counting 1's
+        because we're shifting two numbers.
+        - Could be easier to understand?
+        '''
+        res = 0
+        while x or y:
+            res += (x & 1) ^ (y & 1)
+            x >>= 1
+            y >>= 1
+        return res
