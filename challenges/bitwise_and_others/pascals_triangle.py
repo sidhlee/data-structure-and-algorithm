@@ -72,3 +72,24 @@ class Solution:
                 curr_row.append(prev_row[j] + (prev_row[j + 1] if j < len(prev_row) - 1 else 0))
             rows.append(curr_row)
         return rows
+
+    def generate_use_symmetry(self, numRows: int) -> List[List[int]]:
+        '''
+        2023-01-12 08:13:57
+        calculate only upto the middle and get the rest by reversing.
+        made it easier to read by using variables
+        '''
+        if numRows == 1:
+            return [[1]]
+        res = [[1], [1, 1]]
+        for row_idx in range(2, numRows):
+            curr_row = [1]
+            prev_row = res[row_idx - 1]
+            # row_idx == last_index_within_a_row
+            for i in range(1, row_idx // 2 + 1):
+                curr_row.append(prev_row[i-1] + prev_row[i])
+            i_in_middle = row_idx / 2 == i
+            start_from = i - 1 if i_in_middle else i
+            curr_row += curr_row[start_from::-1]
+            res.append(curr_row)                
+        return res

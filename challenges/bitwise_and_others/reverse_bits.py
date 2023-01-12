@@ -68,7 +68,7 @@ class Solution:
         """
         return int(f"{n:b}".rjust(32, "0")[::-1], 2)
 
-    def reverseBits_no_conversion(self, n: int) -> int:
+    def reverseBits_select_and_merge_using_index(self, n: int) -> int:
         """
         From 22ms submission
 
