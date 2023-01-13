@@ -43,6 +43,10 @@ class Solution:
         we get the n + 1 as the missing number.
         When there is no zero in the list, 
         we'll get zero as the missing number.
+        
+        len(nums) == max_num except when the missing number is max_num + 1
+        -> By using len(nums) to calculate sum of the sequence and finding the difference from sum(nums)
+           we can get the missing number in all scenarios
         """
         return int(len(nums) * (len(nums) + 1) / 2) - sum(nums)
     
