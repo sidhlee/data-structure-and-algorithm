@@ -134,3 +134,19 @@ class Solution:
             else:
                 stack.append(c)
         return not stack
+    
+    def isValid_loop_from_second(self, s: str) -> bool:
+        '''
+        2023-01-13 07:24:30
+        Take advantage of the assumption and start looping from second item
+        '''
+        closings = { ')': '(', ']': '[', '}': '{'}
+        stack = [s[0]]
+        for c in s[1:]:
+            if c in closings:
+                if not stack or stack[-1] != closings[c]:
+                    return False
+                stack.pop()
+            else:
+                stack.append(c)
+        return len(stack) == 0
