@@ -11,7 +11,7 @@ def same_naive(arr1: List[int], arr2: List[int]) -> bool:
     for item in arr1:
         try:
             # removes item from arr2 with O(n)
-            arr2_copy.remove(item ** 2)
+            arr2_copy.remove(item**2)
         except ValueError:
             # item doesn't exist in arr2
             return False
@@ -28,7 +28,7 @@ def same(arr1: List[int], arr2: List[int]) -> bool:
         try:
             # Python raises KeyError if key is not found in dict
             # and it can have any type as the key so we can do math ops directly
-            if dict_1[item] != dict_2[item ** 2]:
+            if dict_1[item] != dict_2[item**2]:
                 return False
         except KeyError:  # if the item doesn't exist in dict_2
             return False

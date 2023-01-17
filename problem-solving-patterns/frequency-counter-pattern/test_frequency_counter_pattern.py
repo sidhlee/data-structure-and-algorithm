@@ -47,7 +47,7 @@ class SameTestCase(unittest.TestCase):
 
     def test_faster_than_naive(self):
         arr_1 = [randrange(10000) for n in range(10000)]
-        arr_2 = [n ** 2 for n in arr_1]
+        arr_2 = [n**2 for n in arr_1]
         (delta_naive) = time_func(lambda: same_naive(arr_1, arr_2))
         (delta_frequency_dict) = time_func(lambda: same(arr_1, arr_2))
         self.assertGreater(delta_naive, delta_frequency_dict * 2)

@@ -33,3 +33,44 @@ def MinWindowSubstring__fail__returns_duplicate_letters(strArr):
     for j in range(len(curr_str)):
         if sub_counter - Counter(curr_str[j:]):
             return curr_str[j - 1 :]
+
+
+def MinWindowSubstring_working_v1(strArr):
+    """
+    2023-01-17 06:13:33
+    """
+    target_counter = Counter(strArr[1])
+    # Find the substring by expanding it from the beginning
+    for i in range(len(strArr[0])):
+        substr = strArr[0][: i + 1]
+        if not (target_counter - Counter(substr)):
+            break
+    # Find the min window substring by shifting the head index
+    for j in range(len(substr)):
+        # when the substring begins to not cover the target, return the prev string
+        if target_counter - Counter(substr[j:]):
+            return substr[j - 1 :]
+    # when target is a single letter we never get into the if block above
+    return substr
+
+
+def MinWindowSubstring_readable(strArr):
+    """
+    2023-01-17 06:52:43
+    """
+    master, target = strArr
+    target_counter = Counter(target)
+    for i in range(len(master)):
+        substr = master[: i + 1]
+        substr_includes_target = not target_counter - Counter(substr)
+        if substr_includes_target:
+            break
+    for j in range(len(substr)):
+        min_win_substr = substr[j:]
+        min_win_substr_includes_target = not target_counter - Counter(min_win_substr)
+        if not min_win_substr_includes_target:
+            return substr[j - 1 :]
+    return min_win_substr
+
+
+MinWindowSubstring = MinWindowSubstring_readable

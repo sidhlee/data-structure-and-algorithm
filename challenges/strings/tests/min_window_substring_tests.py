@@ -15,5 +15,11 @@ class MinWindowSubstringTests(TestCase):
             (["cccaabbbbrr", "rbac"], "caabbbbr"),
         ]
 
-    def test__run_cases(self):
-        pass
+    def test__substring_at_the_end(self):
+        self.assertEqual(MinWindowSubstring(["aaabaaddae", "aed"]), "dae")
+
+    def test__substring_at_the_beginning(self):
+        self.assertEqual(MinWindowSubstring(["aabdccdbcacd", "aad"]), "aabd")
+
+    def test__single_letter_substring_and_multiple_duped_master(self):
+        self.assertEqual(MinWindowSubstring(["aaaaaaaaa", "a"]), "a")
