@@ -1,6 +1,7 @@
 def FindIntersection_two_pointers(strArr):
     """
     2023-01-17 07:10:58
+    - Could save space by not creating list and directly parsing from the string
     """
     nums1 = [int(x) for x in strArr[0].split(", ")]
     nums2 = [int(x) for x in strArr[1].split(", ")]
