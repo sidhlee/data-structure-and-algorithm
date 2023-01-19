@@ -1,5 +1,5 @@
 from unittest import TestCase
-from min_window_substring import MinWindowSubstring
+from challenges.strings.min_window_substring import MinWindowSubstring
 
 
 class MinWindowSubstringTests(TestCase):
