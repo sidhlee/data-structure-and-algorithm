@@ -1,28 +1,23 @@
-import re
-
-
-def QuestionsMarks_fail(strParam):
-    # code goes here
-    strParam = re.sub("[a-zA-Z]", "", strParam)
+def QuestionsMarks_linear(strParam: str):
     pair_sum = 0
     question_marks = 0
-    is_pair = False
-    for char in strParam:
+    has_pair = False
+    for i, char in enumerate(strParam):
         if char.isnumeric():
             if pair_sum == 0:
                 pair_sum += int(char)
             elif pair_sum + int(char) == 10:
                 if question_marks != 3:
                     return "false"
-                is_pair = True
-            else:
-                pair_sum = 0
-        elif pair_sum > 0:
-            question_marks += 1
-        else:
-            question_marks = 0
+                has_pair = True
+                question_marks = 0  # reset
+                # if there is a single number between question marks, reuse it
+                next_is_qm = i < len(strParam) - 1 and strParam[i + 1] == "?"
+                pair_sum = int(char) if next_is_qm else 0
+        elif char == "?":
+            question_marks = question_marks + 1 if pair_sum > 0 else 0
 
-    return is_pair
+    return "true" if has_pair else "false"
 
 
-QuestionMarks = QuestionsMarks_fail
+QuestionMarks = QuestionsMarks_linear
