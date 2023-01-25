@@ -45,4 +45,33 @@ def question_marks_simpler(string: str):
     return "true" if has_pair else "false"
 
 
+def question_marks_unnecessary_conditions(strParam):
+    """
+    2023-01-25 07:24:40
+
+    The requirement says "3 question marks between every pair of two numbers that add up to 10."
+    So, we don't need to look behind to check if it was a question mark.
+
+    WE JUST NEED TO FIND A PAIR OF NUMBER THAT ADD UP TO 10!!!
+    """
+
+    num_before_q = 0  # initializing with 0 won't affect the result
+    num_q = 0
+    has_pair = False
+    for i, c in enumerate(strParam):
+        if c.isnumeric():
+            if strParam[i - 1] == "?" and num_before_q + int(c) == 10:
+                if num_q != 3:
+                    return "false"
+                has_pair = True
+                num_before_q = int(c)
+            if i + 1 < len(strParam) and strParam[i + 1] == "?":
+                num_before_q = int(c)
+            num_q = 0
+        elif c == "?":
+            num_q += 1
+
+    return has_pair
+
+
 QuestionMarks = question_marks_simpler

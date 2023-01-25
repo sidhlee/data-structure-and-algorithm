@@ -15,3 +15,6 @@ class QuestionMarksTests(TestCase):
 
     def test__true(self):
         self.assertEqual(QuestionMarks("9???1???9???1???9"), "true")
+
+    def test__pair_without_question_mark(self):
+        self.assertEqual(QuestionMarks("9???191???9"), "false")
