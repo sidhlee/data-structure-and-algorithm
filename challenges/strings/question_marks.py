@@ -74,4 +74,27 @@ def question_marks_unnecessary_conditions(strParam):
     return has_pair
 
 
-QuestionMarks = question_marks_simpler
+def question_marks_better(strParam):
+    """
+    2023-01-26 06:59:13
+    readable
+    """
+    prevNum = 11  # so that the sum with any single digit number cannot be 10
+    questions = 0
+    has_pair = False
+    for c in strParam:
+        if c.isnumeric():
+            currNum = int(c)
+            if prevNum + currNum == 10:
+                if questions != 3:
+                    return "false"
+                has_pair = True
+            questions = 0
+            prevNum = currNum
+        elif c == "?":
+            questions += 1
+
+    return "true" if has_pair else "false"
+
+
+QuestionMarks = question_marks_better

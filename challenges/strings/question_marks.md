@@ -13,4 +13,16 @@ string manipulationsearchinghash tablefree
 
 ## Note
 
-- Can zero be a single digit number?
+Loop from the beginning of the string and find sum for every pair.
+
+- Check if the character is number
+  - Check if prevNum + currentNum == 10
+    - then if numQuestions != 3, return false
+  - reset numQuestions to 0
+  - update prevNum with currentNum
+- if the character is "?"
+  - increment numQuestions
+
+Edge cases
+
+- start with "???" then numbers add up to 10 -> not possible. eg. in ???19, 1 will reset the counter back to 0
