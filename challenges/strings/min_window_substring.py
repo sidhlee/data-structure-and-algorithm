@@ -73,4 +73,55 @@ def MinWindowSubstring_readable(strArr):
     return min_win_substr
 
 
-MinWindowSubstring = MinWindowSubstring_readable
+def MinWindowSubstring_again(strArr):
+    """
+    2023-01-28 12:17:16
+    """
+    master, chars = strArr
+    chars_counter = Counter(chars)
+    for right in range(1, len(master)):
+        sub_counter = Counter(master[: right + 1])
+        if not chars_counter - sub_counter:
+            break
+    for left in range(1, right + 1):
+        sub_counter = Counter(master[left : right + 1])
+        if chars_counter - sub_counter:
+            left -= 1
+            break
+    return master[left : right + 1]
+
+
+def MinWindowSubstring_without_recreating_counters(strArr):
+    """
+    2023-01-28 15:23:22
+    Counter can be used like dict:
+    - check if a key exists
+    - access individual key-value
+
+    Improvements:
+    - Create an empty counter once before looping
+    - Only increment counter if the current character is included in chars counter
+      and stop when the counter start to cover chars_counter.
+      The index at which this happens gives us the ending index of substring
+    - Then loop from the beginning again decrementing counters
+      if the current value belongs to chars_counter.
+      The index at which sub_counter does not cover chars_counter
+      is the starting index of the smallest substring.
+    """
+    string, chars = strArr
+    chars_counter = Counter(chars)
+    sub_counter = Counter()
+    for sub_end, c in enumerate(string):
+        if c in chars_counter:
+            sub_counter[c] = sub_counter[c] + 1 if c in sub_counter else 1
+        if not chars_counter - sub_counter:
+            break
+    for sub_start, c in enumerate(string[: sub_end + 1]):
+        if c in chars_counter:
+            sub_counter[c] -= 1
+        if chars_counter - sub_counter:
+            break
+    return string[sub_start : sub_end + 1]
+
+
+MinWindowSubstring = MinWindowSubstring_without_recreating_counters
