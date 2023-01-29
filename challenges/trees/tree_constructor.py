@@ -67,3 +67,27 @@ def tree_constructor(strArr):
     root_node_set = parents - children_set
 
     return "true" if len(root_node_set) == 1 else "false"
+
+
+def tree_constructor_2(strArr):
+    """
+    2023-01-28 21:48:20
+    """
+    parents_dict = {}
+    child_set = set()
+    for c, p in map(eval, strArr):
+        if c in child_set:
+            return "false"
+        child_set.add(c)
+
+        if p not in parents_dict:
+            parents_dict[p] = [None, None]
+        if c < p and parents_dict[p][0] is None:
+            parents_dict[p][0] = c
+        elif c > p and parents_dict[p][1] is None:
+            parents_dict[p][1] = c
+        else:
+            return "false"
+    return (
+        "true" if len([p for p in parents_dict if p not in child_set]) == 1 else "false"
+    )
