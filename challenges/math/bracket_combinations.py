@@ -31,8 +31,9 @@ def bracket_combinations_math(num):
     Permutation on all elements = (2 * num)! -> 6!
     2 sets of 3 interchangeable numbers = num! * num! -> 3! * 3!
 
-    1/2 of permutation is invalid (starting with 1)
-
+    [0] 1/2 of permutation is invalid (starting with 1)
+    [2] when 0 1 -> again. only path is 0 1 0
+    [4] 0 1 0 1 -> again. only path is 0 1 0 1 0
     """
     return None
 
