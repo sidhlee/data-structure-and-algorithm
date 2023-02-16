@@ -111,7 +111,7 @@ def minimumBribes_logic_too_complex(q):
     print(count)
 
 
-def min_bribes_look_ahead(q):
+def min_bribes_look_behind(q):
     """
     2023-02-11 14:15:42
 
@@ -137,4 +137,4 @@ def min_bribes_look_ahead(q):
     print(bribes)
 
 
-new_year_chaos = min_bribes_simpler
+new_year_chaos = min_bribes_look_behind
