@@ -137,4 +137,31 @@ def min_bribes_look_behind(q):
     print(bribes)
 
 
-new_year_chaos = min_bribes_look_behind
+def minimumBribes_use_value(q):
+    """
+    2023-02-21 08:29:31
+    1, 2, 5, 4, 3
+    - 5 bribed 3 & 4
+    - 4 bribed 3
+    can't get total bribes by current position alone
+
+    1 2 5 3 7 8 6 4
+    - 5 initially bribed 3 and 4
+    - but numbers after 5 also bribed 4 pushing 4 further back
+    5 is not in control of where 4 might end up.
+    it depends on how many numbers after 5 bribes 4
+    -> we need to look at how far the current number is pushed back
+       and also look the original_position - 1 because any number can bribe twice
+    """
+    total = 0
+    for i, v in enumerate(q):
+        if v > i + 3:
+            print("Too chaotic")
+            return
+        for j in range(v - 2, i):
+            if j >= 0 and q[j] > v:
+                total += 1
+    print(total)
+
+
+new_year_chaos = minimumBribes_use_value

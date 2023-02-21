@@ -275,12 +275,14 @@ class Solution:
                 nums1[p1] = nums2[p2]
                 p2 -= 1
 
-    def merge_backward(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+    def merge_backward(
+        self, nums1: List[int], m: int, nums2: List[int], n: int
+    ) -> None:
         """
         2022-12-06 19:41:35
         creates one pointer for insert position starting from the end of array
         and repurposes argument as pointers to compare values.
-        
+
         Easiest to understand
         """
         i = m + n - 1
@@ -294,4 +296,4 @@ class Solution:
                 m -= 1
             i -= 1
         if m < 0:
-            nums1[:n + 1] = nums2[:n + 1]
+            nums1[: n + 1] = nums2[: n + 1]
