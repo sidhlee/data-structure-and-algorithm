@@ -143,13 +143,19 @@ def minimumBribes_use_value(q):
     1, 2, 5, 4, 3
     - 5 bribed 3 & 4
     - 4 bribed 3
-    can't get total bribes by current position alone
+    can't get total bribes by current position alone because
+    someone behind you can bribe you and the person before you
+    and you can come back to the original position by bribing
+    the person in front of you.
 
     1 2 5 3 7 8 6 4
+    Counting numbers smaller than current number up to the
+    original position does not work:
     - 5 initially bribed 3 and 4
     - but numbers after 5 also bribed 4 pushing 4 further back
     5 is not in control of where 4 might end up.
-    it depends on how many numbers after 5 bribes 4
+    it depends on how many numbers after 5 bribes 4.
+
     -> we need to look at how far the current number is pushed back
        and also look the original_position - 1 because any number can bribe twice
     """
