@@ -73,11 +73,13 @@ class Solution:
             pre.next = pre.next.next
         return head
 
-    def removeNthFromEnd_follow_n_steps_behind(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        '''
+    def removeNthFromEnd_follow_n_steps_behind(
+        self, head: Optional[ListNode], n: int
+    ) -> Optional[ListNode]:
+        """
         2022-11-26 13:25:19
         Variable names are easier to understand
-        '''
+        """
         i = 0
         target = curr = head
         prev = None
@@ -221,10 +223,12 @@ class Solution:
 
         return head
 
-    def removeNthFromEnd_loop_once_easier(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        '''
-        2022-12-30 10:50:15        
-        '''
+    def removeNthFromEnd_loop_once_easier(
+        self, head: Optional[ListNode], n: int
+    ) -> Optional[ListNode]:
+        """
+        2022-12-30 10:50:15
+        """
         # naming target node as curr is easier to understand because it's the one after the prev node
         prev, curr, right = None, head, head
         # named probing node as right rather than curr because we're only using it to advance the prev and curr.
@@ -235,10 +239,50 @@ class Solution:
                 prev = curr
                 curr = curr.next
             n -= 1
-        # if curr is not the head node, we use prev to remove curr    
+        # if curr is not the head node, we use prev to remove curr
         if prev:
             prev.next = curr.next
             return head
         # if prev is None (= curr is at head), we return head.next to remove curr
         else:
             return head.next
+
+    def removeNthFromEnd_bad_but_works(
+        self, head: Optional[ListNode], n: int
+    ) -> Optional[ListNode]:
+        """
+        2023-03-29 08:42:59
+        - naming probing cursor as curr -> confusing
+        - not having pointer to the removing node -> hard to visualize
+        - using extra variable for counting -> use passed n
+        - many conditions based on the counter
+
+        Create pointers that represents objects in visualization
+        """
+        curr = head
+        prev_to_removing_node = None
+        i = 0
+
+        while curr:
+            curr = curr.next
+            i += 1
+            if i == n + 1:
+                prev_to_removing_node = head
+            elif i > n + 1:
+                prev_to_removing_node = prev_to_removing_node.next
+        print(i, n, prev_to_removing_node, curr)
+        # here, i is the number of nodes in the list
+        if i == 1:
+            # only one node in the list. remove it.
+            return None
+        elif i == 2 and n == 1:
+            # two nodes and removing tail. prev node would still be none.
+            head.next = None
+            return head
+        elif i == n:
+            # i >= 3 and removing the head
+            return head.next
+        # i >= 3 and using prev to remove target
+        prev_to_removing_node.next = prev_to_removing_node.next.next
+
+        return head
