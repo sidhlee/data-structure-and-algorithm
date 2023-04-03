@@ -270,7 +270,6 @@ class Solution:
                 prev_to_removing_node = head
             elif i > n + 1:
                 prev_to_removing_node = prev_to_removing_node.next
-        print(i, n, prev_to_removing_node, curr)
         # here, i is the number of nodes in the list
         if i == 1:
             # only one node in the list. remove it.

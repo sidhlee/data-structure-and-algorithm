@@ -95,9 +95,9 @@ class Solution:
         return right
 
     def firstBadVersion_better_naming(self, n: int) -> int:
-        '''
+        """
         2023-01-05 06:14:48
-        '''
+        """
         mn_first_bad, mx_first_bad = 1, n
         while mn_first_bad < mx_first_bad:
             mid = (mn_first_bad + mx_first_bad) // 2
@@ -109,3 +109,18 @@ class Solution:
                 # curr mid is good. first bad could be the next one.
                 mn_first_bad = mid + 1
         return mx_first_bad
+
+    def firstBadVersion_until_good_and_bad_adjacent(self, n: int) -> int:
+        """
+        2023-04-03 09:03:37
+        maybe easier to read
+        """
+        max_good_version = 0
+        min_bad_version = n
+        while max_good_version != min_bad_version - 1:
+            curr_version = (min_bad_version + max_good_version) // 2
+            if isBadVersion(curr_version):
+                min_bad_version = curr_version
+            else:
+                max_good_version = curr_version
+        return min_bad_version
