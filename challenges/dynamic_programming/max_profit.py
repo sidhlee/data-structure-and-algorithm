@@ -81,26 +81,43 @@ class Solution:
             else:
                 min_price = prices[i]
         return max_profit
-    
+
     def maxProfit_simple_and_easy(self, prices: List[int]) -> int:
-        '''
+        """
         2022-12-08 08:20:11
-        '''
+        """
         bottom = prices[0]
         mx = 0
         for p in prices:
-            mx = max(mx, p - bottom) # update max if current price - bottom is greater than max
-            bottom = min(bottom, p) # update bottom if current price is lower
+            mx = max(
+                mx, p - bottom
+            )  # update max if current price - bottom is greater than max
+            bottom = min(bottom, p)  # update bottom if current price is lower
         return mx
-    
+
     def maxProfit_better_naming(self, prices: List[int]) -> int:
-        '''
+        """
         2023-01-05 06:38:15
         Also uses slicing the looping list
-        '''
+        """
         bottom = prices[0]
         mx_profit = 0
         for p in prices[1:]:
             mx_profit = max(mx_profit, p - bottom)
             bottom = min(bottom, p)
+        return mx_profit
+
+    def maxProfit_explicit_condition(self, prices: List[int]) -> int:
+        """
+        2023-04-04 08:09:55
+        easier to read
+        """
+        mx_profit = 0
+        mn_price = float("inf")
+        for price in prices:
+            profit = price - mn_price
+            if price > mn_price and profit > mx_profit:
+                mx_profit = profit
+            elif price < mn_price:
+                mn_price = price
         return mx_profit
