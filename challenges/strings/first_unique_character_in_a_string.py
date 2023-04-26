@@ -111,3 +111,14 @@ class Solution:
             if i != -1:
                 return i
         return -1
+
+    def firstUniqChar_counter_simple(self, s: str) -> int:
+        """
+        2023-04-26 07:33:21
+        simple and easy.
+        """
+        c = Counter(s)
+        for i, k in enumerate(s):
+            if c[k] == 1:
+                return i
+        return -1
