@@ -84,20 +84,40 @@ class Solution:
             res = res | ith_bit << (31 - i)
 
         return res
-    
+
     def reverseBit_add_lsb_and_shift(self, n: int) -> int:
-        '''
+        """
         2022-12-18 20:22:58
         keep adding LSB from n and shift left.
         After shifting 31 times and n's LSB becomes result's 32nd bit from the right,
         we add the last bit to the result.
-        
-        For set number of bits (eg. 32bit), you can use index to shift bits to the reversed place. 
+
+        For set number of bits (eg. 32bit), you can use index to shift bits to the reversed place.
         (also not mutating the input, n)
-        '''
+
+        101101
+
+        i=0: res + 1 , <==1 -> 10
+        """
         res = 0
         for _ in range(31):
-            res += (n & 1)
-            res <<= 1            
+            res += n & 1  # add lsb to res
+            res <<= 1  # left-shift res -> on 31st iteration, res will be 32digit long
             n >>= 1
         return res + n
+
+    def reverseBits_shift_and_add(self, n: int) -> int:
+        """
+        2023-05-16 08:53:55
+        This shifts the result first then add lsb.
+        On the first loop, the result will be one-digit long.
+        If we added before shift, the result becomes two-digit long in the first loop.
+
+        This is easier to read.
+        """
+        res = 0
+        for _ in range(32):
+            lsb = n & 1
+            res = (res << 1) + lsb
+            n >>= 1
+        return res
