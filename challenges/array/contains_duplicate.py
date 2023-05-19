@@ -67,3 +67,15 @@ class Solution:
         uses the least amount lines
         """
         return len(set(nums)) != len(nums)
+
+    def containsDuplicate_already_contains(self, nums: List[int]) -> bool:
+        """
+        2023-05-17 06:45:35
+        return early if already found.
+        """
+        s = set()
+        for num in nums:
+            if num in s:
+                return True
+            s.add(num)
+        return False
