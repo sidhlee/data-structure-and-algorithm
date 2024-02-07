@@ -100,7 +100,6 @@ class SinglyLinkedList(BaseLinkedList):
         return self
 
     def pop(self):
-
         if self.head is not None:
             popped_value = self.tail.value
             current_node = self.head
@@ -114,7 +113,8 @@ class SinglyLinkedList(BaseLinkedList):
                 current_node = current_node.next
             # current_node is now the one before the tail
             self.tail = current_node_temp
-            self.tail.next = None
+            if self.tail is not None:
+                self.tail.next = None
             self.length -= 1
             if self.length == 0:
                 self.head = None
@@ -124,7 +124,6 @@ class SinglyLinkedList(BaseLinkedList):
             return None
 
     def unshift(self, value):
-
         new_node = Node(value)
         new_node.next = self.head
         self.head = new_node
