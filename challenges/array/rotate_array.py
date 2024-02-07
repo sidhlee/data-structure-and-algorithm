@@ -93,7 +93,7 @@ class Solution:
             nums[:k], nums[k:] = nums[-k:], nums[: len(nums) - k]
 
     def rotate_without_creating_new_list_2(self, nums: List[int], k: int) -> None:
-        '''
+        """
         2022-10-13 08:10:59
         Runtime: 390 ms (66%)
         Memory Usage: 25.3 MB (75%)
@@ -101,7 +101,36 @@ class Solution:
         Instead of using variable as the negative index
         which does't behave consistently when it's 0,
         create another variable to get the beginning index of shifting subarray
-        '''
+        """
         k_mod = k % len(nums)
         k_last = len(nums) - k_mod
         nums[:k_mod], nums[k_mod:] = nums[k_last:], nums[:k_last]
+
+    def rotate_with_reverse(self, nums: List[int], k: int) -> None:
+        """
+        2024-02-07 06:14:32
+        Runtime: 154 ms (86%)
+        Memory Usage: 28 MB (75%)
+
+        O(1) space solution
+
+        1. reverse the whole list [1,2,3,4,5,6,7] -> [7,6,5,4,3,2,1
+        2. reverse the first k elements [7,6,5,4,3,2,1] -> [5,6,7,4,3,2,1]
+        3. reverse the rest of the list [5,6,7,4,3,2,1] -> [5,6,7,1,2,3,4]
+
+        Need to return early if k is 0 after mod because of step 3 above.
+        """
+        k = k % len(nums)
+        if k == 0:
+            return
+
+        def reverse(nums: List[int], start: int = 0, end: int = None) -> None:
+            end = end or len(nums)
+            for i in range((end - start) // 2):
+                j = start + i
+                k = end - 1 - i
+                nums[j], nums[k] = nums[k], nums[j]
+
+        reverse(nums)
+        reverse(nums, 0, k)
+        reverse(nums, k)
