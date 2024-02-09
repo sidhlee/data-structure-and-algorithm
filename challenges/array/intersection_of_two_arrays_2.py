@@ -65,3 +65,23 @@ class Solution:
             if c2[n]:
                 result += [n] * min(c1[n], c2[n])
         return result
+
+    def intersect_only_one_counter(
+        self, nums1: List[int], nums2: List[int]
+    ) -> List[int]:
+        """
+        2024-02-09 05:27:31
+        Runtime: 51ms (56%)
+        Memory Usage: 16.8 MB (58%)
+
+        only use one counter -> less memory usage + faster
+        Length is capped at 1000, so it's not a big deal to use a counter
+        and which list to use as the counter doesn't matter
+        """
+        c = Counter(nums2)
+        result = []
+        for num in nums1:
+            if num in c and c[num] > 0:
+                result.append(num)
+                c[num] -= 1
+        return result
