@@ -68,7 +68,7 @@ class Solution:
         """
         return len(set(nums)) != len(nums)
 
-    def containsDuplicate_already_contains(self, nums: List[int]) -> bool:
+    def containsDuplicate_return_early(self, nums: List[int]) -> bool:
         """
         2023-05-17 06:45:35
         return early if already found.
