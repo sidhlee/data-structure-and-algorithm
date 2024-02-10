@@ -1,18 +1,10 @@
 {
-  "jest.jestCommandLine": "yarn test",
   "cSpell.words": ["Subarray"],
   "workbench.colorTheme": "Default Dark+",
-  "python.linting.flake8Enabled": true,
-  "python.linting.enabled": true,
   "python.testing.unittestArgs": ["-v", "-s", ".", "-p", "*test*.py"],
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
-  "python.testing.pytestArgs": [
-    "."
-  ],
-  "python.linting.pylintEnabled": false,
-  "python.linting.mypyEnabled": false,
-  "python.formatting.provider": "none",
+  "python.testing.pytestArgs": ["."],
   "[python]": {
     // "editor.defaultFormatter": null,
     "editor.tabSize": 4,
