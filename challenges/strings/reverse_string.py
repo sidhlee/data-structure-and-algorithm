@@ -55,9 +55,32 @@ class Solution:
             r -= 1
 
     def reverseString_tilde_swap(self, s: List[str]) -> None:
-        '''
+        """
         2022-10-16 16:35:26
         ~0 == -1, ~1 == -2
-        '''
+
+        when i = 3,
+        3 -> 0000 0011
+        ~3 -> 1111 1100 -> -4
+        -3 -> 1111 1101 (2's complement - we find the complements of 1s and add 1)
+
+        Why do we add 1 in 2's complement: because of 0
+        0 -> 0000 0000
+        ~0 -> 1111 1111
+        1111 1111 + 1 = 1 0000 0000 -> 0000 0000 (1 is shifted out of the 8-bit range)
+        By adding 1 to the 2's complement, we can get 0 instead of -0
+
+        ~0 + 1 = 1111 1111 + 1 = 0000 0000 = 0 -> ~0 = 0 - 1
+        ~1 + 1 = 1111 1110 + 1 = 1111 1111 = -1 -> ~1 = -1 - 1
+        ~2 + 1 = 1111 1101 + 1 = 1111 1110 = -2 -> ~2 = -2 - 1
+
+        2's complement is used to represent negative numbers in binary
+        because we can use the same addition and subtraction operations for both positive and negative numbers
+
+        1 -> 0000 0001
+        ~1 -> 1111 1110
+        1111 1110 + 1 = 1111 1111 -> -1
+
+        """
         for i in range(len(s) // 2):
-            s[i], s[~i] = s[~i] , s[i]
+            s[i], s[~i] = s[~i], s[i]
