@@ -128,14 +128,26 @@ class Solution:
             x //= 10
         return res * sign
 
-    def reverse_math4(self, x: int) -> int:
+    def reverse_math_with_sign(self, x: int) -> int:
         """
-        2023-03-08 08:01:46
+        2024-02-14 05:58:18
+
+        NOTE
+        Modulo operator on negative numbers returns different results in different languages.
+
+        Python returns the remainder of the division, which is always positive.
+        -123 % 10 = 7 because -123 // 10 = -13 and -13 * 10 + 7 = -123
+
+        JavaScript returns the remainder of the division, which has the same sign as the dividend.
+        -123 % 10 = -3 because -123 // 10 = -12 and -12 * 10 + -3 = -123
+
+        Because of this, Using modulo and truncating division to get the LSD for negative numbers is not consistent across languages.
+        Sign of the number can be used to get the LSD consistently.
         """
         res = 0
         sign = 1 if x >= 0 else -1
         x = sign * x
-        while x:
+        while x != 0:
             lsd = x % 10
             res = res * 10 + lsd
             if not (-(2**31) <= res <= 2**31 - 1):
