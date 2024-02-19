@@ -122,3 +122,24 @@ class Solution:
             if c[k] == 1:
                 return i
         return -1
+
+    def firstUniqChar_constant_space(self, s: str) -> int:
+        """
+        2024-02-15 06:43:49
+        Uses given constrains: "s consists of only lowercase English letters."
+
+        Finding unique index -> use s.find() and s.rfind()
+        """
+        # Constraint #1: 1 <= s.length <= 105
+        idx = 10**5
+        # Constraint #2: "s consists of only lowercase English letters." -> constant time lookup
+        letters = "abcdefghijklmnopqrstuvwxyz"
+
+        for letter in letters:  # constant time lookup
+            first_index = s.find(letter)  # O(n) worst case: letter not in s
+            last_index = s.rfind(letter)  # same
+            # don't need to check further if first_index is not found (-1)
+            if first_index != -1 and first_index == last_index:
+                # keep updating with min when the question asks for the "first xyz"
+                idx = min(idx, first_index)
+        return idx if idx != 10**5 else -1

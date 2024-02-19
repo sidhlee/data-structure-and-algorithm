@@ -2278,7 +2278,7 @@
         "kind": 6,
         "importPath": "challenges.strings.valid_anagram",
         "description": "challenges.strings.valid_anagram",
-        "peekOfCode": "class Solution:\n    def isAnagram_counter(self, s: str, t: str) -> bool:\n        \"\"\"\n        2022-06-26T02:25:33.257Z\n        Runtime: 40 ms (98%)\n        Memory Usage: 14.5 MB (34%)\n        Python counters are comparable by values.\n        \"\"\"\n        return Counter(s) == Counter(t)",
+        "peekOfCode": "class Solution:\n    def isAnagram_counter(self, s: str, t: str) -> bool:\n        \"\"\"\n        2022-06-26T02:25:33.257Z\n        Runtime: 40 ms (98%)\n        Memory Usage: 14.5 MB (34%)\n        Python counters are comparable by values.\n        \"\"\"\n        return Counter(s) == Counter(t)\n    def isAnagram_constant_memory(self, s: str, t: str) -> bool:",
         "detail": "challenges.strings.valid_anagram",
         "documentation": {}
     },

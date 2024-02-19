@@ -82,3 +82,36 @@ class Solution:
                     return res
             res += c
         return res
+
+    def longestCommonPrefix_min_len(self, strs: List[str]) -> str:
+        """
+        2024-02-18 12:55:33
+        Runtime: 38 ms (62%)
+        Memory Usage: 16.6 MB (93%)
+        """
+        result = ""
+        min_len = min([len(s) for s in strs])
+        for i in range(min_len):
+            char = strs[0][i]
+            for string in strs[1:]:
+                if string[i] != char:
+                    return result
+            result += char
+        return result
+
+    def longestCommonPrefix_check_len_with_index(self, strs: List[str]) -> str:
+        """
+        2024-02-19 06:05:21
+        Runtime: 36 ms (73%)
+        Memory Usage: 16.6 MB (72%)
+
+        - no result string
+        - checking length in O(1) time
+        - returns early if the index is greater than any string's length
+        - returns first string if the loop is completed without returning
+        """
+        for i in range(len(strs[0])):
+            for string in strs[1:]:
+                if i >= len(string) or strs[0][i] != string[i]:
+                    return strs[0][:i]
+        return strs[0]

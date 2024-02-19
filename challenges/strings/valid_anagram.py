@@ -39,3 +39,20 @@ class Solution:
         Python counters are comparable by values.
         """
         return Counter(s) == Counter(t)
+
+    def isAnagram_constant_memory(self, s: str, t: str) -> bool:
+        """
+        2024-02-16 05:47:36
+        Runtime: 34 ms (99%)
+        Memory Usage: 17.1 MB (67%)
+
+        O(n) time using constant loop.
+        - Possible thanks to the constraint: "s and t consist of lowercase English letters."
+
+        Returns early before building the counter for both strings.
+        """
+        letters = "qazwsxedcrfvtgbyhnjmikopl"
+        for letter in letters:
+            if s.count(letter) != t.count(letter):
+                return False
+        return True
