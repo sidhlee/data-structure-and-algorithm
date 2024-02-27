@@ -104,38 +104,85 @@ class Solution:
         return is_sym(root, root)
 
     def isSymmetric_recursion_skip_root_node(self, root: Optional[TreeNode]) -> bool:
-        '''
+        """
         2022-09-07 07:37:02
         Runtime: 47 ms (67%)
         Memory Usage: 14 MB (61%)
 
         Take advantage of assumption: length >= 1 and start at level 1 instead of root node.
         Now we don't need extra check from the inner function.
-        
+
         Optimization idea:
         - Now we're calling inner 2 more times to check for the leaf node passing outer children and inner children.
         - We can check whether nth_left and nth_right are both leaf nodes then return nth_left.val == nth_right.val inside inner function.
         - Avoiding/catching AttributeError might be tricky.
-        '''
+        """
+
         def inner(nth_left, nth_right):
             if nth_left is None and nth_right is None:
                 return True
-            elif nth_left is None or nth_right is None: 
+            elif nth_left is None or nth_right is None:
                 return False
             elif nth_left.val != nth_right.val:
                 return False
-            return inner(nth_left.left, nth_right.right) and inner(nth_left.right, nth_right.left)
+            return inner(nth_left.left, nth_right.right) and inner(
+                nth_left.right, nth_right.left
+            )
+
         return inner(root.left, root.right)
-    
+
     def isSymmetric_recursion_better_condition(self, root: Optional[TreeNode]) -> bool:
-        '''
+        """
         2022-12-02 09:05:15
         condition more readable
-        '''
+        """
+
         def inner(left_node, right_node):
             if left_node is None and right_node is None:
                 return True
             elif left_node and right_node and left_node.val == right_node.val:
-                return inner(left_node.left, right_node.right) and inner(left_node.right, right_node.left)
+                return inner(left_node.left, right_node.right) and inner(
+                    left_node.right, right_node.left
+                )
             return False
+
         return inner(root.left, root.right)
+
+    def isSymmetric_either_none_but_not_both(self, root: Optional[TreeNode]) -> bool:
+        """
+        2024-02-27 06:01:35
+
+        simplify condition for checking if either of the nodes is None but not both
+        """
+
+        def inner(left, right):
+            if not left or not right:
+                return left is right
+            if left.val != right.val:
+                return False
+            return inner(left.left, right.right) and inner(left.right, right.left)
+
+        return inner(root.left, root.right)
+
+    def isSymmetric_stack(self, root: Optional[TreeNode]) -> bool:
+        """
+        2024-02-27 06:16:11
+
+        Uses stack instead of queue because the order doesn't matter.
+        1. init stack with left and right node from root
+        2. while stack is not empty, pop two nodes from the stack
+        3. if both nodes are None, ignore and continue
+        4. if only one of nodes is None or the values are different, return False
+        5. append the mirroring pairs to the stack
+        6. if stack is empty -> checked all nodes from the tree -> return True
+        """
+
+        stack = [root.left, root.right]
+        while stack:
+            one, two = stack.pop(), stack.pop()
+            if not one and not two:
+                continue
+            if (not one or not two) or one.val != two.val:
+                return False
+            stack += [one.left, two.right, one.right, two.left]
+        return True

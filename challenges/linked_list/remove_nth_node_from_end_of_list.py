@@ -285,3 +285,42 @@ class Solution:
         prev_to_removing_node.next = prev_to_removing_node.next.next
 
         return head
+
+    def removeNthFromEnd_two_pointers(
+        self, head: Optional[ListNode], n: int
+    ) -> Optional[ListNode]:
+        """
+         2024-02-20 05:42:46
+         Runtime: 27 ms (98%)
+         Memory Usage: 16.4 MB (99.8%)
+
+         Uses one less pointer: prev and probe
+
+                            ---->
+         Input: head = [1,2,3,4,5], n = 2
+                            c   p
+                        p
+                     c
+         Output: [1,2,3,5]
+
+         [1] n = 1, n <= len(nodes)
+        c   p
+         [1, 2] n = 2
+             p  n = 1
+               p n = 0
+        c
+        """
+        probe = head
+        prev = None
+        while probe:
+            probe = probe.next
+            if n > 0:
+                n -= 1
+            else:
+                prev = head if not prev else prev.next
+
+        # when sz = 1, n = 1 and prev is None
+        if prev:
+            prev.next = prev.next.next
+        # prev is None when removing the head
+        return head if prev else head.next
