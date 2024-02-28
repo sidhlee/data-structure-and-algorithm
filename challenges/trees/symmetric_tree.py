@@ -164,7 +164,7 @@ class Solution:
 
         return inner(root.left, root.right)
 
-    def isSymmetric_stack(self, root: Optional[TreeNode]) -> bool:
+    def isSymmetric_stack_in_pair(self, root: Optional[TreeNode]) -> bool:
         """
         2024-02-27 06:16:11
 
