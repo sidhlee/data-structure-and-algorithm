@@ -62,7 +62,7 @@ class Solution:
                 node.left = mid_node
             else:
                 node.right = mid_node
-            # calling either or both. 
+            # calling either or both.
             if left:
                 inner(mid_node, left)
             if right:
@@ -87,12 +87,12 @@ class Solution:
         """
 
         def inner(arr):
-            '''
+            """
             1. create a new mid node from the given array,
             2. attach left and right node by calling itself with left and right subarray
             3. return the mid node
             rinse & repeat
-            '''
+            """
             if not arr:
                 return None
             # create new mid node from the current array
@@ -106,17 +106,17 @@ class Solution:
         return inner(nums)
 
     def sortedArrayToBST_bad(self, nums: List[int]) -> Optional[TreeNode]:
-        '''
+        """
         2022-09-12 08:58:36
         Runtime: 155 ms (56%)
         Memory Usage: 15.6 MB (82%)
 
         TODO: why is this so bad compared to the _recursion?
-        - measurement is unreliable 
+        - measurement is unreliable
         - inner func of _recursion is called with the parent node and left OR right subarray
         - here, inner func is called with the parent node (mid) and the array including the parent node
-        
-        '''
+
+        """
         root = TreeNode(nums[len(nums) // 2])
 
         def inner(arr, node):
@@ -124,30 +124,33 @@ class Solution:
                 return
             mid = len(arr) // 2
             left_sub = arr[:mid]
-            right_sub = arr[mid + 1:]
+            right_sub = arr[mid + 1 :]
             if left_sub:
                 node.left = TreeNode(left_sub[len(left_sub) // 2])
             if right_sub:
                 node.right = TreeNode(right_sub[len(right_sub) // 2])
             inner(left_sub, node.left)
             inner(right_sub, node.right)
+
         inner(nums, root)
         return root
-    
-    def sortedArrayToBST_conditional_recursive_call(self, nums: List[int]) -> Optional[TreeNode]:
-        '''
+
+    def sortedArrayToBST_conditional_recursive_call(
+        self, nums: List[int]
+    ) -> Optional[TreeNode]:
+        """
         2022-12-05 08:51:36
         Thanks to the assumption that there is at least one number in the list,
         we can remove the base case where nums list is empty,
         then only make recursive calls if the left or right subarray exists.
-        
+
         - This removes extra call where passed list is empty
         - Also using the fact that node is initialized with left and right child already set to None
-        '''
-        mid_index = len(nums) // 2 
-        node = TreeNode(nums[mid_index])            
-        if mid_index>= 1:
+        """
+        mid_index = len(nums) // 2
+        node = TreeNode(nums[mid_index])
+        if mid_index >= 1:
             node.left = self.sortedArrayToBST(nums[:mid_index])
         if mid_index + 1 <= len(nums) - 1:
-            node.right = self.sortedArrayToBST(nums[mid_index + 1:])
+            node.right = self.sortedArrayToBST(nums[mid_index + 1 :])
         return node

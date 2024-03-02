@@ -297,3 +297,21 @@ class Solution:
             i -= 1
         if m < 0:
             nums1[: n + 1] = nums2[: n + 1]
+
+    def merge_backward_no_extra_pointer(
+        self, nums1: List[int], m: int, nums2: List[int], n: int
+    ) -> None:
+        """
+        2024-03-02 06:13:53
+        No need to create extra pointer for insert since either n or m is always decrementing.
+        If nums2 is not exhausted, we can insert the remaining nums2 into nums1.
+        """
+        while m > 0 and n > 0:
+            if nums1[m - 1] < nums2[n - 1]:
+                nums1[m + n - 1] = nums2[n - 1]
+                n -= 1
+            else:
+                nums1[m + n - 1] = nums1[m - 1]
+                m -= 1
+        if n > 0:
+            nums1[:n] = nums2[:n]
