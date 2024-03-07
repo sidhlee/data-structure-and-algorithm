@@ -114,3 +114,17 @@ class Solution:
                 profit += price - holding
             holding = price
         return profit
+
+    def maxProfit_min_max(self, prices: List[int]) -> int:
+        """
+        2024-03-05 05:41:46
+        - 1 <= prices.length -> start looping from the second item
+        - keep updating the result if the current price - low is greater
+        - then update the low if the current price is lower
+        """
+        low = prices[0]
+        res = 0
+        for price in prices[1:]:
+            res = max(res, (price - low))
+            low = min(low, price)
+        return res

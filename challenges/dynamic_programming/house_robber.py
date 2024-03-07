@@ -177,22 +177,49 @@ class Solution:
         return curr_mx
 
     def rob_slightly_better_name(self, nums: List[int]) -> int:
-        '''
+        """
         2022-12-12 08:53:34
         But not perfect
-        '''
+        """
         mx_curr_plus_two = mx_curr_plus_one = 0
         for num in nums[::-1]:
             mx_curr = max(mx_curr_plus_two + num, mx_curr_plus_one)
             mx_curr_plus_two = mx_curr_plus_one
             mx_curr_plus_one = mx_curr
         return mx_curr
-    
-    def rob_start_from_second_last(self, nums: List[int]) -> int:
+
+    def rob_start_from_second_last_n_space(self, nums: List[int]) -> int:
         curr_mx, next_mx = nums[-1], 0
-        for n in nums[-2::-1]: # slice is always start:end:step
+        # slice always creates a new list!
+        for n in nums[-2::-1]:  # slice is always start:end:step
             # update the values from back to front (same direction as the loop)
             next_next_mx = next_mx
             next_mx = curr_mx
             curr_mx = max(n + next_next_mx, next_mx)
+        return curr_mx
+
+    def rob_no_extra_space_and_better_names(self, nums: List[int]) -> int:
+        """
+        2024-03-07 06:27:07
+
+        Keep updating the curr max as we iterate.
+        - curr max = max(curr + skip max, prev max)
+        - curr state is a function or curr + skip max and prev max
+        - skip max and prev max is a record of state (history)
+        - we use this record to compute the current state
+        - maintaining & updating multiple state and computing new state based on the old state
+
+        list: 2, 7, 9, 3, 1
+        sm = 0, pm = 0, curr = 2, cm = max(2 + 0, 0)
+        sm = 0, pm = 2, curr = 7, cm = max(7 + 0, 2)
+        sm = 2, pm = 7, curr = 9, cm = max(9 + 2, 7)
+        sm = 7, pm = 11, curr = 3, cm = max(3 + 7, 9)
+        sm = 11, pm = 10, curr = 1, cm = max(1 + 11, 10)
+        cm = 12
+        """
+        prev_mx = skip_mx = 0
+        for curr in nums:
+            curr_mx = max(skip_mx + curr, prev_mx)
+            skip_mx = prev_mx
+            prev_mx = curr_mx
         return curr_mx
