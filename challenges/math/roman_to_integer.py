@@ -149,3 +149,31 @@ class Solution:
             else:
                 result += rom_to_num[s[i]]
         return result
+
+    def romanToInt_readable(self, s: str) -> int:
+        """
+        2024-03-23 06:59:21
+        Longer but more readable version
+        """
+        ROM_TO_INT = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000,
+        }
+
+        res = ROM_TO_INT[s[-1]]
+        for i in range(len(s) - 2, -1, -1):
+            rom = s[i]
+            rom_next = s[i + 1]
+            int_rom = ROM_TO_INT[rom]
+            int_rom_next = ROM_TO_INT[rom_next]
+
+            if int_rom < int_rom_next:
+                res -= int_rom
+            else:
+                res += int_rom
+        return res
