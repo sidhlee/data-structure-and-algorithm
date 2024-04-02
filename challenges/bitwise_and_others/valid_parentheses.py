@@ -114,19 +114,19 @@ class Solution:
             else:
                 stack.append(bracket)
         return len(stack) == 0
-    
+
     def isValid_pop_only_if_match(self, s: str) -> bool:
-        '''
+        """
         2022-12-20 05:35:14
-        popping during the match seems to be better since 
+        popping during the match seems to be better since
         we don't need to keep the opening bracket when the current character is closing one.
         No match -> return False
         match -> continue
-        '''
-        o2c = { ")": "(", "]": "[", "}": "{"}
+        """
+        o2c = {")": "(", "]": "[", "}": "{"}
         stack = []
         for c in s:
-            if c in o2c: 
+            if c in o2c:
                 if not stack or stack[-1] != o2c[c]:
                     return False
                 else:
@@ -134,13 +134,13 @@ class Solution:
             else:
                 stack.append(c)
         return not stack
-    
+
     def isValid_loop_from_second(self, s: str) -> bool:
-        '''
+        """
         2023-01-13 07:24:30
         Take advantage of the assumption and start looping from second item
-        '''
-        closings = { ')': '(', ']': '[', '}': '{'}
+        """
+        closings = {")": "(", "]": "[", "}": "{"}
         stack = [s[0]]
         for c in s[1:]:
             if c in closings:
@@ -149,4 +149,34 @@ class Solution:
                 stack.pop()
             else:
                 stack.append(c)
+        return len(stack) == 0
+
+    def isValid_easier_to_read(self, s: str) -> bool:
+        """
+        2023-06-19 06:55:05
+        """
+        stack = []
+        close_to_open = {")": "(", "]": "[", "}": "{"}
+        for c in s:
+            if c in close_to_open:
+                # if it's a closing bracket, stack shouldn't be empty and the last bracket in stack should be the matching open bracket
+                if not stack or stack.pop() != close_to_open[c]:
+                    return False
+            else:
+                stack.append(c)
+        return len(stack) == 0
+
+    def isValid_simple(self, s: str) -> bool:
+        """
+        2024-04-02 06:34:48
+        This is just validating, so we can use the popped result immediately and lose it.
+        """
+        stack = []
+        close_to_open = {")": "(", "]": "[", "}": "{"}
+        for bracket in s:
+            if bracket in close_to_open:
+                if not stack or stack.pop() != close_to_open[bracket]:
+                    return False
+            else:
+                stack.append(bracket)
         return len(stack) == 0
