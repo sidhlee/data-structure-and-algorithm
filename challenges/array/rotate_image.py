@@ -180,3 +180,42 @@ class Solution:
         2022-10-16 16:25:53
         """
         matrix[:] = map(list, zip(*matrix[::-1]))
+
+    def rotate_reverse_swap_diagonally(self, matrix: List[List[int]]):
+        """
+        2024-04-18 06:52:23
+        Simple and easy
+
+        Given:
+        5 1 9 11
+        2 4 8 10
+        13 3 6 7
+        15 14 12 16
+
+        1. Reverse the matrix
+        15 14 12 16
+        13 3  6  7
+        2  4  8  10
+        5  1  9  11
+
+        2. Swap across the diagonal
+        15 13 2 5
+        14 3  4 1
+        12 6  8 9
+        16 7 19 11
+
+        You should only swap 1's to avoid double-swapping.
+        0 1 1 1
+        0 0 1 1
+        0 0 0 1
+        0 0 0 0
+        """
+        matrix.reverse()
+
+        def swap_diagonally(matrix: List[List[int]]):
+            n = len(matrix)
+            for i in range(n):
+                for j in range(i + 1, n):
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+        swap_diagonally(matrix)

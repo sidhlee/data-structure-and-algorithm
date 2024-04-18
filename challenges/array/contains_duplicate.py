@@ -79,3 +79,16 @@ class Solution:
                 return True
             s.add(num)
         return False
+
+    def containsDuplicate_constant_space(self, nums: List[int]) -> bool:
+        """
+        2024-04-12 05:39:57
+        There can be max 10k items -> set can be costly
+
+        O(n log n) sort and O(1) space
+        """
+        nums.sort()
+        for i in range(len(nums) - 1):
+            if nums[i] == nums[i + 1]:
+                return True
+        return False

@@ -134,3 +134,13 @@ class Solution:
         reverse(nums)
         reverse(nums, 0, k)
         reverse(nums, k)
+
+    def rotate_with_slice(self, nums: List[int], k: int) -> None:
+        """
+        2024-04-09 06:45:35
+        This looks simple but uses O(n) space because of slicing. (bad)
+
+        **Slicing in python creates a new list.**
+        """
+        k = k % len(nums)
+        nums[:k], nums[k:] = nums[len(nums) - k :], nums[: len(nums) - k]
