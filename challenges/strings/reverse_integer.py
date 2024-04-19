@@ -154,3 +154,22 @@ class Solution:
                 return 0
             x = x // 10
         return sign * res
+
+    def reverse_keep_sign_while_looping(self, x: int) -> int:
+        """
+        2024-04-19 06:02:36
+
+        We cannot keep res * 10 + lsd in a variable (constraint).
+        We also need to keep the sign while looping to check the lower bound.
+        """
+        res = 0
+        sign = 1 if x > 0 else -1
+        x = abs(x)
+        while x:
+            lsd = x % 10
+            if -(2**31) <= res * 10 + lsd * sign <= (2**31 - 1):
+                res = res * 10 + lsd * sign
+            else:
+                return 0
+            x //= 10
+        return res
