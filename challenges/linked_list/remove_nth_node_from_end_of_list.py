@@ -324,3 +324,24 @@ class Solution:
             prev.next = prev.next.next
         # prev is None when removing the head
         return head if prev else head.next
+
+    def removeNthFromEnd_two_pointers_easier(
+        self, head: Optional[ListNode], n: int
+    ) -> Optional[ListNode]:
+        """
+        2024-04-22 05:44:20
+        Easier to read with collapsed conditions
+        """
+        first = head
+        prev = None
+        while first:
+            first = first.next
+            if n <= 0:
+                prev = prev.next if prev else head
+            n -= 1
+        if prev and prev.next:
+            prev.next = prev.next.next
+            return head
+        else:
+            # if prev is still None, we're removing head
+            return head.next
