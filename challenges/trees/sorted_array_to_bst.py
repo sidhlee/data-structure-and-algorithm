@@ -146,10 +146,13 @@ class Solution:
 
         - This removes extra call where passed list is empty
         - Also using the fact that node is initialized with left and right child already set to None
+
+        But this is difficult to understand -> hard to maintain
         """
         mid_index = len(nums) // 2
         node = TreeNode(nums[mid_index])
         if mid_index >= 1:
+            # There are at least 3 elements in nums -> left and right subarray exists
             node.left = self.sortedArrayToBST(nums[:mid_index])
         if mid_index + 1 <= len(nums) - 1:
             node.right = self.sortedArrayToBST(nums[mid_index + 1 :])
