@@ -2323,7 +2323,7 @@
         "kind": 6,
         "importPath": "challenges.trees.max_depth_of_binary_tree",
         "description": "challenges.trees.max_depth_of_binary_tree",
-        "peekOfCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\nclass Solution:\n    def maxDepth_recursion_bubble_up(self, root: Optional[TreeNode]) -> int:\n        '''\n        2022-12-01 09:00:24\n        Creates inner function to count the depth on the way down and bubble up the max_depth when it reaches the leaf node",
+        "peekOfCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\nclass Solution:\n    def maxDepth_recursion_bubble_up(self, root: Optional[TreeNode]) -> int:\n        \"\"\"\n        2022-12-01 09:00:24\n        Creates inner function to count the depth on the way down and bubble up the max_depth when it reaches the leaf node",
         "detail": "challenges.trees.max_depth_of_binary_tree",
         "documentation": {}
     },
@@ -2332,7 +2332,7 @@
         "kind": 6,
         "importPath": "challenges.trees.max_depth_of_binary_tree",
         "description": "challenges.trees.max_depth_of_binary_tree",
-        "peekOfCode": "class Solution:\n    def maxDepth_recursion_bubble_up(self, root: Optional[TreeNode]) -> int:\n        '''\n        2022-12-01 09:00:24\n        Creates inner function to count the depth on the way down and bubble up the max_depth when it reaches the leaf node\n        '''\n        def inner(node, curr_depth):\n            if not node:\n                return curr_depth - 1\n            return max(inner(node.left, curr_depth + 1), inner(node.right, curr_depth + 1))",
+        "peekOfCode": "class Solution:\n    def maxDepth_recursion_bubble_up(self, root: Optional[TreeNode]) -> int:\n        \"\"\"\n        2022-12-01 09:00:24\n        Creates inner function to count the depth on the way down and bubble up the max_depth when it reaches the leaf node\n        \"\"\"\n        def inner(node, curr_depth):\n            if not node:\n                return curr_depth - 1\n            return max(",
         "detail": "challenges.trees.max_depth_of_binary_tree",
         "documentation": {}
     },
