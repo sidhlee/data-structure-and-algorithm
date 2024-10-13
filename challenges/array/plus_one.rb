@@ -14,6 +14,8 @@ def plus_one_first_attempt(digits)
 end
 
 def plus_one_downto_return_earlier(digits)
+  # Time: 19% O(n)
+  # Space: 97% O(1)
   (digits.length - 1).downto(0) do |i|
     if digits[i] < 9
       digits[i] += 1
@@ -23,4 +25,10 @@ def plus_one_downto_return_earlier(digits)
     end
     digits.unshift(1)
   end
+end
+
+def plus_one_convert_to_string(digits)
+  # Time: 96%
+  # Space: 52%
+  (digits.join('').to_i + 1).to_s.split('').map(&:to_i)
 end
