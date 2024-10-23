@@ -1,5 +1,5 @@
 def two_sum_first_attempt(nums, target)
-  # Time: 96% O(n)
+  # Time: 100% O(n)
   # Space: 26% O(n)
   complements_to_index = {}
   nums.each_with_index do |num, i|
