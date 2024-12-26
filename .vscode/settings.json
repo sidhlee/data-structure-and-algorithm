@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["Subarray"],
+  "cSpell.words": ["memtable", "sstable", "sstables", "Subarray"],
   "workbench.colorTheme": "Default Dark+",
   "python.testing.unittestArgs": ["-v", "-s", ".", "-p", "*test*.py"],
   "python.testing.pytestEnabled": true,
