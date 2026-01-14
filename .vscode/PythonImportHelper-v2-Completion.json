@@ -666,6 +666,15 @@
         "documentation": {}
     },
     {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
         "label": "randrange",
         "importPath": "random",
         "description": "random",
@@ -873,6 +882,15 @@
         "description": "linked_list",
         "isExtraImport": true,
         "detail": "linked_list",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
         "documentation": {}
     },
     {
@@ -2460,6 +2478,24 @@
         "description": "data-structures.linked-lists.singly-linked-list.test_node",
         "peekOfCode": "class NodeTestCase(unittest.TestCase):\n    def test_properties(self):\n        node = Node(1)\n        self.assertEqual(node.value, 1)\n        self.assertEqual(node.next, None)\n    def test_can_link(self):\n        first = Node(1)\n        second = Node(2)\n        third = Node(3)\n        first.next = second",
         "detail": "data-structures.linked-lists.singly-linked-list.test_node",
+        "documentation": {}
+    },
+    {
+        "label": "BloomFilter",
+        "kind": 6,
+        "importPath": "data-structures.probabilitic.bloom_filter",
+        "description": "data-structures.probabilitic.bloom_filter",
+        "peekOfCode": "class BloomFilter:\n    \"\"\"\n    A Bloom filter is a space-efficient probabilistic data structure that is used to test whether an element is a member of a set.\n    False positive matches are possible (Value not added can return True),\n    but false negatives are not (added value will always return True).\n    Elements can be added to the set, but not removed (though this can be addressed with a counting filter).\n    The more elements that are added to the set, the larger the probability of false positives.\n    Use cases:\n    - Check if an element is present in a set with  (e.g. spell checker, password checker, existing id checker)\n    - If returns False, the element is definitely not in the set",
+        "detail": "data-structures.probabilitic.bloom_filter",
+        "documentation": {}
+    },
+    {
+        "label": "CuckooFilter",
+        "kind": 6,
+        "importPath": "data-structures.probabilitic.cuckoo_filter",
+        "description": "data-structures.probabilitic.cuckoo_filter",
+        "peekOfCode": "class CuckooFilter:\n    \"\"\"\n    Cuckoo Filter is a probabilistic data structure that is used to test whether an element is a member of a set.\n    False positive matches are possible (Value not added can return True),\n    but false negatives are not (added value will always return True).\n    Elements can be added to the set, but not removed (though this can be addressed with a counting filter).\n    The more elements that are added to the set, the larger the probability of false positives.\n    Cuckoo Filter is different from Bloom Filter in that it supports deletion of elements.\n    When to Prefer Cuckoo Filter\n    - Deletions: If you need to support deletions, a Cuckoo filter is a better choice. Bloom filters do not support deletions efficiently, whereas Cuckoo filters can handle deletions by removing the fingerprint from the appropriate bucket.",
+        "detail": "data-structures.probabilitic.cuckoo_filter",
         "documentation": {}
     },
     {
