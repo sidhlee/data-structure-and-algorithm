@@ -95,6 +95,7 @@ def intersect_without_hash_first_attempt(nums1, nums2)
   nums2.sort!
   res = []
   i = 0
+  # This will keep looping when nums1 have 10k elements but nums2 have only 1 element
   nums1.each do |num|
       (i...nums2.length).each do |j|
           if num == nums2[j]
@@ -111,6 +112,7 @@ end
 def intersect_without_hash_two_pointers(nums1, nums2)
   # Time: O(n log n + m log m) due to sorting (n = nums1.length, m = nums2.length)
   # Space: O(1) extra (ignoring output); output uses O(k)
+  # More efficient because it stops looping once pointer reaches the end of either array
   nums1.sort!
   nums2.sort!
 
