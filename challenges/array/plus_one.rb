@@ -13,6 +13,22 @@ def plus_one_first_attempt(digits)
   digits.unshift(1)
 end
 
+def plus_one_next(digits)
+  # 2026-01-24 07:38:19
+  (0..digits.length-1).reverse_each do |i|
+      if digits[i] == 9
+          digits[i] = 0
+          # if next digit is less than 9, we increment and return
+          # if next digit is 9, we continue setting it to 0 until we find a digit less than 9
+          next
+      end
+      # All previous digits have been set to 0.
+      digits[i] += 1
+      return digits
+  end
+  [1] + digits
+end
+
 def plus_one_downto_return_earlier(digits)
   # Time: 19% O(n)
   # Space: 97% O(1)
