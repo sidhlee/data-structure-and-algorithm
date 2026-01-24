@@ -25,3 +25,12 @@ def contains_duplicate_without_sort(nums)
   end
   false
 end
+
+def contains_duplicate_set(nums)
+    s = Set.new
+    nums.each do |num|
+        return true if s.include?(num)
+        s.add(num)
+    end
+    false
+end
