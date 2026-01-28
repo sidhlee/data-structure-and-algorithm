@@ -29,3 +29,14 @@ def two_sum_using_key(nums, target)
   # If no solution is found, return nil or raise an error
   nil
 end
+
+def two_sum_easier(nums, target)
+  # 2026-01-28 08:21:29
+  # easier to understand by keeping original number as key
+  num_to_index = {}
+  nums.each_with_index do |num, i|
+      other_half = target - num
+      return [num_to_index[other_half], i]  if num_to_index.include?(other_half)
+      num_to_index[num] = i
+  end
+end
