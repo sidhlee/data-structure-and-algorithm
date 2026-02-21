@@ -104,3 +104,83 @@ def is_valid_sudoku_array_of_sets(board)
 
   true
 end
+
+def is_valid_sudoku_return_early(board)
+    # 2026-02-21 10:37:45
+    # tries to return false as soon as it finds a duplicate, instead of waiting to check the whole board
+    # but this might be overkill since the board is always 9x9, so the time complexity is O(1) regardless of how we check for duplicates
+
+    # 1. validate row
+    board.each do |row|
+        cleaned_up = row.filter { |val| val != '.' }
+        return false if cleaned_up.count != cleaned_up.uniq.count
+    end
+
+    # 2. validate col
+    (0...9).each do |i|
+        col = Set.new
+        (0...9).each do |j|
+            return false if col.include?(board[j][i])
+            col.add(board[j][i]) unless board[j][i] == '.'
+        end
+    end
+
+    # 3. validate subgrid
+    (0...3).each do |i|
+        (0...3).each do |j|
+            grid = board[i*3][j*3...(j+1)*3] +
+                    board[i*3 + 1][j*3...(j+1)*3] +
+                    board[i*3 + 2][j*3...(j+1)*3]
+            cleaned_up = grid.filter { |val| val != '.' }
+            return false if cleaned_up.count != cleaned_up.uniq.count
+        end
+    end
+
+    true
+end
+
+def is_valid_sudoku_return_early_ai_improved(board)
+    # 2026-02-21 10:37:45
+    # Validates sudoku board by checking rows, columns, and 3x3 subgrids
+    # Returns false as soon as a duplicate is found
+    # Time: O(1) - always checks fixed 9x9 board
+    # Space: O(1) - uses only a single Set
+
+    # 1. validate row
+    board.each do |row|
+        seen = Set.new
+        row.each do |val|
+            next if val == '.'
+            return false if seen.include?(val)
+            seen.add(val)
+        end
+    end
+
+    # 2. validate col
+    (0...9).each do |i|
+        seen = Set.new
+        (0...9).each do |j|
+            val = board[j][i]
+            next if val == '.'
+            return false if seen.include?(val)
+            seen.add(val)
+        end
+    end
+
+    # 3. validate subgrid
+    (0...3).each do |i|
+        (0...3).each do |j|
+            seen = Set.new
+            (0...3).each do |di|
+                (0...3).each do |dj|
+                    val = board[i * 3 + di][j * 3 + dj]
+                    next if val == '.'
+                    return false if seen.include?(val)
+                    seen.add(val)
+                end
+            end
+        end
+    end
+
+    true
+end
