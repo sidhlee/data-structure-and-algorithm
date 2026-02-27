@@ -29,3 +29,15 @@ def rotate_image_diagonal_use_each_with_proc(matrix)
 
   matrix
 end
+
+def rotate_image_reverse_then_transpose(matrix)
+  # 2026-02-27 09:46:29
+  # reverses the outer array -> quicker than reversing each inner array
+  # uses i + 1 as the starting point of inner loop vs using next if i >= j
+  matrix.reverse!
+  (0...matrix.length).each do |i|
+      (i+1...matrix.length).each do |j|
+          matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+      end
+  end
+end
