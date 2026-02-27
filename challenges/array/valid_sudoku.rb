@@ -156,10 +156,10 @@ def is_valid_sudoku_return_early_ai_improved(board)
         end
     end
 
-    # 2. validate col
-    (0...9).each do |i|
+    # 2. validate col. loops through rows for current column
+    (0...9).each do |i| # col index
         seen = Set.new
-        (0...9).each do |j|
+        (0...9).each do |j| # row index
             val = board[j][i]
             next if val == '.'
             return false if seen.include?(val)
@@ -167,12 +167,12 @@ def is_valid_sudoku_return_early_ai_improved(board)
         end
     end
 
-    # 3. validate subgrid
-    (0...3).each do |i|
-        (0...3).each do |j|
+    # 3. validate subgrid. loops through cols and rows within curr subgrid defined by row and col start indices
+    (0...3).each do |i| # row start index
+        (0...3).each do |j| # col start index
             seen = Set.new
-            (0...3).each do |di|
-                (0...3).each do |dj|
+            (0...3).each do |di| # row offset
+                (0...3).each do |dj| # col offset
                     val = board[i * 3 + di][j * 3 + dj]
                     next if val == '.'
                     return false if seen.include?(val)
